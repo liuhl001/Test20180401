@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -11,64 +12,57 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 import com.kuaishoudan.financer.bean.KSDCase;
+import com.kuaishoudan.financer.dao.UserDaoImpl;
 import com.kuaishoudan.financer.selenium.AppSPUtil;
 import com.kuaishoudan.financer.selenium.AppUtil;
 import com.kuaishoudan.financer.selenium.WebSPUtil;
 import com.kuaishoudan.financer.selenium.WebUtil;
-import com.kuaishoudan.financer.selenium.ZcjjUtil;
 import com.kuaishoudan.financer.util.RandomValue;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidElement;
 
-public class ControlTest {
-
+public class ControlTestBCHT {
+	public AppiumDriver<WebElement> driver;
 	String devicename = "";
 	public WebDriver webdriver;
 	static KSDCase ksd = null;
-	public AppiumDriver<WebElement> driver;
 
 	/**
-	 * @param args1
+	 * @param args
 	 * @throws Exception
 	 */
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
-		ControlTest ct = new ControlTest();
+		ControlTestBCHT ct = new ControlTestBCHT();
 
 		System.out.println("***@");
-
 		ct.setUp2();// web启动
 		ct.setUp();// app启动
 
-		// for (int i = 0; i < 2; i++) {
-		// System.out.println(i);
-		ct.dfp();// 待分配app
-		ct.webDksp();// 已录入到申请合同
-		//
-		ct.appSqht();// App申请合同
-		ct.webSpht();// web审核
+		for (int i = 0; i < 1; i++) {
+			ct.dfp();// 待分配app
 
-		ct.appSqqk();// app请款
+			ct.webDksp();// 已录
 
-		ct.sp1();
-		ct.sp2();
-		ct.sp3();
-		ct.sp4();
-		ct.sp5();
-		ct.sp6();
-		ct.sp7();
+			ct.appBsqht();// App不申请合同-申请请款
 
-		// }
+			ct.sp1();
+			ct.sp2();
+			ct.sp3();
+			ct.sp4();
+			ct.sp5();
+			ct.sp6();
+			ct.sp7();
+			// ct.back();
+		}
 
 		ct.tearDown();
 		// ct.back()
-	}
-
-	public void printparam() {
-
 	}
 
 	public void back() {
@@ -76,15 +70,7 @@ public class ControlTest {
 	}
 
 	public void setUp() throws IOException, InterruptedException {
-		try {
-			driver = AppUtil.getdriver();
-
-			Thread.sleep(1000);
-
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
+		driver = AppUtil.getdriver();
 
 	}
 
@@ -101,7 +87,7 @@ public class ControlTest {
 	}
 
 	public void logoutWeb() {
-
+	 
 		WebUtil.logout(webdriver);// 登出
 	}
 
@@ -111,7 +97,6 @@ public class ControlTest {
 	public void dfp() {
 		ksd = AppUtil.addTest(driver, webdriver, devicename, 1);
 
-		// System.out.println("##==dfp" + ksd.getStatue());
 	}
 
 	/**
@@ -126,30 +111,19 @@ public class ControlTest {
 
 	}
 
-	// App申请合同
-	public void appSqht() {
+	// App不申请合同
+	public void appBsqht() {
 
-		ksd = AppSPUtil.testSQHT(driver, ksd);
-
-		System.out.println("##===" + ksd.getStatue());
-
-	}
-
-	// web审批合同
-	public void webSpht() {
-		WebUtil.login(webdriver, ksd);// 登录
-		WebUtil.testYSQHT(webdriver, ksd);// 申请合同审批
-		WebUtil.logout(webdriver);// 登出
-		System.out.println("##===" + AppSPUtil.getActstatue(driver));
+		ksd = AppSPUtil.testBCSQQK(driver, webdriver, ksd, devicename);
 
 	}
 
 	// 申请请款
 	public void appSqqk() {
-		ksd = AppSPUtil.testHTSQQK(driver, webdriver, ksd, devicename);// 请款
+		AppSPUtil.testHTSQQK(driver, webdriver, ksd, devicename);// 请款
 		// System.out.println(AppUtil.getStatue(driver));
 		// AppUtil.look_status(driver);//查看进度
-		// System.out.println("##===sqqk" + AppSPUtil.getActstatue(driver));
+
 	}
 
 	// 请款审批同意专员
@@ -176,7 +150,6 @@ public class ControlTest {
 			Map<String, String> map = AppSPUtil.getSPname(driver, ksd);// 从app获取审批人名字
 			String itename = map.get("prename");
 			String email = WebSPUtil.nameToemail(map.get("name"));
-
 			WebSPUtil.testSP2(webdriver, email, itename); // 请款审批同意专员
 
 		} catch (InterruptedException e) {
@@ -193,12 +166,14 @@ public class ControlTest {
 		try {
 
 			Map<String, String> map = AppSPUtil.getSPname(driver, ksd);// 从app获取审批人名字
+
 			if (map.size() == 1) {
 				// bd操作
 
 				String email = WebSPUtil.nameToemail(map.get("name"));
 				AppSPUtil.loginBD(driver, email);
 				AppUtil.login(driver, devicename, ksd);// 登录
+
 				Thread.sleep(1000);
 				Map<String, String> map2 = AppSPUtil.getSPname(driver, ksd);// 从app获取审批人名字
 				String itename2 = map2.get("prename");
@@ -270,7 +245,7 @@ public class ControlTest {
 	}
 
 	public void tearDown() throws Exception {
-		System.out.println("finish");
+
 		driver.quit();
 		webdriver.quit();
 	}

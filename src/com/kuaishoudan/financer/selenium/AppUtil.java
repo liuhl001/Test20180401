@@ -479,7 +479,7 @@ public class AppUtil {
 //				}
 
 				int ran = ksd.getCartype();
-		
+				Thread.sleep(1000);
 				// ------------
 				if (ran == 1) {
 					buttons.get(2)
