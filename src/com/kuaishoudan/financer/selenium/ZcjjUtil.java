@@ -211,7 +211,7 @@ public class ZcjjUtil {
 	}
 
 	public static Map<String, String> getSPname(
-			AppiumDriver<AndroidElement> driver,KSDCase ksd) throws InterruptedException,
+			AppiumDriver<WebElement> driver,KSDCase ksd) throws InterruptedException,
 			IOException {
 		Map<String, String> map = new HashMap<String, String>();
 		;
@@ -245,7 +245,7 @@ public class ZcjjUtil {
 			// driver.findElement(By.id("com.kuaishoudan.financer:id/text_customer_look_status")).click();//查看进度
 		}
 		Thread.sleep(1000);
-		List<AndroidElement> statueitems = driver.findElements(By
+		List<WebElement> statueitems = driver.findElements(By
 				.id("com.kuaishoudan.financer:id/ll_status"));
 		for (int i = 0; i < statueitems.size(); i++) {
 			String statue = statueitems
