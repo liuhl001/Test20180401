@@ -30,7 +30,7 @@ public class ControlTest {
 	static KSDCase ksd = null;
 	public AppiumDriver<WebElement> driver ;
 	/**
-	 * @param args
+	 * @param args1
 	 * @throws Exception
 	 */
 	public static void main(String[] args) throws Exception {
