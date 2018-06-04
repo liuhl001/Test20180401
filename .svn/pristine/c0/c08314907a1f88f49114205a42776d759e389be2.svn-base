@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<suite name="测试" parallel="classes"  thread-count="3">
+<listeners>
+ <listener class-name="org.uncommons.reportng.HTMLReporter" />
+ <listener class-name="org.uncommons.reportng.JUnitXMLReporter" />
+</listeners>
+
+
+<test name="增加车站数据" preserve-order="true"  >
+        <classes>
+ <class name="com.winsion.inception.test.Trainstation" />
+
+        </classes>
+    </test>
+<test name="app添加关注" preserve-order="true"  >
+        <classes>
+ <class name="com.winsion.inception.test.Addtrainstatue" />
+
+        </classes>
+    </test>
+	<test name="验证" preserve-order="true"  >
+        <classes>
+ <class name="com.winsion.inception.test.Testtrainstatue" />
+
+        </classes>
+    </test>
+
+</suite>

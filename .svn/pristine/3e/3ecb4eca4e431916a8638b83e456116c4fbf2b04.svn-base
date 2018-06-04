@@ -1,0 +1,89 @@
+package com.winsion.inception.apiTest;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.winsion.inception.util.DBUtil;
+
+public class ApiDBUtil {
+
+	
+	public static String getCaptcha2(Connection con,String id) {
+
+		String sql = " SELECT captcha FROM usercenter.captchas where id=?; ";
+	
+		try {
+
+			PreparedStatement pstmt = con.prepareStatement(sql);
+
+			pstmt.setString(1, id);
+
+			ResultSet rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				return rs.getString(1);
+			}
+		} catch (SQLException e) {
+			System.out.println(e);
+			e.printStackTrace();
+		} finally {
+		
+		}
+		return "";
+	}
+	
+	public static String getdeviceToken(Connection con,String username) {
+
+		String sql = " SELECT usertoken FROM usercenter.users where username=?; ";
+
+	
+		try {
+
+			PreparedStatement pstmt = con.prepareStatement(sql);
+
+			pstmt.setString(1, username);
+
+			ResultSet rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				return rs.getString(1);
+			}
+		} catch (SQLException e) {
+			System.out.println(e);
+			e.printStackTrace();
+		} finally {
+		
+		}
+		return "";
+	}
+	public static List<String> getUser(Connection con,String username) {
+		List<String> users=new ArrayList<String>();
+		String sql = " SELECT usertoken,id FROM usercenter.users where username=?; ";
+
+	
+		try {
+
+			PreparedStatement pstmt = con.prepareStatement(sql);
+
+			pstmt.setString(1, username);
+
+			ResultSet rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				users.add(rs.getString("usertoken"));
+				users.add(rs.getString("id"));
+				return users;
+			}
+		} catch (SQLException e) {
+			System.out.println(e);
+			e.printStackTrace();
+		} finally {
+		
+		}
+		return null;
+	}
+}

@@ -1,0 +1,162 @@
+package com.winsion.inception.apiTest;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Properties;
+import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+import com.winsion.inception.bean.TrainCase;
+import com.winsion.inception.util.CaseUtil;
+import com.winsion.inception.util.DBUtil;
+
+public class Trainstation2 {
+
+	private static final int invocationCount = 1;
+	private static final int threadPoolSize = 50;
+	int[]  index={0,0,0,0,0,0,0,0,0};
+	Connection con;
+	List<String> phones;
+	static	String time=new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime());
+	@BeforeTest
+	public void dylc()  {
+		con=DBUtil.openConnection2();
+		 phones=	new t9().readTxt("C:\\user2.txt");
+	
+	}
+
+	File file;
+	BufferedWriter bw;
+
+	static Long v = 10000000L;
+	static String phone = "";
+
+	// 获取城市
+	//@Test(invocationCount = invocationCount, threadPoolSize = threadPoolSize)
+	public void test1() throws InterruptedException, IOException {
+		ApiUtil.getCityList();
+
+	}
+
+	// 获取旅程服务
+	//@Test(invocationCount = invocationCount, threadPoolSize = threadPoolSize)
+	public void test2() throws InterruptedException, IOException {
+		ApiUtil.getJourneyServicesByStationId(
+				"d9bb8662bd3946c3b2c079f81d993feb",
+				"fbc72a2ad4474fab982a76753f194d47");
+
+	}
+
+	// 增加关注
+	@Test(invocationCount = invocationCount, threadPoolSize = threadPoolSize)
+	public void test3() throws InterruptedException, IOException {
+		List<String> user=ApiDBUtil.getUser(con,phones.get(index[0]));
+		ApiUtil.addAttention("9f53433402a811e684960242ac110004",
+				"9f53626402a811e684960242ac110004",
+				"9cd652c102a811e684960242ac110004", "1",
+				user.get(0),
+				user.get(1));
+		index[0]++;
+
+	}
+
+	// 全部关注
+	@Test(invocationCount = invocationCount, threadPoolSize = threadPoolSize)
+	public void test4() throws InterruptedException, IOException {
+		List<String> user=ApiDBUtil.getUser(con,phones.get(index[1]));
+		ApiUtil.getAllTrainMessage(user.get(0),
+				user.get(1));
+		index[1]++;
+
+	}
+
+	// 当前关注
+	@Test(invocationCount = invocationCount, threadPoolSize =threadPoolSize)
+	public void test5() throws InterruptedException, IOException {
+		List<String> user=ApiDBUtil.getUser(con,phones.get(index[2]));
+		ApiUtil.getCurrentTrainMessage(user.get(0),
+				user.get(1));
+		index[2]++;
+	}
+
+	// 最近到过的城市
+	@Test(invocationCount = invocationCount, threadPoolSize = threadPoolSize)
+	public void test6() throws InterruptedException, IOException {
+		List<String> user=ApiDBUtil.getUser(con,phones.get(index[3]));
+		ApiUtil.getLatestBeenCityList(user.get(0),
+				user.get(1));
+		index[3]++;
+
+	}
+
+	// 火车详情
+	//@Test(invocationCount = invocationCount, threadPoolSize = threadPoolSize)
+	public void test7() throws InterruptedException, IOException {
+
+		ApiUtil.getTrainDetailMessage("dc16e07d8c5242488af420975669a263");
+
+	}
+
+	// 按车次搜索
+//	@Test(invocationCount = invocationCount, threadPoolSize = threadPoolSize)
+	public void test8() throws InterruptedException, IOException {
+
+		ApiUtil.searchTrainMsg4TrainNumber("K184", time);
+
+	}
+
+	// 按行程搜索
+	@Test(invocationCount = invocationCount, threadPoolSize = threadPoolSize)
+	public void test9() throws InterruptedException, IOException {
+
+		ApiUtil.searchTrainMsg4city("d9bb8662bd3946c3b2c079f81d993feb",
+				"71de8a224977414bab3ab7091d5caf81", time);
+
+	}
+
+	// 获得用户里程数据
+	@Test(invocationCount = invocationCount, threadPoolSize = threadPoolSize)
+	public void test10() throws InterruptedException, IOException {
+		List<String> user=ApiDBUtil.getUser(con,phones.get(index[4]));
+		ApiUtil.getUserDriveMsg(user.get(0),
+				user.get(1));
+		index[4]++;
+
+	}
+
+	@AfterTest
+	public void afend() throws IOException {
+		System.out.println("测试结束2*****");
+		try {
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}

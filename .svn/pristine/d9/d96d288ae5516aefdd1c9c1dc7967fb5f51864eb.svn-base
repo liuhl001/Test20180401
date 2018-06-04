@@ -1,0 +1,177 @@
+package com.winsion.inception.test;
+
+import io.appium.java_client.AppiumDriver;
+
+import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.ios.IOSDriver;
+
+import java.io.File;
+import java.net.URL;
+import java.text.ParseException;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.interactions.HasTouchScreen;
+import org.openqa.selenium.interactions.TouchScreen;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteTouchScreen;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+import com.winsion.inception.bean.TrainCase;
+import com.winsion.inception.dao.TrainCaseDao;
+import com.winsion.inception.util.CaseUtil;
+import com.winsion.inception.util.Util1;
+import com.winsion.inception.util.Util2;
+/**
+ * 旅程资讯
+ * @author Administrator
+ *
+ */
+public class Lczx {
+
+	private AppiumDriver<AndroidElement> driver;
+	TrainCase c;
+
+	@BeforeTest
+	public void setUp() throws Exception {
+
+		driver = Util2.getdriver();
+		Util1.toindex(driver);// 引导页
+		Thread.sleep(2000);
+		
+			driver.findElement(
+					By.xpath("//android.view.View[contains(@index,1)]/android.widget.ImageView[4]"))
+					.click(); // 旅程资讯
+		
+		
+		Thread.sleep(3000);
+	}
+
+	@AfterTest
+	public void tearDown() throws Exception {
+
+		driver.quit();
+	}
+
+	int n = 1, m = 1;
+
+	/**
+	 * 路局公告
+	 * 
+	 * @throws InterruptedException
+	 * @throws ParseException
+	 */
+	@Test(invocationCount = 3, threadPoolSize = 1)
+	public void test1() throws InterruptedException, ParseException {
+		n++;
+
+		String[] ggs = lczx_ljgg(n);
+
+		Assert.assertNotNull(ggs[2], "text error");// ("");
+		Assert.assertEquals(ggs[1], ggs[0]);
+
+	}
+
+	/**
+	 * 铁路常识
+	 * 
+	 * @throws InterruptedException
+	 */
+	@Test(invocationCount = 8, threadPoolSize = 1)
+	public void test2() throws InterruptedException {
+
+		m++;
+
+		for (int j = 0; j < m - 1; j++)
+			swipeToup(driver, 500);
+
+		Thread.sleep(1000);
+		String[] ggs = lczx_tlcs(m);
+		Assert.assertNotNull(ggs[2], "text error");// ("");
+		Assert.assertEquals(ggs[1], ggs[0]);
+
+	}
+
+	public String[] lczx_ljgg(int n) throws InterruptedException {
+		String[] ggs = new String[3];// 0列表title 1详情title 2详情text
+
+		AndroidElement wf = driver.findElement(By
+				.xpath("//android.widget.ListView[1]/android.view.View[" + n
+						+ "]/android.view.View[1]"));// 铁路
+
+		ggs[0] = wf.getAttribute("name").substring(1).trim();
+		wf.click();
+		Thread.sleep(500);
+		String title = driver
+				.findElement(
+						By.xpath("//android.webkit.WebView/android.webkit.WebView/android.view.View[2]"))
+				.getAttribute("name").trim();
+		String text = driver
+				.findElement(
+						By.xpath("//android.view.View[contains(@index,2)]"))
+				.getAttribute("name").trim();
+		ggs[1] = title;
+		ggs[2] = text;
+
+		System.out.println(ggs[0] + "%%" + ggs[1] + ggs[2]);
+		driver.findElement(
+				By.xpath("//android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View/android.view.View[1]"))
+				.click();// back
+		Thread.sleep(1000);
+		return ggs;
+	}
+
+	public String[] lczx_tlcs(int m) throws InterruptedException {
+
+		String[] ggs = new String[3];// 0列表title 1详情title 2详情text
+
+		AndroidElement wf = driver.findElement(By
+				.xpath("//android.widget.ListView[2]/android.view.View[" + m
+						+ "]/android.view.View[1]"));// 铁路
+		/*
+		 * System.out.println("%%%%%"+ driver.findElements(By.xpath(
+		 * "//android.widget.ListView[2]/android.view.View/android.view.View[1]"
+		 * )).size());
+		 */
+		String titlecs = wf.getAttribute("name");
+		ggs[0] = titlecs.substring(0, titlecs.length() - 12).trim();
+		wf.click();
+		Thread.sleep(500);
+		String title = driver
+				.findElement(
+						By.xpath("//android.webkit.WebView/android.webkit.WebView/android.view.View[2]"))
+				.getAttribute("name").trim();
+		String text = driver
+				.findElement(
+						By.xpath("//android.view.View[contains(@index,2)]"))
+				.getAttribute("name").trim();
+		ggs[1] = title;
+		ggs[2] = text;
+
+		System.out.println(ggs[0] + "%%" + ggs[1] + ggs[2]);
+		driver.findElement(
+				By.xpath("//android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View/android.view.View[1]"))
+				.click();// back
+		Thread.sleep(1000);
+		return ggs;
+	}
+
+	public static void swipeToup(AppiumDriver driver, int during) {
+		int width = driver.manage().window().getSize().width;
+		int height = driver.manage().window().getSize().height;
+		driver.swipe(width / 2, height * 3 / 4, width / 2,
+				height * 3 / 4 - 310, during);
+		// wait for page loading12801321
+	}
+}

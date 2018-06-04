@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<suite name="测试" parallel="methods"  thread-count="3">
+<listeners>
+ <listener class-name="org.uncommons.reportng.HTMLReporter" />
+ <listener class-name="org.uncommons.reportng.JUnitXMLReporter" />
+</listeners>
+
+
+<test name="apitest" preserve-order="true"  >
+        <classes>
+ <class name="com.winsion.inception.apiTest.f" />
+
+        </classes>
+    </test>
+
+
+</suite>

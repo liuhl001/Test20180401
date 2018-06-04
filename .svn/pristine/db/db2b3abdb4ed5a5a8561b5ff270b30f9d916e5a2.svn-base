@@ -1,0 +1,212 @@
+package com.winsion.inception.util;
+
+
+
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidElement;
+
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
+
+import com.winsion.inception.dao.UserDaoImpl;
+
+public class Util2 {
+
+	public static AppiumDriver<AndroidElement> getdriver() throws MalformedURLException{
+		 System.out.println("**");
+	        // set up appium
+	        File classpathRoot = new File(System.getProperty("user.dir"));
+	        File appDir = new File(classpathRoot, "apps");
+	        File app = new File(appDir, "app14.apk");
+	        DesiredCapabilities capabilities = new DesiredCapabilities();
+	        capabilities.setCapability("device","Android");
+
+	        capabilities.setCapability("platformName", "Android");
+	        //虚拟机
+	        capabilities.setCapability("deviceName","Android Emulator");
+	        //真机
+	        capabilities.setCapability("deviceName","Android");
+
+	        capabilities.setCapability(CapabilityType.BROWSER_NAME, "");
+	        capabilities.setCapability(CapabilityType.VERSION, "4.4");
+	        capabilities.setCapability(CapabilityType.PLATFORM, "WINDOWS");
+	        capabilities.setCapability("app", app.getAbsolutePath());
+
+	        //support Chinese
+	        capabilities.setCapability("unicodeKeyboard" ,"True");
+	        capabilities.setCapability("resetKeyboard", "True");
+
+	        capabilities.setCapability("noSign", "True");
+
+	        capabilities.setCapability("app-package", "com.winsion.inception");
+	        capabilities.setCapability("app-activity", "com.winsion.inception.MainActivity");
+
+
+	        return new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
+	 
+
+	}
+	//列车动态
+	public static void lcdtclick(AppiumDriver<AndroidElement>  driver){
+		 try {
+			driver.findElement(By.xpath("//android.view.View[contains(@index,1)]/android.widget.ImageView[1]")).click();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	//+
+	public static void addclick(AppiumDriver<AndroidElement>  driver){
+		try {
+			driver.findElement(By.id("com.winsion.inception:id/img_btn_add")).click();//   +
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	//全部
+	public static void totalclick(AppiumDriver<AndroidElement>  driver){
+    	try {
+			driver.findElement(By.id("com.winsion.inception:id/rb_train_state_total")).click();//全部
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	  
+	public static void swipeToUp(AppiumDriver driver, int during) {
+	        int width = driver.manage().window().getSize().width;
+	        int height = driver.manage().window().getSize().height;
+	        driver.swipe(width / 2,  1621, width / 2, 10, during);
+	        // wait for page loading12801321	    
+	}
+	public static String datebynum(AppiumDriver<AndroidElement>  driver){
+		 return driver.findElement(By.id("com.winsion.inception:id/tv_select_date")).getText().substring(5);//车次日期时间
+	}
+	public static String datebycity(AppiumDriver<AndroidElement>  driver){
+		return driver.findElement(By.id("com.winsion.inception:id/tv_select_date_journey")).getText().substring(5);//行程日期时间
+	}
+	
+	
+	public static String getdenglu(AppiumDriver<AndroidElement>  driver){
+		return driver.findElement(By.id("com.winsion.inception:id/bt_user_center_login")).getText().replaceAll("     ", "");// 获得 登录的验证信息
+	}
+	public static String getzhuce(AppiumDriver<AndroidElement>  driver){
+		return driver.findElement(By.id("com.winsion.inception:id/bt_user_center_reg")).getText().replaceAll("     ", "");// 获得 注册的验证信息
+	}
+	
+	public static String getloginphone(AppiumDriver<AndroidElement>  driver){
+		return driver.findElement(By.id("com.winsion.inception:id/tv_user_center_login")).getText().trim();// 获得 注册的验证信息
+	}
+	
+
+	
+	/**
+	 * 登录
+	 * 
+	 * @param driver
+	 * @throws InterruptedException
+	 */
+	public static void login(AppiumDriver<AndroidElement> driver,String phone,String pwd) {
+		try {
+			Thread.sleep(2000);
+			driver.findElement(
+					By.xpath("//android.view.View[contains(@index,1)]/android.widget.ImageView[4]"))
+					.click();
+			Thread.sleep(1000);
+			driver.findElement(
+					By.id("com.winsion.inception:id/rl_user_center_setting"))
+					.click();// 设置
+			Thread.sleep(1000);
+			driver.findElement(
+					By.id("com.winsion.inception:id/et_user_center_phone")).clear();
+			driver.findElement(
+					By.id("com.winsion.inception:id/et_user_center_phone"))
+					.sendKeys(phone);
+			driver.findElement(By.id("com.winsion.inception:id/et_user_center_pwd"))
+			.clear();
+			driver.findElement(By.id("com.winsion.inception:id/et_user_center_pwd"))
+					.sendKeys(pwd);
+
+			driver.findElement(
+					By.id("com.winsion.inception:id/bt_user_center_login")).click();
+			Thread.sleep(2000);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 退出
+	 * 
+	 * @param driver
+	 * @throws InterruptedException
+	 */
+	public static int logout(AppiumDriver<AndroidElement> driver) {
+
+		try {
+			// driver.findElement(By.xpath("//android.view.View[contains(@index,1)]/android.widget.ImageView[4]")).click();
+			Thread.sleep(1000);
+			driver.findElement(
+					By.id("com.winsion.inception:id/rl_user_center_setting"))
+					.click();// 设置
+			Thread.sleep(1000);
+
+			driver.findElement(By.id("com.winsion.inception:id/bt_log_out"))
+					.click();
+			Thread.sleep(2000);
+
+			driver.findElement(By.id("android:id/button1")).click();
+			return 1;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return -1;
+		}
+
+	}
+	
+	 public static void registerok(AppiumDriver driver,String phone,String pwd) {
+		 try {
+			//	register1(driver);//到注册页面
+				driver.findElement(
+						By.id("com.winsion.inception:id/et_user_center_phone")).clear();
+			   driver.findElement(By.id("com.winsion.inception:id/et_user_center_phone")).sendKeys(phone);//用户名
+				driver.findElement(By.id("com.winsion.inception:id/et_user_center_pwd"))
+				.clear();// 密码
+			   driver.findElement(By.id("com.winsion.inception:id/et_user_center_pwd")).sendKeys(pwd);//密码
+			   Thread.sleep(1000);
+			   driver.findElement(By.id("com.winsion.inception:id/btn_send_msg_code")).click();
+			   Thread.sleep(12000);
+			   driver.findElement(By.id("com.winsion.inception:id/et_msg_code")).sendKeys(UserDaoImpl.getCaptcha(phone));//验证码
+			   Thread.sleep(2000);
+			   driver.findElement(By.id("com.winsion.inception:id/bt_user_center_reg")).click();
+			   Thread.sleep(1000);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	   }
+	 public static void register1(AppiumDriver driver) {
+		  try {
+			Thread.sleep(1000);
+			   driver.findElement(By.xpath("//android.view.View[contains(@index,1)]/android.widget.ImageView[4]")).click();
+				  Thread.sleep(1000);
+						driver.findElement(By.id("com.winsion.inception:id/rl_user_center_setting")).click();//设置
+						  Thread.sleep(1000);
+			   driver.findElement(By.id("com.winsion.inception:id/bt_user_center_reg")).click();
+			   Thread.sleep(1000);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	 }
+}

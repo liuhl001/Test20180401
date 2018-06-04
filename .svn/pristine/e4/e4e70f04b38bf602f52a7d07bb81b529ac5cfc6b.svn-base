@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="初始化车站测试数据"
+           tests="1"
+           failures="0"
+           errors="0"
+           skipped="0"
+           time="787.888">
+  <properties />
+  
+  
+            <testcase name="teststatue" time="787.888" classname="com.winsion.inception.test.TrainStation" />
+      
+</testsuite>

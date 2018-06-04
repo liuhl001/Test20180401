@@ -1,0 +1,168 @@
+package com.winsion.inception.apiTest;
+
+import com.winsion.inception.dao.UserDaoImpl;
+
+public class ApiUtil {
+	public static final String BASE_URL="http://172.16.5.25:9010";
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void test1(){
+		//	getCityList();	
+		
+		//	getJourneyServicesByStationId("d9bb8662bd3946c3b2c079f81d993feb","fbc72a2ad4474fab982a76753f194d47");
+		
+		//	addAttention("9f53433402a811e684960242ac110004","9f53626402a811e684960242ac110004","9cd652c102a811e684960242ac110004","1","602033DAB48691F15F18B59C14D3754D","15392fc7b57a495e8d08d4a8077ba4b1");
+		//	getAllTrainMessage("1a0018970aa51a7995b","fbc72a2ad4474fab982a76753f194d47");
+		//	getCurrentTrainMessage("1a0018970aa51a7995b","fbc72a2ad4474fab982a76753f194d47");
+		//	getDepartAndArriveStationList("1ca9af0f0c1411e684960242ac110004");
+		//	getLatestBeenCityList("1a0018970aa51a7995b","fbc72a2ad4474fab982a76753f194d47");
+		//	getTrainDetailMessage("dc16e07d8c5242488af420975669a263");
+			
+		//	searchTrainMsg4TrainNumber("K184","20160427");//按车次搜索
+		//	searchTrainMsg4city("d9bb8662bd3946c3b2c079f81d993feb","71de8a224977414bab3ab7091d5caf81","20160427");
+		
+		//	getUserDriveMsg("1a0018970aa51a7995b","fbc72a2ad4474fab982a76753f194d47");
+		//	loginByNormal("15022002062","123","602033DAB48691F15F18B59C14D3754D","Android","android5.0.1","铁路伴侣","RedmiNote2","1.0");
+			
+		//	registerByMobile("15022002062","123","698914","602033DAB48691F15F18B59C14D3754D","Android","android5.0.1","铁路伴侣","RedmiNote2","1.0");
+//			sendMobileCaptcha("15022002062");
+	}
+	
+	public  static void getCityList(){
+		String url=BASE_URL+"/diagram/getCityList";
+		String param="";
+		String result=Postrequest.sendPost(url, param);
+		System.out.println(result);
+	}
+	
+	public  static void getJourneyServicesByStationId(String stationId,String userId){
+		String url=BASE_URL+"/diagram/getJourneyServicesByStationId";
+		String param="stationId="+stationId
+				+"&userId="+userId;
+		String result=Postrequest.sendPost(url, param);
+		System.out.println(result);
+	}
+	public  static void addAttention(String departTrainRunStopId,String arriveTrainRunStopId,String trainRunId,String identity,String deviceToken,String userId){
+		String url=BASE_URL+"/dynamic/addAttention";
+		String param="departTrainRunStopId="+departTrainRunStopId+"&arriveTrainRunStopId="+arriveTrainRunStopId
+				+"&trainRunId="+trainRunId+"&identity="+identity+"&deviceToken="+deviceToken
+				+"&userId="+userId;
+		String result=Postrequest.sendPost(url, param);
+		System.out.println(result);
+	}
+	public  static void getAllTrainMessage(String deviceToken,String userId){
+		String url=BASE_URL+"/dynamic/getAllTrainMessage";
+		String param="deviceToken="+deviceToken
+				+"&userId="+userId+"&pageIndex=1&pageSize=20";
+		String result=Postrequest.sendPost(url, param);
+		System.out.println(result);
+	}
+	public  static void getCurrentTrainMessage(String deviceToken,String userId){
+		String url=BASE_URL+"/dynamic/getCurrentTrainMessage";
+		String param="deviceToken="+deviceToken
+				+"&userId="+userId;
+		String result=Postrequest.sendPost(url, param);
+		System.out.println(result);
+	}
+	public  static void getDepartAndArriveStationList(String trainRunId){
+		String url=BASE_URL+"/dynamic/getDepartAndArriveStationList";
+		String param="trainRunId="+trainRunId;			
+		String result=Postrequest.sendPost(url, param);
+		System.out.println(result);
+	}
+	public  static void getLatestBeenCityList(String deviceToken,String userId){
+		String url=BASE_URL+"/dynamic/getLatestBeenCityList";
+		String param="deviceToken="+deviceToken
+				+"&userId="+userId;	
+		String result=Postrequest.sendPost(url, param);
+		System.out.println(result);
+	}
+	public  static void getTrainDetailMessage(String attentionId){
+		String url=BASE_URL+"/dynamic/getTrainDetailMessage";
+		String param="attentionId="+attentionId;
+
+		String result=Postrequest.sendPost(url, param);
+		System.out.println(result);
+	}
+	public  static void searchTrainMsg4TrainNumber(String trainNumber,String runDate){
+		String url=BASE_URL+"/dynamic/searchTrainMsg4TrainNumber";
+		String param="trainNumber="+trainNumber+"&runDate="+runDate;
+
+		String result=Postrequest.sendPost(url, param);
+		System.out.println(result);
+	}
+	public  static void searchTrainMsg4city(String departCityId,String arriveCityId,String runDate){
+		String url=BASE_URL+"/dynamic/searchTrainMsg4city";
+		String param="departCityId="+departCityId+"&arriveCityId="+arriveCityId+"&runDate="+runDate;
+
+		String result=Postrequest.sendPost(url, param);
+		System.out.println(result);
+	}
+	public  static void getUserDriveMsg(String deviceToken,String userId){
+		String url=BASE_URL+"/user/getUserDriveMsg";
+		String param="deviceToken="+deviceToken
+				+"&userId="+userId;
+
+		String result=Postrequest.sendPost(url, param);
+		System.out.println(result);
+	}
+	public  static void loginByNormal(String username,String password,String deviceToken,String os,String osVersion,String app,String model,String appVersion){
+		String url=BASE_URL+"/user/loginByNormal";
+		String param="username="+username
+				+"&password="+password
+				+"&deviceToken="+deviceToken
+				+"&os="+os
+				+"&osVersion="+osVersion
+				+"&app="+app
+				+"&model="+model
+				+"&appVersion="+appVersion;
+
+		String result=Postrequest.sendPost(url, param);
+		System.out.println(result);
+	}
+	/**
+	 * 手机注册
+	 * @param mobile
+	 * @param password
+	 * @param captcha
+	 * @param deviceToken
+	 * @param os
+	 * @param osVersion
+	 * @param app
+	 * @param model
+	 * @param appVersion
+	 */
+	public  static void registerByMobile(String mobile,String password,String captcha,String deviceToken,String os,String osVersion,String app,String model,String appVersion){
+		String url=BASE_URL+"/user/registerByMobile";
+
+		String param="mobile="+mobile
+				+"&password="+password
+				+"&captcha="+captcha
+				+"&deviceToken="+deviceToken
+				+"&os="+os
+				+"&osVersion="+osVersion
+				+"&app="+app
+				+"&model="+model
+				+"&appVersion="+appVersion;
+
+		String result=Postrequest.sendPost(url, param);
+		System.out.println(result);
+	}
+	
+	public  static void sendMobileCaptcha(String mobile){
+		String url=BASE_URL+"/user/sendMobileCaptcha";
+		String param="mobile="+mobile;
+				
+
+		String result=Postrequest.sendPost(url, param);
+		System.out.println(result);
+	}
+	
+
+}

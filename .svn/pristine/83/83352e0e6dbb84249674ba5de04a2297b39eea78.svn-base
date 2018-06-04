@@ -1,0 +1,110 @@
+package com.winsion.inception.apiTest;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Properties;
+import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+import com.winsion.inception.bean.TrainCase;
+import com.winsion.inception.util.CaseUtil;
+import com.winsion.inception.util.DBUtil;
+
+public class Trainstation {
+	private static final int invocationCount = 3;
+	
+	int[]  index={0,0,0,0,0,0,0,0,0};
+	Connection con;
+	List<String> phones;
+	@BeforeTest
+	public void dylc()  {
+		con=DBUtil.openConnection2();
+		 phones=	new t9().readTxt("C:\\user2.txt");
+		 System.out.println(phones.size());
+
+	}
+	File file;BufferedWriter bw;
+	// 
+	static 	Long v = 10000000L;
+	static String phone = "";
+	
+	//验证码
+	//@Test
+	public void test1()  {
+		
+		for(int i=0;i<phones.size();i++){
+		  
+				try {
+					
+
+
+ApiUtil.sendMobileCaptcha(phones.get(i).trim());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+		   
+
+		}
+	
+	}
+	//注册
+	//	@Test(invocationCount = invocationCount, threadPoolSize = 50) 
+		public void test2() {
+		
+			String phone=phones.get(index[1]);
+			String captcha=ApiDBUtil.getCaptcha2(con,phone);
+					ApiUtil.registerByMobile(phone,"123",captcha,"602033DAB48691F15F18B59C14D3754D","Android","android5.0.1","铁路伴侣","RedmiNote2","1.0");
+					index[1]++;
+					
+		}
+		//登录
+		@Test(invocationCount = invocationCount, threadPoolSize = 50) 
+		public void test3() {
+		
+			String phone=phones.get(index[2]);
+	
+					ApiUtil.loginByNormal(phone,"123","602033DAB48691F15F18B59C14D3754D","Android","android5.0.1","铁路伴侣","RedmiNote2","1.0");
+					index[2]++;
+	
+		}
+	
+
+	@AfterTest
+	public void afend() throws IOException {
+		System.out.println("测试结束*****");
+
+		try {
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}

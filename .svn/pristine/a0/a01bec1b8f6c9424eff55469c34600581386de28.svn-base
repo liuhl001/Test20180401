@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<suite name="测试" parallel="tests" thread-count="1">
+	<listeners>
+		<listener class-name="org.uncommons.reportng.HTMLReporter" />
+		<listener class-name="org.uncommons.reportng.JUnitXMLReporter" />
+	</listeners>
+	
+ 	<test name="日期 格式" preserve-order="true">
+		<classes>
+			<class name="com.winsion.inception.test.Datetimetest" />
+
+		</classes>
+	</test>
+		<!--
+	  <test name="初始化车站测试数据" preserve-order="true">
+		<classes>
+			<class name="com.winsion.inception.test.Trainstation" />
+
+		</classes>
+	</test>
+		 -->
+	<test name="K184状态验证" preserve-order="true">
+		<classes>
+			<class name="com.winsion.inception.test.TestK184" />
+
+		</classes>
+	</test>
+	<test name="G71状态验证" preserve-order="true">
+		<classes>
+			<class name="com.winsion.inception.test.TestG71" />
+
+		</classes>
+	</test>
+	<test name="Z162状态验证" preserve-order="true">
+		<classes>
+			<class name="com.winsion.inception.test.TestZ162" />
+
+		</classes>
+	</test>
+	<test name="注册" preserve-order="true">
+		<classes>
+			<class name="com.winsion.inception.test.Register" />
+
+		</classes>
+	</test>
+
+	<test name="登录" preserve-order="true">
+		<classes>
+			<class name="com.winsion.inception.test.Login" />
+
+		</classes>
+	</test>
+
+
+	<test name="按车次添加" preserve-order="true">
+		<classes>
+			<class name="com.winsion.inception.test.Addtrain" />
+
+		</classes>
+	</test>
+	<test name="按行程添加" preserve-order="true">
+		<classes>
+			<class name="com.winsion.inception.test.Addtrain2" />
+
+		</classes>
+	</test>
+	<!-- -->
+
+
+
+</suite>

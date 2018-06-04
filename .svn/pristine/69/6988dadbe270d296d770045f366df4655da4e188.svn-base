@@ -1,0 +1,116 @@
+package com.winsion.inception.apitest;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Properties;
+import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+import com.winsion.inception.bean.TrainCase;
+import com.winsion.inception.util.CaseUtil;
+import com.winsion.inception.util.DBUtil;
+
+public class Trainstation {
+	private static final int invocationCount = 31000;
+
+	static int[] index = { -1, -1, -1, -1, -1, -1, -1 };
+	Connection con;
+	List<String> phones;
+
+	@BeforeTest
+	public void dylc() throws IOException {
+		con = DBUtil.openConnection2();
+		phones = ApiDBUtil.readTxt(System.getProperty("user.dir")
+				+ "/user31000.txt");
+		wrfile();
+	}
+
+	File file;
+	BufferedWriter bw;
+
+	// 验证码
+	@Test(invocationCount = invocationCount, threadPoolSize = 500)
+	public void test1() throws IOException {
+		index[0]++;
+
+		String phone = phones.get(index[0]);
+		String result = ApiUtil.sendMobileCaptcha(phone);
+		bw.write(phone + "==验证码===" + result + "\n");
+
+	}
+
+	// 注册
+	@Test(invocationCount = invocationCount, threadPoolSize = 500)
+	public void test2() throws IOException {
+		index[1]++;
+		String phone = phones.get(index[1]);
+		String captcha = ApiDBUtil.getCaptcha2(con, phone);
+		String result = ApiUtil.registerByMobile(phone, "123", captcha,
+				"602033DAB48691F15F18B59C14D3754D", "Android", "android5.0.1",
+				"铁路伴侣", "RedmiNote2", "1.0");
+
+		bw.write(phone + "==注册===" + result + "\n");
+
+	}
+
+	// 登录
+	@Test(invocationCount = invocationCount, threadPoolSize = 500)
+	public void test3() throws IOException {
+
+		index[2]++;
+		String phone = phones.get(index[2]);
+		String result = ApiUtil.loginByNormal(phone, "123",
+				"602033DAB48691F15F18B59C14D3754D", "Android", "android5.0.1",
+				"铁路伴侣", "RedmiNote2", "1.0");
+
+		bw.write(phone + "==登录===" + result + "\n");
+
+	}
+
+	@AfterTest
+	public void afend() throws IOException {
+		System.out.println("测试结束*****");
+
+		try {
+			bw.close();
+			con.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void wrfile() throws IOException {
+		file = new File("C:\\Trainstation_result.txt");
+		file.createNewFile();
+		FileWriter fw = new FileWriter(file.getAbsoluteFile());
+		bw = new BufferedWriter(fw);
+
+	}
+
+}

@@ -1,0 +1,318 @@
+package com.winsion.inception.test;
+
+
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.android.AndroidDeviceActionShortcuts;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidElement;
+
+import java.io.File;
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.interactions.HasTouchScreen;
+import org.openqa.selenium.interactions.TouchScreen;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteTouchScreen;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+public class total {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+	  String[][] testtrain= new String[8][10];
+	  Trainstation ta=new Trainstation();
+
+	  SimpleDateFormat sdfmonth = new SimpleDateFormat("M");
+	  SimpleDateFormat sdfdate = new SimpleDateFormat("d");
+	  Calendar todaynow = Calendar.getInstance();
+	private AppiumDriver<AndroidElement> driver;
+	   // @Before
+		  @BeforeTest
+		public void setUp() throws Exception {
+
+	        System.out.println("**");
+	        // set up appium
+	        File classpathRoot = new File(System.getProperty("user.dir"));
+	        File appDir = new File(classpathRoot, "apps");
+	        File app = new File(appDir, "app14.apk");
+	        DesiredCapabilities capabilities = new DesiredCapabilities();
+	        capabilities.setCapability("device","Android");
+
+	        capabilities.setCapability("platformName", "Android");
+	        //虚拟机
+	        capabilities.setCapability("deviceName","Android Emulator");
+	        //真机
+	        capabilities.setCapability("deviceName","Android");
+
+	        capabilities.setCapability(CapabilityType.BROWSER_NAME, "");
+	        capabilities.setCapability(CapabilityType.VERSION, "4.4");
+	        capabilities.setCapability(CapabilityType.PLATFORM, "WINDOWS");
+	        capabilities.setCapability("app", app.getAbsolutePath());
+
+	        //support Chinese
+	        capabilities.setCapability("unicodeKeyboard" ,"True");
+	        capabilities.setCapability("resetKeyboard", "True");
+
+	        capabilities.setCapability("noSign", "True");
+
+	        capabilities.setCapability("app-package", "com.winsion.inception");
+	        capabilities.setCapability("app-activity", "com.winsion.inception.MainActivity");
+	 //    driver = new SwipeableWebDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
+
+	     driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
+	    	Thread.sleep(4000);
+
+
+	    }
+
+	   @AfterTest
+	    public void tearDown() throws Exception {
+
+	        driver.quit();
+	    }
+	  
+	
+	   
+	   /**
+	    * 全部关注详情展示
+	    * @throws InterruptedException
+	    */
+	   @Test
+	    //全部关注详情
+	    public void test3() throws InterruptedException{
+
+			Thread.sleep(2000);
+	    	driver.findElement(By.id("com.winsion.inception:id/rb_train_state_total")).click();//全部
+
+
+	    	Thread.sleep(2000);
+
+		  	trainnumber2();
+	    	
+   //String[] totaltrain2=getcurrenttrain();//获取
+	 	  
+			
+	/* 	   sys();//打印
+
+	 Assert.assertEquals(totaltrain2,expecttrain);*/
+	    }
+	    
+	    /**
+	     * 获取数组 dangqian
+	     * @return
+	     * @throws InterruptedException 
+	     */
+		   public String[] getcurrenttrain() throws InterruptedException{
+			   Thread.sleep(2000);
+			   String[] currenttrain= new String[10];
+
+
+			   currenttrain[0]=driver.findElement(By.id("com.winsion.inception:id/tv_train_state_current_name")).getText();
+			   currenttrain[1]=driver.findElement(By.id("com.winsion.inception:id/tv_train_current_state")).getText();
+			   currenttrain[2]=driver.findElement(By.id("com.winsion.inception:id/tv_train_current_total_time")).getText();
+			   currenttrain[3]=driver.findElement(By.id("com.winsion.inception:id/tv_train_current_arrive_state")).getText();
+			   currenttrain[4]=driver.findElement(By.id("com.winsion.inception:id/tv_train_state_current_send_name")).getText();
+			   currenttrain[5]=driver.findElement(By.id("com.winsion.inception:id/tv_train_state_current_to_name")).getText();
+			   currenttrain[6]=driver.findElement(By.id("com.winsion.inception:id/train_state_current_send_time")).getText();
+			   currenttrain[7]=driver.findElement(By.id("com.winsion.inception:id/train_state_current_to_time")).getText();
+			   currenttrain[8]=driver.findElement(By.id("com.winsion.inception:id/tv_train_state_current_send_date")).getText();
+					   currenttrain[9]=driver.findElement(By.id("com.winsion.inception:id/tv_train_state_current_to_date")).getText();
+					   System.out.println(currenttrain[0]+currenttrain[1]+currenttrain[2]+currenttrain[3]+currenttrain[4]+currenttrain[5]+currenttrain[6]+currenttrain[7]+currenttrain[8]+currenttrain[9]);
+					   
+					   return currenttrain;
+		   }
+		   
+
+	   public void clickchezhan(String name){
+		   List<AndroidElement> ImageViewsList=driver.findElements(By.className("android.widget.TextView"));//集合
+		   System.out.println(ImageViewsList.size());
+		   	 for(int i=0;i<ImageViewsList.size();i++){
+		   		 if(ImageViewsList.get(i).getText().trim().equals(name)){
+		   			ImageViewsList.get(i).click();
+		   			break;
+		   		 }
+		   	
+		   	 
+		   	 }
+	   }
+	   
+	   public String[] trainnumber(String name) throws InterruptedException{
+		   String[] currenttrain2= new String[10];
+		   List<AndroidElement> ImageViewsList=driver.findElements(By.id("com.winsion.inception:id/tv_train_state_total_train_name"));//集合
+		   System.out.println(ImageViewsList.size());
+		   	 for(int i=0;i<ImageViewsList.size();i++){
+		 
+		   		 if(ImageViewsList.get(i).getText().trim().equals(name)){
+		   	  		 System.out.println(ImageViewsList.get(i).getText());
+		
+		   	  	currenttrain2=getcurrenttrain2(i);//获取
+		//    	System.out.println("++"+driver.findElements(By.id("com.winsion.inception:id/tv_train_state_days")).get(1).getText());//+n天
+		   	  		sys2(i);//打印
+		   	  		 ImageViewsList.get(i).click();
+		   	 		return    currenttrain2;
+		   		 }
+		   	
+		   	 
+		   	 }
+		   	 return currenttrain2;
+	   }
+	   
+	   public String[][] trainnumber2() throws InterruptedException{
+		   String[][] currenttrain2= new String[8][10];
+		   List<AndroidElement> ImageViewsList=driver.findElements(By.id("com.winsion.inception:id/tv_train_state_total_send"));//集合
+		   System.out.println("@"+ImageViewsList.get(0).getText()+","+ImageViewsList.get(1).getText()+","+ImageViewsList.get(2).getText()+","+ImageViewsList.get(3).getText());
+		 
+	/*	for (int i=0;i<4;i++){
+  	 ImageViewsList.get(i).click();
+		Thread.sleep(2000);
+		testtrain[i]=	getcurrenttrain();
+    	Thread.sleep(1000);
+       	driver.findElement(By.id("com.winsion.inception:id/iv_back")).click();//返回
+       	Thread.sleep(1000);
+		}*/
+		Thread.sleep(1000);
+		  swipeToUp(driver,1000);
+	   		Thread.sleep(5000);
+	   	 System.out.println("@"+ImageViewsList.get(0).getText()+","+ImageViewsList.get(1).getText()+","+ImageViewsList.get(2).getText()+","+ImageViewsList.get(3).getText());
+	     List<AndroidElement> ImageViewsList2=driver.findElements(By.id("com.winsion.inception:id/tv_train_state_total_send"));//集合
+	  	 System.out.println("#"+ImageViewsList2.get(0).getText()+","+ImageViewsList2.get(1).getText()+","+ImageViewsList2.get(2).getText()+","+ImageViewsList2.get(3).getText());
+
+	   	// ImageViewsList2.get(0).click();
+	   //	 ImageViewsList2.get(1).click();
+	   //	 ImageViewsList2.get(2).click();
+	   	 ImageViewsList2.get(3).click();
+	   	 /* 	for (int i=0;i<4;i++){
+	 	  	 ImageViewsList.get(1).click();
+	 		Thread.sleep(2000);
+	 		testtrain[i]=	getcurrenttrain();
+	     	Thread.sleep(1000);
+	        	driver.findElement(By.id("com.winsion.inception:id/iv_back")).click();//返回
+	        	Thread.sleep(1000);
+	 	 
+	 		
+	 	}*/
+		Thread.sleep(6000);
+		   	 return currenttrain2;
+	   }
+	   
+	   /**
+	    * 打印dangqian
+	    */
+	   public  void sys(){
+		   System.out.println("车次"+driver.findElement(By.id("com.winsion.inception:id/tv_train_state_current_name")).getText());
+	    	System.out.println("火车状态"+driver.findElement(By.id("com.winsion.inception:id/tv_train_current_state")).getText());
+	    	System.out.println("全程时间"+driver.findElement(By.id("com.winsion.inception:id/tv_train_current_total_time")).getText());
+	    	System.out.println("时间状态"+driver.findElement(By.id("com.winsion.inception:id/tv_train_current_arrive_state")).getText());
+	    	
+	    	System.out.println("始发站"+driver.findElement(By.id("com.winsion.inception:id/tv_train_state_current_send_name")).getText());
+	    	System.out.println("到达站"+driver.findElement(By.id("com.winsion.inception:id/tv_train_state_current_to_name")).getText());
+	    	System.out.println("始发时间"+driver.findElement(By.id("com.winsion.inception:id/train_state_current_send_time")).getText());
+	    	
+	    	System.out.println("到达时间"+driver.findElement(By.id("com.winsion.inception:id/train_state_current_to_time")).getText());
+	    	
+	    	System.out.println("出发日期"+driver.findElement(By.id("com.winsion.inception:id/tv_train_state_current_send_date")).getText());
+	    	System.out.println("到达日期"+driver.findElement(By.id("com.winsion.inception:id/tv_train_state_current_to_date")).getText());
+	   }
+	   
+	   /**
+	    * 打印全部
+	    */
+	   public  void sys2(int i){
+		   
+		   System.out.println("车次"+	driver.findElements(By.id("com.winsion.inception:id/tv_train_state_total_train_name")).get(i).getText());
+	  		System.out.println("trainstatue"+	driver.findElements(By.id("com.winsion.inception:id/tv_train_state_train_state")).get(i).getText());
+	  		
+		   System.out.println("全程时间"+	driver.findElements(By.id("com.winsion.inception:id/tv_train_state_total_time")).get(i).getText());
+			System.out.println("timestatue"+	driver.findElements(By.id("com.winsion.inception:id/tv_train_state_time_state")).get(i).getText());
+		  	 
+		   System.out.println("始发站"+	driver.findElements(By.id("com.winsion.inception:id/tv_train_state_total_send")).get(i).getText());
+	   		System.out.println("到达站"+	driver.findElements(By.id("com.winsion.inception:id/tv_train_state_total_to")).get(i).getText());
+	   		System.out.println("始发时间"+	driver.findElements(By.id("com.winsion.inception:id/tv_train_state_send_time")).get(i).getText());
+	   		System.out.println("到达时间"+	driver.findElements(By.id("com.winsion.inception:id/tv_train_state_to_time")).get(i).getText());
+	     		
+	  		System.out.println("日期"+	driver.findElements(By.id("com.winsion.inception:id/tv_train_state_date")).get(i).getText());
+	  		System.out.println("日期"+	driver.findElements(By.id("com.winsion.inception:id/tv_train_state_date")).get(i).getText());
+	   }
+	   public String[] getcurrenttrain2(int i) throws InterruptedException{
+		   Thread.sleep(2000);
+		   String[] currenttrain2= new String[9];
+
+		   currenttrain2[0]=  driver.findElements(By.id("com.winsion.inception:id/tv_train_state_total_train_name")).get(i).getText();
+		   currenttrain2[1]=driver.findElements(By.id("com.winsion.inception:id/tv_train_state_total_send")).get(i).getText();
+		   currenttrain2[2]=driver.findElements(By.id("com.winsion.inception:id/tv_train_state_total_to")).get(i).getText();
+		   currenttrain2[3]=driver.findElements(By.id("com.winsion.inception:id/tv_train_state_send_time")).get(i).getText();
+		   currenttrain2[4]=driver.findElements(By.id("com.winsion.inception:id/tv_train_state_to_time")).get(i).getText();
+		   currenttrain2[5]=driver.findElements(By.id("com.winsion.inception:id/tv_train_state_total_time")).get(i).getText();
+		   currenttrain2[6]=driver.findElements(By.id("com.winsion.inception:id/tv_train_state_time_state")).get(i).getText();
+		   currenttrain2[7]=driver.findElements(By.id("com.winsion.inception:id/tv_train_state_train_state")).get(i).getText();
+		   currenttrain2[8]=driver.findElements(By.id("com.winsion.inception:id/tv_train_state_date")).get(i).getText();
+
+		   
+				   return currenttrain2;
+	   }
+	   public String[][] getcurrenttraintotaltest(int i) throws InterruptedException{
+		   Thread.sleep(2000);
+		 
+
+		   testtrain[i][0]=  driver.findElements(By.id("com.winsion.inception:id/tv_train_state_total_train_name")).get(i).getText().trim();
+		   testtrain[i][1]=driver.findElements(By.id("com.winsion.inception:id/tv_train_state_train_state")).get(i).getText().trim();
+		   testtrain[i][2]=driver.findElements(By.id("com.winsion.inception:id/tv_train_state_total_time")).get(i).getText().trim();
+		   testtrain[i][3]=driver.findElements(By.id("com.winsion.inception:id/tv_train_state_time_state")).get(i).getText().replaceAll("\n", "").trim();
+		   testtrain[i][4]=driver.findElements(By.id("com.winsion.inception:id/tv_train_state_total_send")).get(i).getText().trim();
+		   testtrain[i][5]=driver.findElements(By.id("com.winsion.inception:id/tv_train_state_total_to")).get(i).getText().trim();
+		   testtrain[i][6]=driver.findElements(By.id("com.winsion.inception:id/tv_train_state_send_time")).get(i).getText().trim();
+		   testtrain[i][7]=driver.findElements(By.id("com.winsion.inception:id/tv_train_state_to_time")).get(i).getText().trim();	
+		   testtrain[i][8]=driver.findElements(By.id("com.winsion.inception:id/tv_train_state_date")).get(i).getText().trim();
+		   testtrain[i][9]=driver.findElements(By.id("com.winsion.inception:id/tv_train_state_date")).get(i).getText().trim();
+		   System.out.println(testtrain[i][0]+testtrain[i][1]+testtrain[i][2]+testtrain[i][3]+testtrain[i][4]+testtrain[i][5]+testtrain[i][6]+testtrain[i][7]+testtrain[i][8]+testtrain[i][9]);
+		   
+				   return testtrain;
+	   }
+	   
+	   public String[][] getcurrenttraintotaltest2(int i) throws InterruptedException{
+		   Thread.sleep(2000);
+		 
+
+		   testtrain[i][0]=  driver.findElements(By.id("com.winsion.inception:id/tv_train_state_total_train_name")).get(i-4).getText().trim();
+		   testtrain[i][1]=driver.findElements(By.id("com.winsion.inception:id/tv_train_state_train_state")).get(i-4).getText();
+		   testtrain[i][2]=driver.findElements(By.id("com.winsion.inception:id/tv_train_state_total_time")).get(i-4).getText();
+		   testtrain[i][3]=driver.findElements(By.id("com.winsion.inception:id/tv_train_state_time_state")).get(i-3).getText().replaceAll("\n", "").trim();
+		   testtrain[i][4]=driver.findElements(By.id("com.winsion.inception:id/tv_train_state_total_send")).get(i-4).getText();
+		   testtrain[i][5]=driver.findElements(By.id("com.winsion.inception:id/tv_train_state_total_to")).get(i-4).getText();
+		   testtrain[i][6]=driver.findElements(By.id("com.winsion.inception:id/tv_train_state_send_time")).get(i-4).getText();
+		   testtrain[i][7]=driver.findElements(By.id("com.winsion.inception:id/tv_train_state_to_time")).get(i-4).getText();	
+		   testtrain[i][8]=driver.findElements(By.id("com.winsion.inception:id/tv_train_state_date")).get(i-4).getText();
+		   testtrain[i][9]=driver.findElements(By.id("com.winsion.inception:id/tv_train_state_date")).get(i-4).getText();
+		   System.out.println(testtrain[i][0]+testtrain[i][1]+testtrain[i][2]+testtrain[i][3]+testtrain[i][4]+testtrain[i][5]+testtrain[i][6]+testtrain[i][7]+testtrain[i][8]+testtrain[i][9]);
+		   
+				   return testtrain;
+	   }
+	   public void swipeToUp(AppiumDriver driver, int during) {
+	        int width = driver.manage().window().getSize().width;
+	        int height = driver.manage().window().getSize().height;
+
+	        driver.swipe(width / 2,  1311, width / 2, 9, during);
+	        // wait for page loading12801321
+	    }
+	
+}

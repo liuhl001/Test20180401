@@ -1,0 +1,198 @@
+package com.winsion.inception.test;
+
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.TouchAction;
+import io.appium.java_client.android.AndroidDeviceActionShortcuts;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidElement;
+
+import java.io.File;
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.interactions.HasTouchScreen;
+import org.openqa.selenium.interactions.TouchScreen;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteTouchScreen;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+import com.winsion.inception.bean.TrainCase;
+import com.winsion.inception.util.CaseUtil;
+import com.winsion.inception.util.TrainstatueUtil;
+import com.winsion.inception.util.Util1;
+import com.winsion.inception.util.Util2;
+
+public class TestG71 {
+
+	String[][] testtrain = new String[3][10];
+
+	private AppiumDriver<AndroidElement> driver;
+	TrainstatueUtil tsu = new TrainstatueUtil();
+	List<TrainCase> testcase = null;
+
+	@BeforeTest
+	public void setUp() throws Exception {
+
+		driver = Util2.getdriver();
+		Thread.sleep(500);
+		Util1.toindex(driver);// 引导页
+		Thread.sleep(500);
+	}
+
+	@AfterTest
+	public void tearDown() throws Exception {
+
+		driver.quit();
+	}
+
+	/**
+	 * 全部关注展示
+	 * 
+	 * @throws InterruptedException
+	 */
+
+	static int p = -1, q = -1;
+
+	@Test
+	public void test1a() throws InterruptedException {
+		testcase = CaseUtil.getCases(4);
+		p = -1;
+		q = -1;
+		// zengjia
+		tsu.addstatue(testcase, driver);// zengjia 3 tiao shuju
+
+		Util2.totalclick(driver);// quan全
+
+		Thread.sleep(1500);
+		testtrain = tsu.trainnumber2(driver);// 2b
+
+	}
+
+	// quanbuxiangqing
+	@Test(invocationCount = 3, threadPoolSize = 1)
+	public void test1b() throws InterruptedException {
+
+		p++;
+
+		String caseid = testcase.get(2 - p).getCaseid();
+
+		Assert.assertEquals(testtrain[p], CaseUtil.ToExpectTrainByid10(caseid),
+				"" + caseid);
+
+	}
+
+	// 全部 未含检票口候车室
+	@Test(invocationCount = 3, threadPoolSize = 1)
+	public void test1c() throws InterruptedException {
+		Util2.swipeToTop(driver, 1000);
+
+		q++;
+		String[] resultcases = tsu.trainnumber3(q, driver);//
+		String caseid = testcase.get(2 - q).getCaseid();
+		System.out.println("___" + caseid + resultcases);
+
+		Assert.assertEquals(resultcases, CaseUtil.ToExpectTrainByid(caseid), ""
+				+ caseid);
+
+	}
+
+	@Test
+	public void test2a() throws InterruptedException {
+		testcase = CaseUtil.getCases(5);
+		p = -1;
+		q = -1;
+		// zengjia
+		tsu.addstatue(testcase, driver);// zengjia 3 tiao shuju
+
+		Util2.totalclick(driver);// quan全
+
+		Thread.sleep(1000);
+		testtrain = tsu.trainnumber2(driver);// 2b
+
+	}
+
+	// quanbuxiangqing
+	@Test(invocationCount = 3, threadPoolSize = 1)
+	public void test2b() throws InterruptedException {
+
+		p++;
+
+		String caseid = testcase.get(2 - p).getCaseid();
+
+		Assert.assertEquals(testtrain[p], CaseUtil.ToExpectTrainByid10(caseid),
+				"" + caseid);
+
+	}
+
+	// 全部 未含检票口候车室
+	@Test(invocationCount = 3, threadPoolSize = 1)
+	public void test2c() throws InterruptedException {
+		Util2.swipeToTop(driver, 1000);
+
+		q++;
+		String[] resultcases = tsu.trainnumber3(q, driver);//
+		String caseid = testcase.get(2 - q).getCaseid();
+		System.out.println("___" + caseid + resultcases);
+
+		Assert.assertEquals(resultcases, CaseUtil.ToExpectTrainByid(caseid), ""
+				+ caseid);
+
+	}
+
+	@Test
+	public void test3a() throws InterruptedException {
+		testcase = CaseUtil.getCases(6);
+		p = -1;
+		q = -1;
+		// zengjia
+		tsu.addstatue(testcase, driver);// zengjia 3 tiao shuju
+
+		Util2.totalclick(driver);// quan全
+
+		Thread.sleep(1000);
+		testtrain = tsu.trainnumber2(driver);// 2b
+
+	}
+
+	// quanbuxiangqing
+	@Test(invocationCount = 2, threadPoolSize = 1)
+	public void test3b() throws InterruptedException {
+
+		p++;
+
+		String caseid = testcase.get(1 - p).getCaseid();
+
+		Assert.assertEquals(testtrain[p], CaseUtil.ToExpectTrainByid10(caseid),
+				"" + caseid);
+
+	}
+
+	// 全部 未含检票口候车室
+	@Test(invocationCount = 2, threadPoolSize = 1)
+	public void test3c() throws InterruptedException {
+		Util2.swipeToTop(driver, 1000);
+
+		q++;
+		String[] resultcases = tsu.trainnumber3(q, driver);//
+		String caseid = testcase.get(1 - q).getCaseid();
+		System.out.println("___" + caseid + resultcases);
+
+		Assert.assertEquals(resultcases, CaseUtil.ToExpectTrainByid(caseid), ""
+				+ caseid);
+
+	}
+}

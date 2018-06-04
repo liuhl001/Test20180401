@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="注册"
+           tests="4"
+           failures="0"
+           errors="0"
+           skipped="0"
+           time="109.462">
+  <properties />
+  
+  
+            <testcase name="test4" time="28.465" classname="com.winsion.inception.test.Register" />
+                <testcase name="test2" time="27.596" classname="com.winsion.inception.test.Register" />
+                <testcase name="test1" time="27.067" classname="com.winsion.inception.test.Register" />
+                <testcase name="test3" time="26.334" classname="com.winsion.inception.test.Register" />
+      
+</testsuite>

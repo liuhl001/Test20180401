@@ -1,0 +1,106 @@
+package com.winsion.inception.test.statue;
+
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.android.AndroidDeviceActionShortcuts;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidElement;
+
+import java.io.File;
+import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.interactions.HasTouchScreen;
+import org.openqa.selenium.interactions.TouchScreen;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteTouchScreen;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+import com.winsion.inception.bean.TrainCase;
+import com.winsion.inception.dao.TrainCaseDao;
+import com.winsion.inception.util.CaseUtil;
+import com.winsion.inception.util.Util1;
+import com.winsion.inception.util.Util2;
+
+public class AddTrain {
+	private AppiumDriver<AndroidElement> driver;
+	TrainCase c;
+
+	@BeforeTest
+	public void setUp() throws Exception {
+
+		c = CaseUtil.getCaseByid("TI-1-062");// 测试案例编号
+		driver = Util2.getdriver();
+
+		Util1.toindex(driver);// 引导页
+		Thread.sleep(1000);
+		Util2.addclick(driver);
+	}
+
+	@AfterTest
+	public void tearDown() throws Exception {
+
+		driver.quit();
+	}
+
+	/**
+	 * 正常按车次添加
+	 * 
+	 * @throws InterruptedException
+	 * @throws ParseException
+	 */
+	@Test
+	public void test1() throws InterruptedException, ParseException {
+
+		Util1.addbynum(driver, c.getTrainnum(), c.getStartstation(),
+				c.getEndstation(),c.getCjcr());
+
+		String[] resulttrain = Util1.getaddtrain(driver);
+		// Util1.sys(driver);
+		String[] expecttrain = CaseUtil.ToExpectTrainBycase(c);// 期望数组
+
+		// String[] resultsqltrain =
+		// TrainCaseDao.getSqlvalue("15022002062");//ssql查出来的数据****
+		// Assert.assertEquals(resultsqltrain, expecttrain);//sql数据库验证*****
+
+		Assert.assertEquals(resulttrain, expecttrain);
+
+	}
+
+	/**
+	 * 重复添加
+	 * 
+	 * @throws InterruptedException
+	 */
+	@Test
+	public void test2() throws InterruptedException {
+
+		Util1.init(driver);
+		Util2.addclick(driver);
+		Thread.sleep(300);
+
+		Util1.addbynum(driver, c.getTrainnum(), c.getStartstation(),
+				c.getEndstation(),c.getCjcr());
+		Thread.sleep(300);
+
+		int a = Util1.clickchezhan(driver, c.getStartstation());
+
+		Assert.assertTrue(a >= 0);
+
+	}
+
+}

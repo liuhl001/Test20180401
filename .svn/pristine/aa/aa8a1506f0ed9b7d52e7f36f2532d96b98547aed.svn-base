@@ -1,0 +1,119 @@
+package com.winsion.inception.apiTest;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Properties;
+import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+import com.winsion.inception.bean.TrainCase;
+import com.winsion.inception.dao.UserDaoImpl;
+import com.winsion.inception.util.CaseUtil;
+import com.winsion.inception.util.DBUtil;
+
+public class TrainstationTest {
+
+	private static final int invocationCount = 1;
+	Connection con;List<String> phones;
+	@BeforeTest
+	public void dylc() throws IOException {
+		con=DBUtil.openConnection2();
+/*			file = new File(
+		"C:\\user.txt");
+
+file.createNewFile();
+FileWriter fw = new FileWriter(file.getAbsoluteFile());
+bw = new BufferedWriter(fw);
+System.out.println(bw);*/
+		phones=	new t9().readTxt("C:\\user.txt");
+	}
+
+	File file;
+	BufferedWriter bw;
+
+	static Long v = 10000000L;
+	static String phone = "";
+
+/*	// 获取城市
+	@Test(invocationCount = invocationCount, threadPoolSize = 50)
+	public void test1() throws InterruptedException, IOException {
+		
+		String s=ApiDBUtil.getCaptcha2(con,"15022002062");
+		System.out.println(s);
+	}*/
+	// 获取城市
+/*	@Test(invocationCount = invocationCount, threadPoolSize = 50)
+	public void test2() throws InterruptedException, IOException {
+		
+
+		String captcha=ApiDBUtil.getCaptcha2(con,"15022002062");
+		ApiUtil.registerByMobile(phone+v,"123",captcha,"602033DAB48691F15F18B59C14D3754D","Android","android5.0.1","铁路伴侣","RedmiNote2","1.0");
+
+		
+		List<String> user=ApiDBUtil.getUser(con,"15022002062");
+		System.out.println(user.get(0)+","+user.get(1));
+	}*/
+	int f=0;
+//	@Test(invocationCount = invocationCount, threadPoolSize = 500)
+	public void test3() throws InterruptedException, IOException {
+	
+/*		List<String> user=ApiDBUtil.getUser(con,"15022002062");
+		String a=ApiUtil.addAttention("9f53433402a811e684960242ac110004",
+				"9f53626402a811e684960242ac110004",
+				"9cd652c102a811e684960242ac110004", "1",
+				user.get(0),
+				user.get(1));*/
+			
+		//	System.out.println("+"+index[0]);index[0]++;
+	
+
+	}
+	int[]  index={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+	@Test(invocationCount = invocationCount, threadPoolSize = 500)
+	public void test4() throws InterruptedException, IOException {
+		Assert.assertEquals(31009, phones.size());
+	
+
+	}
+
+	
+	
+
+	@AfterTest
+	public void afend() throws IOException {
+	/*	bw.flush();
+		   bw.close();*/
+		System.out.println("测试结束2*****");
+		try {
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}

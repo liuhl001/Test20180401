@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="K184状态验证"
+           tests="19"
+           failures="0"
+           errors="0"
+           skipped="0"
+           time="407.542">
+  <properties />
+  
+  
+            <testcase name="test1c" time="10.667" classname="com.winsion.inception.test.TestK184" />
+                <testcase name="test2b" time="0.156" classname="com.winsion.inception.test.TestK184" />
+                <testcase name="test2b" time="0.111" classname="com.winsion.inception.test.TestK184" />
+                <testcase name="test1a" time="103.623" classname="com.winsion.inception.test.TestK184" />
+                <testcase name="test2c" time="12.460" classname="com.winsion.inception.test.TestK184" />
+                <testcase name="test3c" time="12.081" classname="com.winsion.inception.test.TestK184" />
+                <testcase name="test1c" time="12.161" classname="com.winsion.inception.test.TestK184" />
+                <testcase name="test3b" time="0.116" classname="com.winsion.inception.test.TestK184" />
+                <testcase name="test1c" time="13.810" classname="com.winsion.inception.test.TestK184" />
+                <testcase name="test3a" time="91.807" classname="com.winsion.inception.test.TestK184" />
+                <testcase name="test1b" time="0.124" classname="com.winsion.inception.test.TestK184" />
+                <testcase name="test3b" time="0.107" classname="com.winsion.inception.test.TestK184" />
+                <testcase name="test3c" time="16.906" classname="com.winsion.inception.test.TestK184" />
+                <testcase name="test1b" time="0.130" classname="com.winsion.inception.test.TestK184" />
+                <testcase name="test2c" time="13.159" classname="com.winsion.inception.test.TestK184" />
+                <testcase name="test2a" time="108.127" classname="com.winsion.inception.test.TestK184" />
+                <testcase name="test1b" time="0.113" classname="com.winsion.inception.test.TestK184" />
+                <testcase name="test2b" time="0.110" classname="com.winsion.inception.test.TestK184" />
+                <testcase name="test2c" time="11.774" classname="com.winsion.inception.test.TestK184" />
+      
+</testsuite>

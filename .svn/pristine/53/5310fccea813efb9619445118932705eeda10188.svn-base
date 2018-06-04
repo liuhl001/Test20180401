@@ -1,0 +1,229 @@
+package com.winsion.inception.apitest;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Properties;
+import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+import com.winsion.inception.bean.TrainCase;
+import com.winsion.inception.util.CaseUtil;
+import com.winsion.inception.util.DBUtil;
+
+public class Trainstation2 {
+
+	private static final int invocationCount = 31000;
+	private static final int threadPoolSize = 500;
+	int[] index = { -1, -1, -1, -1, -1, -1, -1 };
+	Connection con;
+	List<String> phones;
+	static String time = new SimpleDateFormat("yyyyMMdd").format(Calendar
+			.getInstance().getTime());
+
+	@BeforeTest
+	public void dylc() throws IOException {
+		con = DBUtil.openConnection2();
+		phones = ApiDBUtil.readTxt(System.getProperty("user.dir")
+				+ "/user31000.txt");
+		wrfile();
+	}
+
+	File file;
+	BufferedWriter bw;
+
+	// 获取城市111
+	@Test(invocationCount = invocationCount, threadPoolSize = threadPoolSize)
+	public void test1() throws InterruptedException, IOException {
+		String result = ApiUtil.getCityList();
+		bw.write("==获取城市===" + result + "\n");
+	}
+
+	// 获取旅程服务
+	@Test(invocationCount = invocationCount, threadPoolSize = threadPoolSize)
+	public void test2() throws InterruptedException, IOException {
+		String result = ApiUtil.getJourneyServicesByStationId(
+				"d9bb8662bd3946c3b2c079f81d993feb",
+				"fbc72a2ad4474fab982a76753f194d47");
+		bw.write("==获取旅程服务===" + result + "\n");
+	}
+
+	// 增加关注
+	@Test(invocationCount = invocationCount, threadPoolSize = threadPoolSize)
+	public void test3() throws InterruptedException, IOException {
+		index[0]++;
+		String phone = phones.get(index[0]);
+		List<String> user = ApiDBUtil.getUser(con, phone);// null;//
+		if (user != null) {
+			String result = ApiUtil.addAttention(
+					"9f53433402a811e684960242ac110004",
+					"9f53626402a811e684960242ac110004",
+					"9cd652c102a811e684960242ac110004", "1", user.get(0),
+					user.get(1));
+			bw.write(phone + "==添加关注===" + result + "\n");
+
+		} else {
+			String result = ApiUtil.addAttention(
+					"9f53433402a811e684960242ac110004",
+					"9f53626402a811e684960242ac110004",
+					"9cd652c102a811e684960242ac110004", "1",
+					"602033DAB48691F15F18B59C14D3754D",
+					"15392fc7b57a495e8d08d4a8077ba4b1");
+			bw.write(phone + "==添加关注===" + result + "\n");
+		}
+
+	}
+
+	// 全部关注
+	@Test(invocationCount = invocationCount, threadPoolSize = threadPoolSize)
+	public void test4() throws InterruptedException, IOException {
+		index[1]++;
+		String phone = phones.get(index[1]);
+		List<String> user = ApiDBUtil.getUser(con, phone);// null;//
+		if (user != null) {
+			String result = ApiUtil
+					.getAllTrainMessage(user.get(0), user.get(1));
+
+			bw.write(phone + "==全部关注===" + result + "\n");
+		} else {
+			String result = ApiUtil.getAllTrainMessage(
+					"602033DAB48691F15F18B59C14D3754D",
+					"15392fc7b57a495e8d08d4a8077ba4b1");
+			bw.write(phone + "==全部关注===" + result + "\n");
+		}
+	}
+
+	// 当前关注
+	@Test(invocationCount = invocationCount, threadPoolSize = threadPoolSize)
+	public void test5() throws InterruptedException, IOException {
+		index[2]++;
+		String phone = phones.get(index[2]);
+
+		List<String> user = ApiDBUtil.getUser(con, phone);// null;//
+		if (user != null) {
+			String result = ApiUtil.getCurrentTrainMessage(user.get(0),
+					user.get(1));
+			bw.write(phone + "==当前关注===" + result + "\n");
+		} else {
+			String result = ApiUtil.getCurrentTrainMessage(
+					"602033DAB48691F15F18B59C14D3754D",
+					"15392fc7b57a495e8d08d4a8077ba4b1");
+			bw.write(phone + "==当前关注===" + result + "\n");
+		}
+	}
+
+	// 最近到过的城市
+	@Test(invocationCount = invocationCount, threadPoolSize = threadPoolSize)
+	public void test6() throws IOException {
+
+		index[3]++;
+		String phone = phones.get(index[3]);
+		List<String> user = ApiDBUtil.getUser(con, phone);// null;//
+		if (user != null) {
+			String result = ApiUtil.getLatestBeenCityList(user.get(0),
+					user.get(1));
+
+			bw.write(phone + "==最近到过城市===" + result + "\n");
+		} else {
+			String result = ApiUtil.getLatestBeenCityList(
+					"602033DAB48691F15F18B59C14D3754D",
+					"15392fc7b57a495e8d08d4a8077ba4b1");
+
+			bw.write(phone + "==最近到过城市===" + result + "\n");
+		}
+
+	}
+
+	// 当前关注车次详情
+	@Test(invocationCount = invocationCount, threadPoolSize = threadPoolSize)
+	public void test7() throws InterruptedException, IOException {
+
+		String result = ApiUtil
+				.getTrainDetailMessage("dc16e07d8c5242488af420975669a263");
+		bw.write("==当前关注车次详情===" + result + "\n");
+
+	}
+
+	// 按车次搜索
+	@Test(invocationCount = invocationCount, threadPoolSize = threadPoolSize)
+	public void test8() throws InterruptedException, IOException {
+
+		String result = ApiUtil.searchTrainMsg4TrainNumber("K184", time);
+		bw.write("==按车次搜索===" + result + "\n");
+
+	}
+
+	// 按行程搜索
+	@Test(invocationCount = invocationCount, threadPoolSize = threadPoolSize)
+	public void test9() throws InterruptedException, IOException {
+
+		String result = ApiUtil.searchTrainMsg4city(
+				"d9bb8662bd3946c3b2c079f81d993feb",
+				"71de8a224977414bab3ab7091d5caf81", time);
+
+		bw.write("==按行程搜索===" + result + "\n");
+	}
+
+	// 获得用户里程数据
+	@Test(invocationCount = invocationCount, threadPoolSize = threadPoolSize)
+	public void test9a() throws InterruptedException, IOException {
+		index[4]++;
+		String phone = phones.get(index[4]);
+
+		List<String> user = ApiDBUtil.getUser(con, phone);// null;//
+
+		if (user != null) {
+			String result = ApiUtil.getUserDriveMsg(user.get(0), user.get(1));
+			bw.write(phone + "==里程数据===" + result + "\n");
+		} else {
+			String result = ApiUtil.getUserDriveMsg(
+					"602033DAB48691F15F18B59C14D3754D",
+					"15392fc7b57a495e8d08d4a8077ba4b1");
+			bw.write(phone + "==里程数据===" + result + "\n");
+		}
+	}
+
+	@AfterTest
+	public void afend() throws IOException {
+		System.out.println("测试结束2*****");
+		try {
+			con.close();
+			bw.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void wrfile() throws IOException {
+		file = new File("C:\\Trainstation_result2.txt");
+		file.createNewFile();
+		FileWriter fw = new FileWriter(file.getAbsoluteFile());
+		bw = new BufferedWriter(fw);
+
+	}
+}

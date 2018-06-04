@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="登录"
+           tests="6"
+           failures="0"
+           errors="0"
+           skipped="0"
+           time="124.825">
+  <properties />
+  
+  
+            <testcase name="test6" time="8.264" classname="com.winsion.inception.test.Login" />
+                <testcase name="test1" time="27.921" classname="com.winsion.inception.test.Login" />
+                <testcase name="test2" time="23.061" classname="com.winsion.inception.test.Login" />
+                <testcase name="test3" time="20.629" classname="com.winsion.inception.test.Login" />
+                <testcase name="test4" time="23.680" classname="com.winsion.inception.test.Login" />
+                <testcase name="test5" time="21.270" classname="com.winsion.inception.test.Login" />
+      
+</testsuite>

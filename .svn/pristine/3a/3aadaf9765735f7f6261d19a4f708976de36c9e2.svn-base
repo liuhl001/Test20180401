@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="app关注状态验证"
+           tests="19"
+           failures="0"
+           errors="0"
+           skipped="0"
+           time="359.316">
+  <properties />
+  
+  
+            <testcase name="test2c" time="9.291" classname="com.winsion.inception.test.Testtrainstatue" />
+                <testcase name="test1a" time="92.734" classname="com.winsion.inception.test.Testtrainstatue" />
+                <testcase name="test2c" time="10.485" classname="com.winsion.inception.test.Testtrainstatue" />
+                <testcase name="test3c" time="11.367" classname="com.winsion.inception.test.Testtrainstatue" />
+                <testcase name="test2b" time="0.119" classname="com.winsion.inception.test.Testtrainstatue" />
+                <testcase name="test2a" time="99.951" classname="com.winsion.inception.test.Testtrainstatue" />
+                <testcase name="test1c" time="9.853" classname="com.winsion.inception.test.Testtrainstatue" />
+                <testcase name="test1c" time="9.927" classname="com.winsion.inception.test.Testtrainstatue" />
+                <testcase name="test2b" time="0.112" classname="com.winsion.inception.test.Testtrainstatue" />
+                <testcase name="test1b" time="0.125" classname="com.winsion.inception.test.Testtrainstatue" />
+                <testcase name="test1b" time="0.094" classname="com.winsion.inception.test.Testtrainstatue" />
+                <testcase name="test3b" time="0.100" classname="com.winsion.inception.test.Testtrainstatue" />
+                <testcase name="test1b" time="0.098" classname="com.winsion.inception.test.Testtrainstatue" />
+                <testcase name="test3c" time="11.771" classname="com.winsion.inception.test.Testtrainstatue" />
+                <testcase name="test2b" time="0.099" classname="com.winsion.inception.test.Testtrainstatue" />
+                <testcase name="test3a" time="84.034" classname="com.winsion.inception.test.Testtrainstatue" />
+                <testcase name="test3b" time="0.099" classname="com.winsion.inception.test.Testtrainstatue" />
+                <testcase name="test1c" time="9.087" classname="com.winsion.inception.test.Testtrainstatue" />
+                <testcase name="test2c" time="9.970" classname="com.winsion.inception.test.Testtrainstatue" />
+      
+</testsuite>

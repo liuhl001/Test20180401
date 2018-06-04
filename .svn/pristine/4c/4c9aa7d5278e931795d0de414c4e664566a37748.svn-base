@@ -1,0 +1,248 @@
+package com.winsion.inception.test;
+
+
+
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.android.AndroidDeviceActionShortcuts;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidElement;
+
+import java.io.File;
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.interactions.HasTouchScreen;
+import org.openqa.selenium.interactions.TouchScreen;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteTouchScreen;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+import com.winsion.inception.util.CaseUtil;
+import com.winsion.inception.util.Util2;
+
+public class Testtrainstatue {
+
+	String[][] testtrain = new String[8][10];
+
+	private AppiumDriver<AndroidElement> driver;
+
+	@BeforeTest
+	public void setUp() throws Exception {
+
+		driver = Util2.getdriver();
+		Thread.sleep(3000);
+
+		Util2.totalclick(driver);
+
+		Thread.sleep(2000);
+
+		trainnumber2();
+
+	}
+
+	@AfterTest
+	public void tearDown() throws Exception {
+
+		driver.quit();
+	}
+
+	/**
+	 * 全部关注展示
+	 * 
+	 * @throws InterruptedException
+	 */
+	@Test
+	public void test2a() throws InterruptedException {
+	
+		Assert.assertEquals(testtrain[0], CaseUtil.ToExpectTrainByid("TI-1-018"));
+	}
+
+	@Test
+	public void test2b() {
+		Assert.assertEquals(testtrain[1], CaseUtil.ToExpectTrainByid("TI-1-017"));
+	}
+
+	@Test
+	public void test2c() {
+		Assert.assertEquals(testtrain[2], CaseUtil.ToExpectTrainByid("TI-1-016"));
+	}
+
+	@Test
+	public void test2d() {
+		Assert.assertEquals(testtrain[3], CaseUtil.ToExpectTrainByid("TI-1-015"));
+	}
+
+	@Test
+	public void test2e() {
+		Assert.assertEquals(testtrain[4], CaseUtil.ToExpectTrainByid("TI-1-014"));
+	}
+
+	@Test
+	public void test2f() {
+		Assert.assertEquals(testtrain[5], CaseUtil.ToExpectTrainByid("TI-1-013"));
+	}
+
+	@Test
+	public void test2g() {
+		Assert.assertEquals(testtrain[6], CaseUtil.ToExpectTrainByid("TI-1-012"));
+	}
+
+	@Test
+	public void test2h() throws InterruptedException {
+		Assert.assertEquals(testtrain[7], CaseUtil.ToExpectTrainByid("TI-1-011"));
+
+	}
+
+	public String[][] trainnumber2() throws InterruptedException {
+		String[][] currenttrain2 = new String[8][10];
+		try {
+			List<AndroidElement> ImageViewsList = driver.findElements(By
+					.id("com.winsion.inception:id/tv_train_state_total_send"));// 集合
+			System.out.println("@" + ImageViewsList.get(0).getText() + ","
+					+ ImageViewsList.get(1).getText() + ","
+					+ ImageViewsList.get(2).getText() + ","
+					+ ImageViewsList.get(3).getText());
+
+			for (int i = 0; i < 4; i++) {
+				getcurrenttraintotaltest(i);
+
+			}
+			Thread.sleep(1000);
+			Util2.swipeToUp(driver, 1000);
+			Thread.sleep(3000);
+			System.out.println("@" + ImageViewsList.get(0).getText() + ","
+					+ ImageViewsList.get(1).getText() + ","
+					+ ImageViewsList.get(2).getText() + ","
+					+ ImageViewsList.get(3).getText());
+			for (int i = 4; i < 8; i++) {
+
+				getcurrenttraintotaltest2(i);
+
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return currenttrain2;
+	}
+
+	public String[][] getcurrenttraintotaltest(int i)
+			throws InterruptedException {
+		Thread.sleep(2000);
+
+		testtrain[i][0] = driver
+				.findElements(
+						By.id("com.winsion.inception:id/tv_train_state_total_train_name"))
+				.get(i).getText().trim();
+		testtrain[i][1] = driver
+				.findElements(
+						By.id("com.winsion.inception:id/tv_train_state_train_state"))
+				.get(i).getText().trim();
+		testtrain[i][2] = driver
+				.findElements(
+						By.id("com.winsion.inception:id/tv_train_state_total_time"))
+				.get(i).getText().trim();
+		testtrain[i][3] = driver
+				.findElements(
+						By.id("com.winsion.inception:id/tv_train_state_time_state"))
+				.get(i).getText().replaceAll("\n", "").trim();
+		testtrain[i][4] = driver
+				.findElements(
+						By.id("com.winsion.inception:id/tv_train_state_total_send"))
+				.get(i).getText().trim();
+		testtrain[i][5] = driver
+				.findElements(
+						By.id("com.winsion.inception:id/tv_train_state_total_to"))
+				.get(i).getText().trim();
+		testtrain[i][6] = driver
+				.findElements(
+						By.id("com.winsion.inception:id/tv_train_state_send_time"))
+				.get(i).getText().trim();
+		testtrain[i][7] = driver
+				.findElements(
+						By.id("com.winsion.inception:id/tv_train_state_to_time"))
+				.get(i).getText().trim();
+		testtrain[i][8] = driver
+				.findElements(
+						By.id("com.winsion.inception:id/tv_train_state_date"))
+				.get(i).getText().trim();
+		testtrain[i][9] = driver
+				.findElements(
+						By.id("com.winsion.inception:id/tv_train_state_date"))
+				.get(i).getText().trim();
+		System.out.println(testtrain[i][0] + testtrain[i][1] + testtrain[i][2]
+				+ testtrain[i][3] + testtrain[i][4] + testtrain[i][5]
+				+ testtrain[i][6] + testtrain[i][7] + testtrain[i][8]
+				+ testtrain[i][9]);
+
+		return testtrain;
+	}
+
+	public String[][] getcurrenttraintotaltest2(int i)
+			throws InterruptedException {
+		Thread.sleep(2000);
+
+		testtrain[i][0] = driver
+				.findElements(
+						By.id("com.winsion.inception:id/tv_train_state_total_train_name"))
+				.get(i - 4).getText().trim();
+		testtrain[i][1] = driver
+				.findElements(
+						By.id("com.winsion.inception:id/tv_train_state_train_state"))
+				.get(i - 4).getText();
+		testtrain[i][2] = driver
+				.findElements(
+						By.id("com.winsion.inception:id/tv_train_state_total_time"))
+				.get(i - 4).getText();
+		testtrain[i][3] = driver
+				.findElements(
+						By.id("com.winsion.inception:id/tv_train_state_time_state"))
+				.get(i - 3).getText().replaceAll("\n", "").trim();
+		testtrain[i][4] = driver
+				.findElements(
+						By.id("com.winsion.inception:id/tv_train_state_total_send"))
+				.get(i - 4).getText();
+		testtrain[i][5] = driver
+				.findElements(
+						By.id("com.winsion.inception:id/tv_train_state_total_to"))
+				.get(i - 4).getText();
+		testtrain[i][6] = driver
+				.findElements(
+						By.id("com.winsion.inception:id/tv_train_state_send_time"))
+				.get(i - 4).getText();
+		testtrain[i][7] = driver
+				.findElements(
+						By.id("com.winsion.inception:id/tv_train_state_to_time"))
+				.get(i - 4).getText();
+		testtrain[i][8] = driver
+				.findElements(
+						By.id("com.winsion.inception:id/tv_train_state_date"))
+				.get(i - 4).getText();
+		testtrain[i][9] = driver
+				.findElements(
+						By.id("com.winsion.inception:id/tv_train_state_date"))
+				.get(i - 4).getText();
+		System.out.println(testtrain[i][0] + testtrain[i][1] + testtrain[i][2]
+				+ testtrain[i][3] + testtrain[i][4] + testtrain[i][5]
+				+ testtrain[i][6] + testtrain[i][7] + testtrain[i][8]
+				+ testtrain[i][9]);
+
+		return testtrain;
+	}
+
+}

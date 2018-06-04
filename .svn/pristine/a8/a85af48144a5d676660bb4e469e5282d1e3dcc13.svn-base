@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Z162状态验证"
+           tests="19"
+           failures="0"
+           errors="0"
+           skipped="0"
+           time="358.664">
+  <properties />
+  
+  
+            <testcase name="test2b" time="0.106" classname="com.winsion.inception.test.TestZ162" />
+                <testcase name="test3b" time="0.122" classname="com.winsion.inception.test.TestZ162" />
+                <testcase name="test3b" time="0.129" classname="com.winsion.inception.test.TestZ162" />
+                <testcase name="test3c" time="14.063" classname="com.winsion.inception.test.TestZ162" />
+                <testcase name="test1c" time="9.151" classname="com.winsion.inception.test.TestZ162" />
+                <testcase name="test2a" time="94.961" classname="com.winsion.inception.test.TestZ162" />
+                <testcase name="test2b" time="0.109" classname="com.winsion.inception.test.TestZ162" />
+                <testcase name="test1c" time="10.670" classname="com.winsion.inception.test.TestZ162" />
+                <testcase name="test1c" time="11.286" classname="com.winsion.inception.test.TestZ162" />
+                <testcase name="test2c" time="11.728" classname="com.winsion.inception.test.TestZ162" />
+                <testcase name="test3c" time="11.707" classname="com.winsion.inception.test.TestZ162" />
+                <testcase name="test1b" time="0.104" classname="com.winsion.inception.test.TestZ162" />
+                <testcase name="test2c" time="14.785" classname="com.winsion.inception.test.TestZ162" />
+                <testcase name="test1b" time="0.124" classname="com.winsion.inception.test.TestZ162" />
+                <testcase name="test3a" time="80.061" classname="com.winsion.inception.test.TestZ162" />
+                <testcase name="test2c" time="12.810" classname="com.winsion.inception.test.TestZ162" />
+                <testcase name="test1a" time="86.539" classname="com.winsion.inception.test.TestZ162" />
+                <testcase name="test2b" time="0.106" classname="com.winsion.inception.test.TestZ162" />
+                <testcase name="test1b" time="0.103" classname="com.winsion.inception.test.TestZ162" />
+      
+</testsuite>

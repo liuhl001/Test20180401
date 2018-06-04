@@ -1,0 +1,395 @@
+package com.winsion.inception.test.web;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Properties;
+import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+import com.winsion.inception.bean.TrainCase;
+import com.winsion.inception.util.CaseUtil;
+
+public class TrainStation {
+	private WebDriver driver;
+	private String baseUrl;
+	private Properties properties = new Properties();
+	static int n = 0;
+	String key = "";
+	static String time = new SimpleDateFormat("yyyy-MM-dd").format(Calendar
+			.getInstance().getTime()); // 获取系统时间
+
+	static Calendar now = Calendar.getInstance();
+	static Calendar now2 = Calendar.getInstance();
+	static {
+		now.add(Calendar.DAY_OF_MONTH, +1);
+		now2.add(Calendar.DAY_OF_MONTH, +2);
+
+	}
+
+	static String nexttime = new SimpleDateFormat("yyyy-MM-dd").format(now
+			.getTime()); // 获取系统时间+1
+	static String nexttime2 = new SimpleDateFormat("yyyy-MM-dd").format(now2
+			.getTime()); // 获取系统时间+1
+
+	// 昆明 起始站到达站都加1分钟，冷水江东到达站都加1分钟，
+
+	public static String[][] chezhan = {
+
+			{ "Z162", "已出发", "全程1小时19分钟", "晚点1分钟", "昆明", "曲靖", "21:12",
+					"22:31", time, time },
+			{ "Z162", "正在检票", "全程1小时24分钟", "正点", "宣威", "六盘水", "23:33", "00:57",
+					time, time },
+			{ "Z162", "停止检票", "全程2小时18分钟", "正点", "贵阳", "凯里", "04:23", "06:41",
+					nexttime, nexttime },
+			{ "Z162", "已出发", "全程1小时32分钟", "正点", "玉屏", "怀化", "08:58", "10:30",
+					nexttime, nexttime },
+			{ "Z162", "已到站", "全程58分钟", "晚点1分钟", "冷水江东", "娄底", "13:29", "14:28",
+					nexttime, nexttime },
+			{ "Z162", "正在候车", "全程1小时", "晚点未知", "湘潭", "长沙", "15:43", "16:43",
+					nexttime, nexttime },
+			{ "Z162", "停止检票", "全程2小时8分钟", "晚点1分钟", "岳阳", "武昌", "18:08",
+					"20:16", nexttime, nexttime },
+			{ "Z162", "已到站", "全程3小时15分钟", "晚点未知", "郑州", "石家庄", "01:00",
+					"04:15", nexttime2, nexttime2 }
+
+	};
+
+	/*
+	 * public static String[] expecttrain = { "Z162", "已出发", "全程1小时19分钟",
+	 * "晚点1分钟", "昆明", "曲靖", "21:12", "22:31", time, time };
+	 */
+	@BeforeTest
+	public void dylc() {
+
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		driver = new ChromeDriver();
+
+		baseUrl = "http://172.16.5.25:10011/login.html";
+
+		driver.manage().window().maximize();//
+
+	}
+
+	// 查找
+	@Test
+	public void teststatue() throws InterruptedException {
+
+		List<TrainCase> testcase = CaseUtil.getCases_station();// 给定值1
+
+		for (int i = 0; i < testcase.size(); i++) {
+			TrainCase tc = testcase.get(i);
+			int startf = login(tc.getTrainnum(), tc.getStartstation());// 始发站
+
+			if (startf == 0) {
+				if (tc.getKystatue().equals("已出发")) {
+					getzt1("已出发");
+					zwd(tc.getKytime());// 正晚点
+				} else if (tc.getKystatue().equals("已到站")) {
+					getzt1("正在候车");
+					zwd(tc.getKytime());// 正晚点
+				} else {
+					System.out.println(tc.getKystatue() + tc.getKytime());
+					getzt1(tc.getKystatue());
+					zwd(tc.getKytime());// 正晚点
+
+				}
+				if (tc.getStartstation().equals("北京西")) {
+					Multiplewaiting(tc.getHcs(), tc.getJpk());// 候车室，检票口
+				}else {
+				getzt3(tc.getHcs(), tc.getJpk(),tc.getCzk());// 候车室，检票口
+				}
+				getzt4(i,tc.getLcgg());//列车公告
+			}
+
+			int endf = login(tc.getTrainnum(), tc.getEndstation());// 到达站
+			if (endf == 0) {
+				if (tc.getKystatue().equals("已出发")) {
+					getzt1("正在候车");
+					zwd(tc.getKytime());// 正晚点时间
+				} else if (tc.getKystatue().equals("已到站")) {
+					getzt1("已到站");
+					zwd(tc.getKytime()); // 正晚点
+				} else {
+					getzt1(tc.getKystatue());// 客运状态
+					zwd(tc.getKytime());// 正晚点
+				}
+
+				if (tc.getEndstation().equals("北京西")) {
+					Multiplewaiting(tc.getHcs(), tc.getJpk());// 候车室，检票口
+				} else {
+					getzt3(tc.getHcs(), tc.getJpk(),tc.getCzk());// 候车室，检票口
+				}
+				//getzt4("");
+			}
+		}
+		Thread.sleep(1000);
+
+	}
+
+	public void zwd(String kytime) throws InterruptedException {
+		if (kytime.trim().equals("正点")) {
+			getzt2("0");// 客运时刻
+		} else if (kytime.trim().equals("晚点未定")) {
+			getzt2("-1");// 客运时刻
+		} else if (kytime.contains("晚点")) {
+			String regEx = "[^0-9]";
+			Pattern p = Pattern.compile(regEx);
+			Matcher m = p.matcher(kytime);
+			getzt2(m.replaceAll("").trim());
+			System.out.println("@#" + m.replaceAll("").trim());
+		}
+	}
+
+	public int login(String tainnum, String chezhan)
+	 {
+		try {
+			int f = -1;
+			driver.get(baseUrl);
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			driver.findElement(By.id("username")).sendKeys(chezhan);
+			driver.findElement(By.id("password")).sendKeys("123");
+
+			driver.findElement(By.id("login")).click();
+			Thread.sleep(2000);
+			driver.findElement(By.id("SearchInput")).sendKeys(tainnum);// 车次
+
+			driver.findElement(By.xpath("//div[@class='PassengerSerSearch']/span"))
+					.click();// 搜索
+			Thread.sleep(2000);
+
+			driver.findElement(
+					By.xpath("//section/div/div[2]/div[2]/ol/li/div/div/span[1]"))
+					.click();
+			// driver.findElement(By.xpath("//div[@id='ScrollBoxLeft']/div/ol/li/div/div")).click();//点击今日
+			// 的 数据
+			Thread.sleep(1000);
+			return 0;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("error:"+chezhan);
+			e.printStackTrace();
+		}
+	return -1;
+
+	}
+
+	// 客运状态
+	public void getzt1(String tainstatue) throws InterruptedException {
+
+		Actions action = new Actions(driver);
+		action.dragAndDropBy(
+				driver.findElement(By.xpath("//div[@class='rc-slider-track']")),
+				-1000, 0);
+		action.perform();
+		if (tainstatue.trim().equals("正在候车")) {
+			action.dragAndDropBy(driver.findElement(By
+					.xpath("//div[@class='rc-slider-track']")), 0, 0);
+		} else if (tainstatue.trim().equals("正在检票")) {
+			action.dragAndDropBy(driver.findElement(By
+					.xpath("//div[@class='rc-slider-track']")), 250, 0);
+		} else if (tainstatue.trim().equals("停止检票")) {
+			action.dragAndDropBy(driver.findElement(By
+					.xpath("//div[@class='rc-slider-track']")), 500, 0);
+		} else if (tainstatue.trim().equals("已出发")) {
+			action.dragAndDropBy(driver.findElement(By
+					.xpath("//div[@class='rc-slider-track']")), 800, 0);
+		} else if (tainstatue.trim().equals("已到站")) {
+			action.dragAndDropBy(driver.findElement(By
+					.xpath("//div[@class='rc-slider-track']")), 1000, 0);
+		}
+
+		action.perform();
+		action.release();
+
+		Thread.sleep(1000);
+		// for(int i=0;i<8;i++)
+		// System.out.println("@@"+
+		// driver.findElements(By.tagName("button")).get(i).getText());
+		driver.findElements(By.tagName("button")).get(1).click();// 保存
+		Thread.sleep(500);
+
+		driver.findElement(By.className("am-modal-btn")).click();// 确定
+		Thread.sleep(1000);
+	}
+
+	/**
+	 * 客运时刻
+	 * 
+	 * @throws InterruptedException
+	 */
+	public void getzt2(String delaytime) throws InterruptedException {
+
+		driver.findElement(By.linkText("客运时刻")).click();
+		Thread.sleep(500);
+		if (delaytime.trim().equals("-1")) {
+
+			driver.findElement(
+					By.xpath("//div[@class='am-u-sm-8']/div[3]/span")).click();// 晚点未定
+		} else {
+			driver.findElement(By.id("input")).clear();// 延迟时间输入
+
+			driver.findElement(By.id("input")).sendKeys(delaytime.trim());
+		}
+		Thread.sleep(500);
+		/*
+		 * for(int i=0;i<8;i++) System.out.println("@@"+
+		 * driver.findElements(By.tagName("button")).get(i).getText());
+		 */
+
+		driver.findElements(By.tagName("button")).get(3).click();// 保存
+		Thread.sleep(500);
+		driver.findElement(By.className("am-modal-btn")).click();// 确定
+		Thread.sleep(1000);
+	}
+
+	/**
+	 * 车站布局
+	 * 
+	 * @throws InterruptedException
+	 */
+
+	public void getzt3(String hcs, String jpk,String czk) throws InterruptedException {
+
+		String[] hcsn=	hcs.split(",");
+		String[] jpkn=	jpk.split(",");
+		String[] czkn=	czk.split(",");
+
+		driver.findElement(By.linkText("车站布局")).click();
+		Thread.sleep(200);
+		// 候车室
+		List<WebElement> hcs2 = driver.findElements(By
+				.xpath("//section/div[2]/div[1]/ol/li/span"));
+		Thread.sleep(500);
+		clearjpk(hcs2);//
+		for(int i=0;i<hcsn.length;i++){
+		hcs2.get(Integer.parseInt(hcsn[i])-1).click();}
+	//	hcs2.get(1).click();
+		// 检票口
+		List<WebElement> jpks2 = driver.findElements(By
+				.xpath("//section/div[2]/div[2]/ol/li/span"));
+		Thread.sleep(500);
+		clearjpk(jpks2);//
+		for(int i=0;i<jpkn.length;i++)
+		jpks2.get(Integer.parseInt(jpkn[i])-1).click();//1口
+	//	jpks2.get(1).click();//2口
+		// ///////////////////////////////清空出站口
+		List<WebElement> czks = driver.findElements(By
+				.xpath("//section/div[2]/div[3]/ol/li/span"));
+
+		clearjpk(czks);//
+		for(int i=0;i<czkn.length;i++)
+		czks.get(Integer.parseInt(czkn[i])-1).click();
+	//	czks.get(1).click();
+		driver.findElements(By.tagName("button")).get(5).click();// 保存
+		Thread.sleep(500);
+		driver.findElement(By.className("am-modal-btn")).click();// 确定
+		Thread.sleep(1000);
+	}
+
+	/**
+	 * 列车公告
+	 * 
+	 * @throws InterruptedException
+	 */
+
+	public void getzt4(int gg,String lcgg) throws InterruptedException {
+		if(gg==0||(gg%8==0)){
+		driver.findElement(By.linkText("列车公告")).click();
+		driver.findElement(By.id("TransportInfoRowTextarea"))
+				.sendKeys(lcgg);
+
+		 driver.findElement(By.id("my-confirm")).click();
+		 driver.findElement(By.className("am-modal-btn")).click();//确定
+		}
+		Thread.sleep(1000);
+	}
+
+	public void alertok() throws InterruptedException {
+		Thread.sleep(2000);
+
+		Alert alert = driver.switchTo().alert();
+		alert.accept();// 确认
+		Thread.sleep(1000);
+	}
+
+	public void clearjpk(List<WebElement> cpks) {
+		for (int i = 0; i < cpks.size(); i++) {
+			if (cpks.get(i).getAttribute("class").contains("danger")) {
+				cpks.get(i).click();
+			}
+		}
+	}
+
+	public void Multiplewaiting(String hcs, String jpk)
+			throws InterruptedException {
+		driver.findElement(By.linkText("车站布局")).click();
+		// 清空候车室，检票口
+
+		List<WebElement> jpks = driver.findElements(By
+				.xpath("//section/div[2]/div[2]/ol/li"));
+		System.out.println(jpks.size() + "**************88"
+				+ Math.ceil((double) jpks.size() / 4));
+		for (int i = 1; i <= Math.ceil((double) jpks.size() / 4); i++) {
+			Thread.sleep(10);
+			String hctext = jpks.get(i * 4 - 2).getText();
+			String hc=hctext.substring(0, 1);
+			if(Integer.parseInt(hc)>=0)
+			driver.findElement(
+					By.xpath("//section/div[2]/div[1]/ol/li[" + hc + "]"))
+					.click();// 点
+		}
+
+		// 点候车室2，检票口2
+		driver.findElement(By.xpath("//section/div[2]/div[1]/ol/li[1]"))
+		.click();//1
+		driver.findElement(By.xpath("//section/div[2]/div[1]/ol/li[2]"))
+				.click();// di er houcheshi
+		Thread.sleep(500);
+		List<WebElement> jpks2 = driver.findElements(By
+				.xpath("//section/div[2]/div[2]/ol/li"));
+
+		Thread.sleep(1000);
+		// ///////////////////////////////清空出站口
+		List<WebElement> czks = driver.findElements(By
+				.xpath("//section/div[2]/div[3]/ol/li/span"));
+
+		clearjpk(czks);//
+		jpks2.get(0).click();// 点
+		jpks2.get(1).click();// 点
+		czks.get(0).click();
+		czks.get(1).click();
+		driver.findElements(By.tagName("button")).get(5).click();// 保存
+		Thread.sleep(500);
+		driver.findElement(By.className("am-modal-btn")).click();// 确定
+		Thread.sleep(1000);
+	}
+
+	@AfterTest
+	public void afend() {
+		System.out.println("测试结束2");
+		driver.close();
+
+		driver.quit();
+
+	}
+}

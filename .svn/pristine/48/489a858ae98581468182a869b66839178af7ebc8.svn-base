@@ -1,0 +1,443 @@
+package com.winsion.inception.util;
+
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.concurrent.TimeUnit;
+
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidElement;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import com.winsion.inception.bean.TrainCase;
+import com.winsion.inception.test.Trainstation;
+
+public class Util1 {
+
+	/**
+	 * 按车次初始化
+	 * 
+	 * @param driver
+	 * @throws InterruptedException
+	 */
+
+	public static void init(AppiumDriver<AndroidElement> driver)
+			throws InterruptedException {
+		try {
+			Thread.sleep(2000);
+			driver.findElement(By.id("com.winsion.inception:id/iv_back"))
+					.click();// 返回
+			Thread.sleep(2000);
+			// driver.findElement(By.id("com.winsion.inception:id/img_btn_add"))
+			// .click();// +
+			Thread.sleep(10);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 按车次添加
+	 * 
+	 * @throws InterruptedException
+	 */
+	public static void addbynum(AppiumDriver<AndroidElement> driver,
+			String trainnum, String startstaion, String endstation) {
+		System.out.println("**********************");
+		try {
+			driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+			driver.findElement(
+					By.id("com.winsion.inception:id/et_train_number"))
+					.sendKeys(trainnum);// 车次
+			driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+
+			// UtilDate. Ddytodaybynum(driver);//大于今天的日期
+			Thread.sleep(2000);
+			driver.findElement(
+					By.id("com.winsion.inception:id/bt_search_station"))
+					.click();// 查询
+
+			driver.manage().timeouts().implicitlyWait(7, TimeUnit.SECONDS);
+
+			driver.findElement(
+					By.id("com.winsion.inception:id/tv_list_train_number"))
+					.click();// 点车次
+			Thread.sleep(2000);
+			int a = clickchezhan(driver, startstaion);
+			System.out.println("@@" + a);
+			clickchezhan(driver, endstation);
+			Thread.sleep(2000);
+
+			driver.findElement(By.id("com.winsion.inception:id/tv_rider"))
+					.click();// 乘车人
+			// ((AndroidDeviceActionShortcuts) driver).sendKeyEvent(4);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public static int clickchezhan(AppiumDriver<AndroidElement> driver,
+			String name) {
+		try {
+			List<AndroidElement> ImageViewsList = driver.findElements(By
+					.className("android.widget.TextView"));// 集合
+			System.out.println(ImageViewsList.size());
+			for (int i = 0; i < ImageViewsList.size(); i++) {
+				if (ImageViewsList.get(i).getText().trim().equals(name)) {
+					ImageViewsList.get(i).click();
+					return i;
+
+				}
+
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return -1;
+	}
+
+	/**
+	 * 获取数组 dangqian 全部信息
+	 * 
+	 * @return
+	 * @throws InterruptedException
+	 */
+	public static String[] getcurrenttrain(AppiumDriver<AndroidElement> driver) {
+
+		String[] currenttrain = new String[14];
+		try {
+			Thread.sleep(2000);
+			currenttrain[0] = driver
+					.findElement(
+							By.id("com.winsion.inception:id/tv_train_state_current_name"))
+					.getText();
+			currenttrain[1] = driver.findElement(
+					By.id("com.winsion.inception:id/tv_train_current_state"))
+					.getText();
+			currenttrain[2] = driver
+					.findElement(
+							By.id("com.winsion.inception:id/tv_train_current_total_time"))
+					.getText();
+			currenttrain[3] = driver
+					.findElement(
+							By.id("com.winsion.inception:id/tv_train_current_arrive_state"))
+					.getText();
+			currenttrain[4] = driver
+					.findElement(
+							By.id("com.winsion.inception:id/tv_train_state_current_send_name"))
+					.getText();
+			currenttrain[5] = driver
+					.findElement(
+							By.id("com.winsion.inception:id/tv_train_state_current_to_name"))
+					.getText();
+			currenttrain[6] = driver
+					.findElement(
+							By.id("com.winsion.inception:id/train_state_current_send_time"))
+					.getText();
+			currenttrain[7] = driver
+					.findElement(
+							By.id("com.winsion.inception:id/train_state_current_to_time"))
+					.getText();
+			currenttrain[8] = driver
+					.findElement(
+							By.id("com.winsion.inception:id/tv_train_state_current_send_date"))
+					.getText();
+			currenttrain[9] = driver
+					.findElement(
+							By.id("com.winsion.inception:id/tv_train_state_current_to_date"))
+					.getText();
+			currenttrain[10] = driver
+					.findElement(
+							By.id("com.winsion.inception:id/train_current_waiting_room"))
+					.getText();
+			currenttrain[11] = driver
+					.findElement(
+							By.id("com.winsion.inception:id/tv_train_current_checked_entrance_send"))
+					.getText();
+			currenttrain[12] = driver
+					.findElement(
+							By.id("com.winsion.inception:id/tv_train_current_checked_entrance_to"))
+					.getText();
+			Util2.swipeToUp(driver, 100);
+			Thread.sleep(50);
+
+			try {
+				String gg = driver
+						.findElement(
+								By.id("com.winsion.inception:id/ll_notice_all"))
+						.findElement(
+								By.className("android.widget.LinearLayout"))
+						.findElement(By.className("android.widget.TextView"))
+						.getText().replaceAll("\n", "").trim().substring(16);
+
+				currenttrain[13] = gg;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				currenttrain[13] = "";
+				e.printStackTrace();
+			}
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(currenttrain[0] + currenttrain[1] + currenttrain[2]
+				+ currenttrain[3] + currenttrain[4] + currenttrain[5]
+				+ currenttrain[6] + currenttrain[7] + currenttrain[8]
+				+ currenttrain[9] + currenttrain[10] + currenttrain[11]
+				+ currenttrain[12] + currenttrain[13]);
+		return currenttrain;
+	}
+
+	public static boolean isElementExsit(AppiumDriver<AndroidElement> driver,
+			By locator) {
+		boolean flag = false;
+		try {
+			// WebElement element=driver.findElement(locator);
+			WebElement element = driver
+					.findElement(
+							By.id("com.winsion.inception:id/ll_notice_all"))
+					.findElement(By.className("android.widget.LinearLayout"))
+					.findElement(By.className("android.widget.TextView"));
+			flag = null != element;
+		} catch (NoSuchElementException e) {
+			System.out.println("Element:" + locator.toString()
+					+ " is not exsit!");
+		}
+		return flag;
+	}
+
+	/**
+	 * dangqian打印添加车次后的全部乘车信息
+	 * 
+	 * @param driver
+	 */
+	public static void sys(AppiumDriver<AndroidElement> driver) {
+		System.out
+				.println("车次"
+						+ driver.findElement(
+								By.id("com.winsion.inception:id/tv_train_state_current_name"))
+								.getText());
+		System.out
+				.println("火车状态"
+						+ driver.findElement(
+								By.id("com.winsion.inception:id/tv_train_current_state"))
+								.getText());
+		System.out
+				.println("全程时间"
+						+ driver.findElement(
+								By.id("com.winsion.inception:id/tv_train_current_total_time"))
+								.getText());
+		System.out
+				.println("时间状态"
+						+ driver.findElement(
+								By.id("com.winsion.inception:id/tv_train_current_arrive_state"))
+								.getText());
+
+		System.out
+				.println("始发站"
+						+ driver.findElement(
+								By.id("com.winsion.inception:id/tv_train_state_current_send_name"))
+								.getText());
+		System.out
+				.println("到达站"
+						+ driver.findElement(
+								By.id("com.winsion.inception:id/tv_train_state_current_to_name"))
+								.getText());
+		System.out
+				.println("始发时间"
+						+ driver.findElement(
+								By.id("com.winsion.inception:id/train_state_current_send_time"))
+								.getText());
+
+		System.out
+				.println("到达时间"
+						+ driver.findElement(
+								By.id("com.winsion.inception:id/train_state_current_to_time"))
+								.getText());
+
+		System.out
+				.println("出发日期"
+						+ driver.findElement(
+								By.id("com.winsion.inception:id/tv_train_state_current_send_date"))
+								.getText());
+		System.out
+				.println("到达日期"
+						+ driver.findElement(
+								By.id("com.winsion.inception:id/tv_train_state_current_to_date"))
+								.getText());
+	}
+
+	/**
+	 * 按行程添加
+	 * 
+	 * @throws InterruptedException
+	 */
+	public static void addbycity(AppiumDriver<AndroidElement> driver,
+			String startstation, String endstation) {
+
+		System.out.println("**********************");
+		try {
+			Thread.sleep(2000);
+			driver.findElement(By.id("com.winsion.inception:id/rb_top_right"))
+					.click();// 点按行程
+			Thread.sleep(2000);
+			driver.findElement(
+					By.id("com.winsion.inception:id/tv_start_station")).click();// 出发车站
+
+			driver.findElement(By.id("com.winsion.inception:id/et_input_city"))
+					.sendKeys(startstation);// android.widget.TextView
+			Thread.sleep(2000);
+			// driver.findElement(By.xpath("//android.widget.TextView[contains(@text,'北京')]")).click();//车站
+			clickchezhan(driver, startstation);
+			Thread.sleep(2000);
+			driver.findElement(By.id("com.winsion.inception:id/tv_end_station"))
+					.click();// j到达车站
+			driver.findElement(By.id("com.winsion.inception:id/et_input_city"))
+					.sendKeys(endstation);
+			Thread.sleep(3000);
+			clickchezhan(driver, endstation);
+
+			Thread.sleep(1000);
+			// UtilDate.Ddytodaybycity(driver);//大于今天的日期
+			Thread.sleep(1000);
+			driver.findElement(
+					By.id("com.winsion.inception:id/bt_by_journey_search_station"))
+					.click();// 查询
+			Thread.sleep(6000);
+			driver.findElement(
+					By.xpath("//android.widget.ListView/android.widget.LinearLayout[1]"))
+					.click();
+			Thread.sleep(1000);
+			driver.findElement(By.id("com.winsion.inception:id/tv_rider"))
+					.click();
+
+			Thread.sleep(8000);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public static void toindex(AppiumDriver<AndroidElement> driver) {
+		try {
+			Thread.sleep(2000);
+			swipeToLeft(driver, 900);
+
+			Thread.sleep(500);
+
+			swipeToLeft(driver, 800);
+			Thread.sleep(800);
+
+			driver.findElement(By.id("com.winsion.inception:id/btn_entry"))
+					.click();
+			// driver.tap(1,550, 1720, 1);
+			Thread.sleep(1000);
+			driver.findElement(By.id("com.lbe.security.miui:id/accept"))
+					.click();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			driver.findElement(By.id("com.lbe.security.miui:id/accept"))
+					.click();
+		}
+	}
+
+	public static void swipeToLeft(AppiumDriver<AndroidElement> driver,
+			int during) {
+
+		int width = driver.manage().window().getSize().width;
+		int height = driver.manage().window().getSize().height;
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		driver.swipe(width * 3 / 4, height / 2, width / 8, height / 2, during);
+		// wait for page loading
+	}
+
+	/**
+	 * 获取数组 dangqian 全部信息
+	 * 
+	 * @return
+	 * @throws InterruptedException
+	 */
+	public static String[] getaddtrain(AppiumDriver<AndroidElement> driver) {
+
+		String[] currenttrain = new String[13];
+		try {
+			Thread.sleep(500);
+			currenttrain[0] = driver
+					.findElement(
+							By.id("com.winsion.inception:id/tv_train_state_current_name"))
+					.getText();
+			currenttrain[1] = driver.findElement(
+					By.id("com.winsion.inception:id/tv_train_current_state"))
+					.getText();
+			currenttrain[2] = driver
+					.findElement(
+							By.id("com.winsion.inception:id/tv_train_current_total_time"))
+					.getText();
+			currenttrain[3] = driver
+					.findElement(
+							By.id("com.winsion.inception:id/tv_train_current_arrive_state"))
+					.getText();
+			currenttrain[4] = driver
+					.findElement(
+							By.id("com.winsion.inception:id/tv_train_state_current_send_name"))
+					.getText();
+			currenttrain[5] = driver
+					.findElement(
+							By.id("com.winsion.inception:id/tv_train_state_current_to_name"))
+					.getText();
+			currenttrain[6] = driver
+					.findElement(
+							By.id("com.winsion.inception:id/train_state_current_send_time"))
+					.getText();
+			currenttrain[7] = driver
+					.findElement(
+							By.id("com.winsion.inception:id/train_state_current_to_time"))
+					.getText();
+			currenttrain[8] = driver
+					.findElement(
+							By.id("com.winsion.inception:id/tv_train_state_current_send_date"))
+					.getText();
+			currenttrain[9] = driver
+					.findElement(
+							By.id("com.winsion.inception:id/tv_train_state_current_to_date"))
+					.getText();
+			currenttrain[10] = driver
+					.findElement(
+							By.id("com.winsion.inception:id/train_current_waiting_room"))
+					.getText();
+			currenttrain[11] = driver
+					.findElement(
+							By.id("com.winsion.inception:id/tv_train_current_checked_entrance_send"))
+					.getText();
+			currenttrain[12] = driver
+					.findElement(
+							By.id("com.winsion.inception:id/tv_train_current_checked_entrance_to"))
+					.getText();
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(currenttrain[0] + currenttrain[1] + currenttrain[2]
+				+ currenttrain[3] + currenttrain[4] + currenttrain[5]
+				+ currenttrain[6] + currenttrain[7] + currenttrain[8]
+				+ currenttrain[9] + currenttrain[10] + currenttrain[11]
+				+ currenttrain[12]);
+		return currenttrain;
+	}
+
+}

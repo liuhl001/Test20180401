@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="app添加关注"
+           tests="2"
+           failures="2"
+           errors="0"
+           skipped="0"
+           time="221.873">
+  <properties />
+            <testcase name="tearDown" time="0.000" classname="com.winsion.inception.test.Addtrainstatue">
+                <failure type="org.openqa.selenium.remote.SessionNotFoundException"
+                  message="
+Command duration or timeout: 63 milliseconds
+Build info: version: &apos;2.44.0&apos;, revision: &apos;76d78cf&apos;, time: &apos;2014-10-23 20:03:00&apos;
+System info: host: &apos;PC-CS02&apos;, ip: &apos;172.16.7.21&apos;, os.name: &apos;Windows 7&apos;, os.arch: &apos;x86&apos;, os.version: &apos;6.1&apos;, java.version: &apos;1.8.0&apos;
+Driver info: io.appium.java_client.android.AndroidDriver
+Capabilities [{app=D:\xiazai\2013-10-24_adt-bundle-windows-x86-20130917\TestTrain1\apps\app14.apk, networkConnectionEnabled=true, noSign=true, warnings={}, app-package=com.winsion.inception, app-activity=com.winsion.inception.MainActivity, databaseEnabled=false, deviceName=PJTWSK9L99999999, version=4.4, platform=WINDOWS, desired={app=D:\xiazai\2013-10-24_adt-bundle-windows-x86-20130917\TestTrain1\apps\app14.apk, noSign=true, app-package=com.winsion.inception, app-activity=com.winsion.inception.MainActivity, browserName=, unicodeKeyboard=true, platformName=Android, deviceName=Android, version=4.4, device=Android, platform=WINDOWS, resetKeyboard=true}, platformVersion=5.0.2, webStorageEnabled=false, locationContextEnabled=false, browserName=, takesScreenshot=true, javascriptEnabled=true, unicodeKeyboard=true, platformName=Android, device=Android, resetKeyboard=true}]
+Session ID: c245e4d7-374c-467d-a699-a7e9433b7113"
+              >
+<![CDATA[org.openqa.selenium.remote.SessionNotFoundException: 
+Command duration or timeout: 63 milliseconds
+Build info: version: '2.44.0', revision: '76d78cf', time: '2014-10-23 20:03:00'
+System info: host: 'PC-CS02', ip: '172.16.7.21', os.name: 'Windows 7', os.arch: 'x86', os.version: '6.1', java.version: '1.8.0'
+Driver info: io.appium.java_client.android.AndroidDriver
+Capabilities [{app=D:\xiazai\2013-10-24_adt-bundle-windows-x86-20130917\TestTrain1\apps\app14.apk, networkConnectionEnabled=true, noSign=true, warnings={}, app-package=com.winsion.inception, app-activity=com.winsion.inception.MainActivity, databaseEnabled=false, deviceName=PJTWSK9L99999999, version=4.4, platform=WINDOWS, desired={app=D:\xiazai\2013-10-24_adt-bundle-windows-x86-20130917\TestTrain1\apps\app14.apk, noSign=true, app-package=com.winsion.inception, app-activity=com.winsion.inception.MainActivity, browserName=, unicodeKeyboard=true, platformName=Android, deviceName=Android, version=4.4, device=Android, platform=WINDOWS, resetKeyboard=true}, platformVersion=5.0.2, webStorageEnabled=false, locationContextEnabled=false, browserName=, takesScreenshot=true, javascriptEnabled=true, unicodeKeyboard=true, platformName=Android, device=Android, resetKeyboard=true}]
+Session ID: c245e4d7-374c-467d-a699-a7e9433b7113
+  sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+  sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+  sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+  java.lang.reflect.Constructor.newInstance(Constructor.java:408)
+  org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:204)
+  org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:162)
+  org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:599)
+  io.appium.java_client.DefaultGenericMobileDriver.execute(DefaultGenericMobileDriver.java:27)
+  io.appium.java_client.AppiumDriver.execute(AppiumDriver.java:272)
+  org.openqa.selenium.remote.RemoteWebDriver.quit(RemoteWebDriver.java:468)
+  com.winsion.inception.test.Addtrainstatue.tearDown(Addtrainstatue.java:56)
+  sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+  sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+  sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+  java.lang.reflect.Method.invoke(Method.java:483)
+  org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:84)
+  org.testng.internal.Invoker.invokeConfigurationMethod(Invoker.java:564)
+  org.testng.internal.Invoker.invokeConfigurations(Invoker.java:213)
+  org.testng.internal.Invoker.invokeConfigurations(Invoker.java:138)
+  org.testng.TestRunner.afterRun(TestRunner.java:1014)
+  org.testng.TestRunner.run(TestRunner.java:621)
+  org.testng.SuiteRunner.runTest(SuiteRunner.java:335)
+  org.testng.SuiteRunner.runSequentially(SuiteRunner.java:330)
+  org.testng.SuiteRunner.privateRun(SuiteRunner.java:291)
+  org.testng.SuiteRunner.run(SuiteRunner.java:240)
+  org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+  org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+  org.testng.TestNG.runSuitesSequentially(TestNG.java:1224)
+  org.testng.TestNG.runSuitesLocally(TestNG.java:1149)
+  org.testng.TestNG.run(TestNG.java:1057)
+  org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:111)
+  org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:204)
+  org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:175)
+]]>
+      </failure>
+
+          </testcase>
+            <testcase name="test1" time="221.873" classname="com.winsion.inception.test.Addtrainstatue">
+                <failure type="org.openqa.selenium.WebDriverException"
+                  message="UiAutomator died while responding to command, please check appium logs! (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 69.96 seconds
+Build info: version: &apos;2.44.0&apos;, revision: &apos;76d78cf&apos;, time: &apos;2014-10-23 20:03:00&apos;
+System info: host: &apos;PC-CS02&apos;, ip: &apos;172.16.7.21&apos;, os.name: &apos;Windows 7&apos;, os.arch: &apos;x86&apos;, os.version: &apos;6.1&apos;, java.version: &apos;1.8.0&apos;
+Driver info: io.appium.java_client.android.AndroidDriver
+Capabilities [{app=D:\xiazai\2013-10-24_adt-bundle-windows-x86-20130917\TestTrain1\apps\app14.apk, networkConnectionEnabled=true, noSign=true, warnings={}, app-package=com.winsion.inception, app-activity=com.winsion.inception.MainActivity, databaseEnabled=false, deviceName=PJTWSK9L99999999, version=4.4, platform=WINDOWS, desired={app=D:\xiazai\2013-10-24_adt-bundle-windows-x86-20130917\TestTrain1\apps\app14.apk, noSign=true, app-package=com.winsion.inception, app-activity=com.winsion.inception.MainActivity, browserName=, unicodeKeyboard=true, platformName=Android, deviceName=Android, version=4.4, device=Android, platform=WINDOWS, resetKeyboard=true}, platformVersion=5.0.2, webStorageEnabled=false, locationContextEnabled=false, browserName=, takesScreenshot=true, javascriptEnabled=true, unicodeKeyboard=true, platformName=Android, device=Android, resetKeyboard=true}]
+Session ID: c245e4d7-374c-467d-a699-a7e9433b7113"
+              >
+<![CDATA[org.openqa.selenium.WebDriverException: UiAutomator died while responding to command, please check appium logs! (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 69.96 seconds
+Build info: version: '2.44.0', revision: '76d78cf', time: '2014-10-23 20:03:00'
+System info: host: 'PC-CS02', ip: '172.16.7.21', os.name: 'Windows 7', os.arch: 'x86', os.version: '6.1', java.version: '1.8.0'
+Driver info: io.appium.java_client.android.AndroidDriver
+Capabilities [{app=D:\xiazai\2013-10-24_adt-bundle-windows-x86-20130917\TestTrain1\apps\app14.apk, networkConnectionEnabled=true, noSign=true, warnings={}, app-package=com.winsion.inception, app-activity=com.winsion.inception.MainActivity, databaseEnabled=false, deviceName=PJTWSK9L99999999, version=4.4, platform=WINDOWS, desired={app=D:\xiazai\2013-10-24_adt-bundle-windows-x86-20130917\TestTrain1\apps\app14.apk, noSign=true, app-package=com.winsion.inception, app-activity=com.winsion.inception.MainActivity, browserName=, unicodeKeyboard=true, platformName=Android, deviceName=Android, version=4.4, device=Android, platform=WINDOWS, resetKeyboard=true}, platformVersion=5.0.2, webStorageEnabled=false, locationContextEnabled=false, browserName=, takesScreenshot=true, javascriptEnabled=true, unicodeKeyboard=true, platformName=Android, device=Android, resetKeyboard=true}]
+Session ID: c245e4d7-374c-467d-a699-a7e9433b7113
+  sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+  sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+  sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+  java.lang.reflect.Constructor.newInstance(Constructor.java:408)
+  org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:204)
+  org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:156)
+  org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:599)
+  io.appium.java_client.DefaultGenericMobileDriver.execute(DefaultGenericMobileDriver.java:27)
+  io.appium.java_client.AppiumDriver.execute(AppiumDriver.java:1)
+  io.appium.java_client.android.AndroidDriver.execute(AndroidDriver.java:1)
+  org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:268)
+  io.appium.java_client.DefaultGenericMobileElement.execute(DefaultGenericMobileElement.java:27)
+  io.appium.java_client.MobileElement.execute(MobileElement.java:1)
+  io.appium.java_client.android.AndroidElement.execute(AndroidElement.java:1)
+  org.openqa.selenium.remote.RemoteWebElement.sendKeys(RemoteWebElement.java:89)
+  com.winsion.inception.util.Util1.addbynum(Util1.java:273)
+  com.winsion.inception.test.Addtrainstatue.test1(Addtrainstatue.java:68)
+  sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+  sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+  sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+  java.lang.reflect.Method.invoke(Method.java:483)
+  org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:84)
+  org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+  org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+  org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+  org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+  org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+  java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+  java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+  java.lang.Thread.run(Thread.java:744)
+]]>
+      </failure>
+
+          </testcase>
+  
+  
+  
+</testsuite>

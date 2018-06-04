@@ -1,0 +1,212 @@
+package com.winsion.inception.util;
+
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.android.AndroidElement;
+
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.interactions.HasTouchScreen;
+import org.openqa.selenium.interactions.TouchScreen;
+import org.openqa.selenium.remote.RemoteTouchScreen;
+import org.openqa.selenium.remote.RemoteWebDriver;
+
+public class DateUtil {
+	/**
+	 * 按车次 添加日期
+	 * 
+	 * @param driver
+	 * @param date
+	 * @throws InterruptedException
+	 */
+	static SimpleDateFormat sdfmonth = new SimpleDateFormat("M");
+	static SimpleDateFormat sdfdate = new SimpleDateFormat("d");
+	static Calendar todaynow = Calendar.getInstance();
+
+	public static void getDate(AppiumDriver<AndroidElement> driver, String date){
+		try {
+			Thread.sleep(2000);
+			driver.findElement(By.id("com.winsion.inception:id/tv_select_date"))
+					.click();// 日期
+			Thread.sleep(2000);
+			driver.findElement(
+					By.xpath("//android.widget.ListView[contains(@index,0)]/android.view.View[1]/android.view.View["
+							+ date + "]")).click();// 日期
+			driver.findElement(By.id("android:id/button1")).click();// 确定
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 按行程添加日期
+	 * 
+	 * @param date
+	 * @throws InterruptedException
+	 */
+	public static void getDatebyxc(AppiumDriver<AndroidElement> driver,
+			String date)  {
+		try {
+			Thread.sleep(1000);
+			driver.findElement(
+					By.id("com.winsion.inception:id/tv_select_date_journey"))
+					.click();// 日期
+			Thread.sleep(2000);
+			driver.findElement(
+					By.xpath("//android.widget.ListView[contains(@index,0)]/android.view.View[1]/android.view.View["
+							+ date + "]")).click();// 日期
+			driver.findElement(By.id("android:id/button1")).click();// 确定
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public class SwipeableWebDriver extends RemoteWebDriver implements
+			HasTouchScreen {
+		private RemoteTouchScreen touch;
+
+		public SwipeableWebDriver(URL remoteAddress,
+				Capabilities desiredCapabilities) {
+			super(remoteAddress, desiredCapabilities);
+			touch = new RemoteTouchScreen(getExecuteMethod());
+		}
+
+		public TouchScreen getTouch() {
+			return touch;
+		}
+	}
+
+	// 下滑
+	public static void swipeToUp(AppiumDriver driver, int during) {
+		int width = driver.manage().window().getSize().width;
+		int height = driver.manage().window().getSize().height;
+		driver.swipe(width / 2, height * 3 / 4, width / 2, height * 1 / 2,
+				during);
+		// wait for page loading
+	}
+
+	// 按车次
+	// 小于当前日期
+
+	public static String Xytodaybynum(AppiumDriver driver)
+			throws InterruptedException {
+
+		Calendar now = Calendar.getInstance();
+
+		now.add(Calendar.DAY_OF_MONTH, -1);
+
+		String yesdaymonth = sdfmonth.format(now.getTime());
+		String yesdaydate = sdfdate.format(now.getTime());
+
+		System.out.println(yesdaymonth + "月" + yesdaydate + "日");
+
+		getDate(driver, yesdaydate);// 日期
+
+		int todaymonth = todaynow.get(Calendar.MONTH) + 1;
+		int todaydate = todaynow.get(Calendar.DAY_OF_MONTH);
+
+		return todaymonth + "月" + todaydate + "日";
+	}
+
+	// 按车次
+	// 等于当前日期
+
+	public static String Dytodaybynum(AppiumDriver driver)
+			throws InterruptedException {
+
+		Calendar now = Calendar.getInstance();
+		int todaydate = now.get(Calendar.DAY_OF_MONTH);
+		int todaymonth = (now.get(Calendar.MONTH) + 1);
+
+		DateUtil.getDate(driver, todaydate + "");// 日期
+
+		return todaymonth + "月" + todaydate + "日";
+	}
+
+	// 按车次
+	// 大于当前日期
+
+	public static String Ddytodaybynum(AppiumDriver driver)
+			throws InterruptedException {
+
+		Calendar now = Calendar.getInstance();
+
+		now.add(Calendar.DAY_OF_MONTH, +1);
+
+		String nextdaydate = sdfdate.format(now.getTime());
+		String nexdaymonth = sdfmonth.format(now.getTime());
+		System.out.println(nexdaymonth + "月" + nextdaydate + "日");
+
+		int todaydate = todaynow.get(Calendar.DAY_OF_MONTH);// 当天日期
+		if (todaynow.getActualMaximum(Calendar.DAY_OF_MONTH) == todaydate) {
+			DateUtil.swipeToUp(driver, 1000);
+			System.out.println(4444444);
+		}
+
+		DateUtil.getDate(driver, nextdaydate);// 日期
+
+		return nexdaymonth + "月" + nextdaydate + "日";
+	}
+	
+	// 小于
+	public static String Xytodaybycity(AppiumDriver driver)
+			throws InterruptedException {
+		Thread.sleep(1000);
+		driver.findElement(
+				By.id("com.winsion.inception:id/rb_top_right")).click();// 点按行程
+		Calendar now = Calendar.getInstance();
+
+		now.add(Calendar.DAY_OF_MONTH, -1);
+
+		String yesdaymonth = sdfmonth.format(now.getTime());
+		String yesdaydate = sdfdate.format(now.getTime());
+		getDatebyxc(driver, yesdaydate);// 日期
+		int todaymonth = todaynow.get(Calendar.MONTH) + 1;
+		int todaydate = todaynow.get(Calendar.DAY_OF_MONTH);
+		System.out.println(yesdaymonth + "月" + yesdaydate + "日");
+
+		return todaymonth + "月" + todaydate + "日";
+	}
+
+	// 等于
+	public static String Dytodaybycity(AppiumDriver driver)
+			throws InterruptedException {
+		Calendar now = Calendar.getInstance();
+		int todaydate = now.get(Calendar.DAY_OF_MONTH);
+		int todaymonth = (now.get(Calendar.MONTH) + 1);
+
+		DateUtil.getDatebyxc(driver, todaydate + "");// 日期
+
+		return todaymonth + "月" + todaydate + "日";
+	}
+
+	// 大于
+	public static String Ddytodaybycity(AppiumDriver driver)
+			throws InterruptedException {
+		Calendar now = Calendar.getInstance();
+
+		now.add(Calendar.DAY_OF_MONTH, +1);
+
+		String nextdaydate = sdfdate.format(now.getTime());
+		String nexdaymonth = sdfmonth.format(now.getTime());
+		System.out.println(nexdaymonth + "月" + nextdaydate + "日");
+
+		int todaydate = todaynow.get(Calendar.DAY_OF_MONTH);// 当天日期
+		if (todaynow.getActualMaximum(Calendar.DAY_OF_MONTH) == todaydate) {
+			DateUtil.swipeToUp(driver, 1000);
+			System.out.println(4444444);
+		}
+
+		DateUtil.getDatebyxc(driver, nextdaydate);// 日期
+
+		return nexdaymonth + "月" + nextdaydate + "日";
+	}
+
+}

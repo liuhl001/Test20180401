@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="app关注状态验证"
+           tests="10"
+           failures="1"
+           errors="0"
+           skipped="9"
+           time="0.016">
+  <properties />
+            <testcase name="setUp" time="0.000" classname="com.winsion.inception.test.Testtrainstatue">
+                <failure type="org.openqa.selenium.SessionNotCreatedException"
+                  message="A new session could not be created. (Original error: Could not find a connected Android device.) (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 35.23 seconds
+Build info: version: &apos;2.44.0&apos;, revision: &apos;76d78cf&apos;, time: &apos;2014-10-23 20:03:00&apos;
+System info: host: &apos;PC-CS02&apos;, ip: &apos;172.16.7.21&apos;, os.name: &apos;Windows 7&apos;, os.arch: &apos;x86&apos;, os.version: &apos;6.1&apos;, java.version: &apos;1.8.0&apos;
+Driver info: io.appium.java_client.android.AndroidDriver"
+              >
+<![CDATA[org.openqa.selenium.SessionNotCreatedException: A new session could not be created. (Original error: Could not find a connected Android device.) (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 35.23 seconds
+Build info: version: '2.44.0', revision: '76d78cf', time: '2014-10-23 20:03:00'
+System info: host: 'PC-CS02', ip: '172.16.7.21', os.name: 'Windows 7', os.arch: 'x86', os.version: '6.1', java.version: '1.8.0'
+Driver info: io.appium.java_client.android.AndroidDriver
+  sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+  sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+  sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+  java.lang.reflect.Constructor.newInstance(Constructor.java:408)
+  org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:204)
+  org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:156)
+  org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:599)
+  io.appium.java_client.DefaultGenericMobileDriver.execute(DefaultGenericMobileDriver.java:27)
+  io.appium.java_client.AppiumDriver.execute(AppiumDriver.java:1)
+  io.appium.java_client.android.AndroidDriver.execute(AndroidDriver.java:1)
+  org.openqa.selenium.remote.RemoteWebDriver.startSession(RemoteWebDriver.java:240)
+  org.openqa.selenium.remote.RemoteWebDriver.<init>(RemoteWebDriver.java:126)
+  org.openqa.selenium.remote.RemoteWebDriver.<init>(RemoteWebDriver.java:153)
+  io.appium.java_client.DefaultGenericMobileDriver.<init>(DefaultGenericMobileDriver.java:22)
+  io.appium.java_client.AppiumDriver.<init>(AppiumDriver.java:202)
+  io.appium.java_client.android.AndroidDriver.<init>(AndroidDriver.java:50)
+  com.winsion.inception.util.Util2.getdriver(Util2.java:51)
+  com.winsion.inception.test.Testtrainstatue.setUp(Testtrainstatue.java:45)
+  sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+  sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+  sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+  java.lang.reflect.Method.invoke(Method.java:483)
+  org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:84)
+  org.testng.internal.Invoker.invokeConfigurationMethod(Invoker.java:564)
+  org.testng.internal.Invoker.invokeConfigurations(Invoker.java:213)
+  org.testng.internal.Invoker.invokeConfigurations(Invoker.java:138)
+  org.testng.TestRunner.beforeRun(TestRunner.java:641)
+  org.testng.TestRunner.run(TestRunner.java:609)
+  org.testng.SuiteRunner.runTest(SuiteRunner.java:335)
+  org.testng.SuiteRunner.runSequentially(SuiteRunner.java:330)
+  org.testng.SuiteRunner.privateRun(SuiteRunner.java:291)
+  org.testng.SuiteRunner.run(SuiteRunner.java:240)
+  org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+  org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+  org.testng.TestNG.runSuitesSequentially(TestNG.java:1224)
+  org.testng.TestNG.runSuitesLocally(TestNG.java:1149)
+  org.testng.TestNG.run(TestNG.java:1057)
+  org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:111)
+  org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:204)
+  org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:175)
+]]>
+      </failure>
+
+          </testcase>
+  
+            <testcase name="tearDown" time="0.0" classname="com.winsion.inception.test.Testtrainstatue">
+          <skipped />
+    </testcase>
+            <testcase name="test2b" time="0.0" classname="com.winsion.inception.test.Testtrainstatue">
+          <skipped />
+    </testcase>
+            <testcase name="test2c" time="0.0" classname="com.winsion.inception.test.Testtrainstatue">
+          <skipped />
+    </testcase>
+            <testcase name="test2d" time="0.0" classname="com.winsion.inception.test.Testtrainstatue">
+          <skipped />
+    </testcase>
+            <testcase name="test2f" time="0.0" classname="com.winsion.inception.test.Testtrainstatue">
+          <skipped />
+    </testcase>
+            <testcase name="test2h" time="0.0" classname="com.winsion.inception.test.Testtrainstatue">
+          <skipped />
+    </testcase>
+            <testcase name="test2a" time="0.0" classname="com.winsion.inception.test.Testtrainstatue">
+          <skipped />
+    </testcase>
+            <testcase name="test2g" time="0.0" classname="com.winsion.inception.test.Testtrainstatue">
+          <skipped />
+    </testcase>
+            <testcase name="test2e" time="0.0" classname="com.winsion.inception.test.Testtrainstatue">
+          <skipped />
+    </testcase>
+  
+  
+</testsuite>

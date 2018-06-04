@@ -1,0 +1,79 @@
+package com.winsion.inception.util;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Properties;
+
+public class DBUtil {
+
+	public static final String url = "jdbc:mysql://172.16.5.25:3307/usercenter?characterEncoding=utf8";
+	public static final String name = "com.mysql.jdbc.Driver";
+	public static final String user = "root";
+	public static final String password = "winsion123";
+	public static final String url2 = "jdbc:mysql://210.14.150.134:3306/usercenter?characterEncoding=utf8";
+	public static Connection conn = null;
+	public PreparedStatement pst = null;
+
+	public void closeConn(Connection conn) {
+		try {
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public Connection openConnection1() {
+		Properties prop = new Properties();
+		String driver = null;
+		String url = null;
+		String username = null;
+		String password = null;
+
+		try {
+
+			System.out.println(url);
+			return DriverManager.getConnection(url, username, password);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	public static void main(String[] args) {
+
+		new DBUtil().openConnection();
+
+	}
+
+	public static Connection openConnection() {
+
+		try {
+			Class.forName(name);
+			conn = DriverManager.getConnection(url, user, password);
+			System.out.println(conn);
+			return conn;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+	//3306
+	public static Connection openConnection2() {
+
+		try {
+			Class.forName(name);
+			conn = DriverManager.getConnection(url2, user, password);
+			System.out.println(conn);
+			return conn;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+}

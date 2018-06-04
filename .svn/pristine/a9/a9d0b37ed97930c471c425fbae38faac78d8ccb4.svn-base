@@ -1,0 +1,103 @@
+package com.winsion.inception.test;
+
+import io.appium.java_client.AppiumDriver;
+
+import io.appium.java_client.android.AndroidElement;
+
+
+import java.text.ParseException;
+import java.util.List;
+
+
+
+import org.openqa.selenium.By;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+import com.winsion.inception.bean.TrainCase;
+
+import com.winsion.inception.util.Util2;
+
+public class Yswp {
+
+	private AppiumDriver<AndroidElement> driver;
+	TrainCase c;
+
+	@BeforeTest
+	public void setUp() throws Exception {
+
+		driver = Util2.getdriver();
+		// Util1.toindex(driver);// 引导页
+		Thread.sleep(2000);
+
+		driver.findElement(By.id("android:id/button1")).click();
+
+		Thread.sleep(1000);
+		driver.findElement(
+				By.xpath("//android.view.View[contains(@index,1)]/android.widget.ImageView[2]"))
+				.click(); // 旅程服务
+
+		Thread.sleep(2000);
+		driver.findElements(By.id("com.winsion.inception:id/ll_service_item"))
+				.get(1).click();// 遗失物品
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//android.view.View[contains(@index,2)]"))
+				.click();// 我要报失
+		Thread.sleep(3000);
+
+		driver.context("NATIVE_APP");// 原生
+
+		Thread.sleep(1000);
+
+	
+	}
+
+	@AfterTest
+	public void tearDown() throws Exception {
+
+		driver.quit();
+	}
+
+	int n = 1, m = 1;
+
+	/**
+	 * 
+	 * 我要报失
+	 * @throws InterruptedException
+	 * @throws ParseException
+	 */
+	@Test(invocationCount = 1, threadPoolSize = 1)
+	public void test1() throws InterruptedException, ParseException {
+		String result=wybs();
+		
+		Assert.assertEquals(result, "提交成功","我要报失-提交失败");
+	}
+
+	public String  wybs() throws InterruptedException{
+		List<AndroidElement> sw = driver
+				.findElementsByClassName("android.widget.EditText");
+
+		Thread.sleep(1000);
+		sw.get(0).sendKeys("刘浩亮");// 姓名
+
+		sw.get(1).sendKeys("13021305698");// 电话
+
+		sw.get(2).sendKeys("K184");// 车次
+		Thread.sleep(50);
+		sw.get(3).sendKeys("北京西");// 位置
+		sw.get(4).sendKeys("手机");// 类型
+
+		sw.get(5).sendKeys("白色");// 颜色
+		sw.get(6).sendKeys("oppo r9");// 型号
+
+		 driver.findElement(By.className("android.widget.Button")).click();//提交
+		 
+		 String text =driver.findElement(By.id("com.winsion.inception:id/tv_top")).getText();
+		//driver.findElement(By.id("com.winsion.inception:id/ll_close")).click();// X关闭
+		Thread.sleep(12000);
+		return text;
+	}
+
+}

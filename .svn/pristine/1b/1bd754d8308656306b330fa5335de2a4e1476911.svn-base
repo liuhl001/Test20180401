@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="日期 格式"
+           tests="6"
+           failures="0"
+           errors="0"
+           skipped="0"
+           time="60.460">
+  <properties />
+  
+  
+            <testcase name="test3" time="9.523" classname="com.winsion.inception.test.Date" />
+                <testcase name="test6" time="10.149" classname="com.winsion.inception.test.Date" />
+                <testcase name="test2" time="11.029" classname="com.winsion.inception.test.Date" />
+                <testcase name="test5" time="10.925" classname="com.winsion.inception.test.Date" />
+                <testcase name="test1" time="9.357" classname="com.winsion.inception.test.Date" />
+                <testcase name="test4" time="9.477" classname="com.winsion.inception.test.Date" />
+      
+</testsuite>

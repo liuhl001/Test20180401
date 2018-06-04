@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="G71状态验证"
+           tests="19"
+           failures="1"
+           errors="0"
+           skipped="0"
+           time="357.855">
+  <properties />
+            <testcase name="test1c" time="10.937" classname="com.winsion.inception.test.TestG71">
+                <failure type="java.lang.AssertionError"
+                  message="TI-1-019: Lists differ at element [10]: 1,2 != 软席,2候 expected [1,2] but found [软席,2候]"
+              >
+<![CDATA[java.lang.AssertionError: TI-1-019: Lists differ at element [10]: 1,2 != 软席,2候 expected [1,2] but found [软席,2候]
+  org.testng.Assert.fail(Assert.java:94)
+  org.testng.Assert.failNotEquals(Assert.java:494)
+  org.testng.Assert.assertEquals(Assert.java:123)
+  org.testng.Assert.assertEquals(Assert.java:549)
+  org.testng.Assert.assertEquals(Assert.java:668)
+  com.winsion.inception.test.TestG71.test1c(TestG71.java:108)
+  sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+  sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+  sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+  java.lang.reflect.Method.invoke(Method.java:483)
+  org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:84)
+  org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+  org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+  org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+  org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+  org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+  org.testng.TestRunner.privateRun(TestRunner.java:767)
+  org.testng.TestRunner.run(TestRunner.java:617)
+  org.testng.SuiteRunner.runTest(SuiteRunner.java:335)
+  org.testng.SuiteRunner.access$000(SuiteRunner.java:37)
+  org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:369)
+  org.testng.internal.thread.ThreadUtil$2.call(ThreadUtil.java:64)
+  java.util.concurrent.FutureTask.run(FutureTask.java:266)
+  java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+  java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+  java.lang.Thread.run(Thread.java:744)
+]]>
+      </failure>
+
+          </testcase>
+  
+  
+            <testcase name="test1c" time="9.742" classname="com.winsion.inception.test.TestG71" />
+                <testcase name="test2b" time="0.111" classname="com.winsion.inception.test.TestG71" />
+                <testcase name="test2c" time="9.513" classname="com.winsion.inception.test.TestG71" />
+                <testcase name="test3b" time="0.097" classname="com.winsion.inception.test.TestG71" />
+                <testcase name="test1b" time="0.112" classname="com.winsion.inception.test.TestG71" />
+                <testcase name="test1b" time="0.098" classname="com.winsion.inception.test.TestG71" />
+                <testcase name="test2b" time="0.108" classname="com.winsion.inception.test.TestG71" />
+                <testcase name="test3a" time="75.922" classname="com.winsion.inception.test.TestG71" />
+                <testcase name="test1c" time="12.943" classname="com.winsion.inception.test.TestG71" />
+                <testcase name="test1a" time="89.557" classname="com.winsion.inception.test.TestG71" />
+                <testcase name="test2b" time="0.115" classname="com.winsion.inception.test.TestG71" />
+                <testcase name="test3b" time="0.102" classname="com.winsion.inception.test.TestG71" />
+                <testcase name="test2c" time="9.946" classname="com.winsion.inception.test.TestG71" />
+                <testcase name="test3c" time="11.742" classname="com.winsion.inception.test.TestG71" />
+                <testcase name="test1b" time="0.097" classname="com.winsion.inception.test.TestG71" />
+                <testcase name="test2c" time="14.674" classname="com.winsion.inception.test.TestG71" />
+                <testcase name="test2a" time="101.122" classname="com.winsion.inception.test.TestG71" />
+                <testcase name="test3c" time="10.917" classname="com.winsion.inception.test.TestG71" />
+      
+</testsuite>

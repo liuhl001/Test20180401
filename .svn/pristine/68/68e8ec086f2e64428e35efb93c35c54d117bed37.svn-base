@@ -1,0 +1,72 @@
+package com.winsion.inception.dao;
+
+
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import com.winsion.inception.util.DBUtil;
+
+
+
+public class UserDaoImpl{
+	
+	
+public static void main(String[] args) {
+		
+	String s=UserDaoImpl.getCaptcha2("15022002062");
+		System.out.println("验证码"+s);
+	}
+	public static String getCaptcha(String id) {
+
+		String sql = " SELECT captcha FROM usercenter.captchas where id=?; ";
+		DBUtil util = new DBUtil();
+		Connection conn = util.openConnection();
+		try {
+
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, id);
+
+			ResultSet rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				return rs.getString(1);
+			}
+		} catch (SQLException e) {
+			System.out.println(e);
+			e.printStackTrace();
+		} finally {
+			//util.closeConn(conn);
+		}
+		return "";
+	}
+	
+	public static String getCaptcha2(String id) {
+
+		String sql = " SELECT captcha FROM usercenter.captchas where id=?; ";
+		DBUtil util = new DBUtil();
+		Connection conn = util.openConnection2();
+		try {
+
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, id);
+
+			ResultSet rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				return rs.getString(1);
+			}
+		} catch (SQLException e) {
+			System.out.println(e);
+			e.printStackTrace();
+		} finally {
+			//util.closeConn(conn);
+		}
+		return "";
+	}
+}

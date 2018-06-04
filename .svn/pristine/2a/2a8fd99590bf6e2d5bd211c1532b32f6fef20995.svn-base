@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<suite name="测试" parallel="classes"  thread-count="3">
+<listeners>
+ <listener class-name="org.uncommons.reportng.HTMLReporter" />
+ <listener class-name="org.uncommons.reportng.JUnitXMLReporter" />
+</listeners>
+
+
+<test name="apitest1" preserve-order="true"  >
+        <classes>
+ <class name="com.winsion.inception.apitest.Trainstation" />
+
+        </classes>
+    </test>
+<test name="apitest2" preserve-order="true"  >
+        <classes>
+ <class name="com.winsion.inception.apitest.Trainstation2" />
+
+        </classes>
+    </test>
+
+</suite>

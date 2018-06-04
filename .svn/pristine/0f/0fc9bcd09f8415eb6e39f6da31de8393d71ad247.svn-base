@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="按车次添加"
+           tests="2"
+           failures="0"
+           errors="0"
+           skipped="0"
+           time="51.547">
+  <properties />
+  
+  
+            <testcase name="test1" time="23.721" classname="com.winsion.inception.test.Addtrain" />
+                <testcase name="test2" time="27.826" classname="com.winsion.inception.test.Addtrain" />
+      
+</testsuite>

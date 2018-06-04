@@ -1,0 +1,215 @@
+package com.winsion.inception.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import com.winsion.inception.bean.TrainCase;
+import com.winsion.inception.util.DBUtil;
+
+public class TrainCaseDao {
+
+	/**
+	 * @param args0524
+	 */
+	static SimpleDateFormat ymd = new SimpleDateFormat("yyyy-MM-dd");
+
+	public static void main(String[] args) throws ParseException {
+
+		String[] resulttrain = getSqlvalue("15022002062");
+		for (int i = 0; i < resulttrain.length; i++) {
+			System.out.println(resulttrain[i]);
+		}
+		// System.out.println(ToKytime(""+1));
+	}
+
+	public static String[] getSqlvalue(String phone) throws ParseException {
+		String[] expecttrain = new String[10];
+		String userid = getUser(phone).get(1);
+		// System.out.println(userid);
+
+		TrainCase startstation = getcasestartbyphone(userid);
+		TrainCase endstation = getcaseendbyphone(userid);
+		System.out.println(endstation.getEndtime());
+		String stime = endstation.getEndtime().toString();
+		String etime = startstation.getStarttime().toString();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		java.util.Date now = df.parse(stime);
+		java.util.Date date = df.parse(etime);
+		long l = now.getTime() - date.getTime();
+		long day = l / (24 * 60 * 60 * 1000);
+		long hour = (l / (60 * 60 * 1000) - day * 24);
+		long min = ((l / (60 * 1000)) - day * 24 * 60 - hour * 60);
+		long s = (l / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);
+		// System.out.println(""+day+"天"+hour+"小时"+min+"分"+s+"秒");
+
+		expecttrain[0] = startstation.getTrainnum();
+		expecttrain[1] = ToKystatue(startstation.getKystatue());
+		expecttrain[2] = "全程" + hour + "小时" + min + "分钟";
+		expecttrain[3] = ToKytime(startstation.getKytime());
+		expecttrain[4] = startstation.getStartstation();
+		expecttrain[5] = endstation.getStartstation();
+		expecttrain[6] = stime.substring(11, 16);
+		expecttrain[7] = etime.substring(11, 16);
+		expecttrain[8] = stime.substring(0, 10);
+		expecttrain[9] = etime.substring(0, 10);
+		return expecttrain;
+	}
+
+	public static String ToKytime(String s) {
+		int i = Integer.parseInt(s);
+
+		switch (i) {
+		case 0:
+
+			return "正点";
+		case -1:
+
+			return "晚点未知";
+		default:
+
+			return "晚点" + i + "分钟";
+		}
+	}
+
+	public static String ToKystatue(String i) {
+
+		switch (i) {
+		case "waiting":
+
+			return "正在候车";
+		case "checking":
+
+			return "正在检票";
+
+		case "nocheck":
+
+			return "停止检票";
+		case "start":
+
+			return "已出发";
+		case "finish":
+
+			return "已到站";
+		default:
+
+			return "正在候车";
+		}
+	}
+
+	static Connection con = DBUtil.openConnection2();
+
+	public static List<String> getUser(String username) {
+
+		List<String> users = new ArrayList<String>();
+		String sql = " SELECT usertoken,id FROM usercenter.users where username=?; ";
+
+		ResultSet rs = null;
+		PreparedStatement pstmt = null;
+		try {
+
+			pstmt = con.prepareStatement(sql);
+
+			pstmt.setString(1, username);
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				users.add(rs.getString("usertoken"));
+				users.add(rs.getString("id"));
+				return users;
+			}
+		} catch (SQLException e) {
+			System.out.println(e);
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pstmt.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
+	public static TrainCase getcasestartbyphone(String userid) {
+		TrainCase traincase = new TrainCase();
+		String sql = " select s.name,b.delay,b.status,b.actualarrivetime,b.actualdeparttime,tn.trainnumber from  diagram.trainstops t  join diagram.stations s on  s.id=t.stationid "
+				+ " join diagram.trains tn on tn.id=t.trainid"
+				+ " join  dynamic.trainrunstops b  on t.id=b.trainstopid and b.id =( select departtrainrunstopid from dynamic.attentions a where  a.userid=?  limit 1 ) ";
+
+		// Connection conn = con;
+		// System.out.println("#"+con);
+		try {
+
+			PreparedStatement pstmt = con.prepareStatement(sql);
+
+			pstmt.setString(1, userid);
+
+			ResultSet rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				// 实际表里数据
+
+				traincase.setStartstation(rs.getString(1));
+				traincase.setKytime(rs.getString(2));
+				traincase.setKystatue(rs.getString(3));
+				// traincase.setEndtime(rs.getString(4));
+				traincase.setStarttime(rs.getString(5));
+				traincase.setTrainnum(rs.getString(6));
+
+			}
+		} catch (SQLException e) {
+			System.out.println(e);
+			e.printStackTrace();
+		} finally {
+			// util.closeConn(conn);
+		}
+		return traincase;
+	}
+
+	public static TrainCase getcaseendbyphone(String userid) {
+		TrainCase traincase = new TrainCase();
+		String sql = " select s.name,b.delay,b.status,b.actualarrivetime,b.actualdeparttime,tn.trainnumber from  diagram.trainstops t  join diagram.stations s on  s.id=t.stationid "
+				+ " join diagram.trains tn on tn.id=t.trainid"
+				+ " join  dynamic.trainrunstops b  on t.id=b.trainstopid and b.id =( select arrivetrainrunstopid from dynamic.attentions a where  a.userid=?  limit 1 ) ";
+
+		// Connection conn = con;
+		// System.out.println("#"+con);
+		try {
+
+			PreparedStatement pstmt = con.prepareStatement(sql);
+
+			pstmt.setString(1, userid);
+
+			ResultSet rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				// 实际表里数据
+
+				traincase.setStartstation(rs.getString(1));
+				traincase.setKytime(rs.getString(2));
+				traincase.setKystatue(rs.getString(3));
+				traincase.setEndtime(rs.getString(4));
+				// traincase.setStarttime(rs.getString(5));
+				traincase.setTrainnum(rs.getString(6));
+
+			}
+		} catch (SQLException e) {
+			System.out.println(e);
+			e.printStackTrace();
+		} finally {
+			// util.closeConn(conn);
+		}
+		return traincase;
+	}
+
+}

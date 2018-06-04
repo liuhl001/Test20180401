@@ -1,0 +1,124 @@
+package com.winsion.inception.test.other;
+
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidElement;
+
+import java.io.File;
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.HasTouchScreen;
+import org.openqa.selenium.interactions.TouchScreen;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteTouchScreen;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+import com.winsion.inception.util.Util1;
+import com.winsion.inception.util.Util2;
+import com.winsion.inception.util.DateUtil;
+
+public class Date {
+
+	private AppiumDriver<AndroidElement> driver;
+
+	@BeforeTest
+	public void setUp() throws Exception {
+
+		driver = Util2.getdriver();
+	
+		Util1.toindex(driver);// 引导页
+		Thread.sleep(500);
+		Util2.addclick(driver);
+	}
+
+	@AfterTest
+	public void tearDown() throws Exception {
+
+		driver.quit();
+	}
+
+	// 小于当期前日期
+	@Test
+	public void test1() throws InterruptedException {
+
+		String expectdate = DateUtil.Xytodaybynum(driver);
+		String resultdate = Util2.datebynum(driver);
+		Assert.assertEquals(resultdate, expectdate);
+
+	}
+
+	// 等于于当期前日期
+	@Test
+	public void test2() throws InterruptedException {
+
+		String expectdate = DateUtil.Dytodaybynum(driver);
+		String resultdate = Util2.datebynum(driver);
+		Assert.assertEquals(resultdate, expectdate);
+
+	}
+
+	// 大于于当期前日期
+	@Test
+	public void test3() throws InterruptedException {
+
+		String expectdate = DateUtil.Ddytodaybynum(driver);
+
+		String resultdate = Util2.datebynum(driver);
+
+		Assert.assertEquals(resultdate, expectdate);
+
+	}
+
+	/**
+	 * 按行程 4~6日期 小于当前日期
+	 * 
+	 * @throws InterruptedException
+	 */
+	@Test
+	public void test4() throws InterruptedException {
+
+		String expectdate = DateUtil.Xytodaybycity(driver);
+		String resultdate = Util2.datebycity(driver);
+		Assert.assertEquals(resultdate, expectdate);
+	}
+
+	/**
+	 * 等于当前日期
+	 * 
+	 * @throws InterruptedException
+	 * 
+	 */
+	@Test
+	public void test5() throws InterruptedException {
+
+		String expectdate = DateUtil.Dytodaybycity(driver);
+		String resultdate = Util2.datebycity(driver);
+		Assert.assertEquals(resultdate, expectdate);
+	}
+
+	/**
+	 * 大于当前日期
+	 * 
+	 * @throws InterruptedException
+	 * 
+	 */
+	@Test
+	public void test6() throws InterruptedException {
+		String expectdate = DateUtil.Ddytodaybycity(driver);
+		String resultdate = Util2.datebycity(driver);
+
+		Assert.assertEquals(resultdate, expectdate);
+	}
+
+}

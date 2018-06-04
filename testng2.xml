@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<suite name="测试" parallel="tests" thread-count="1">
+	<listeners>
+		<listener class-name="org.uncommons.reportng.HTMLReporter" />
+		<listener class-name="org.uncommons.reportng.JUnitXMLReporter" />
+	</listeners>
+
+	<test name="申请合同测试流程" preserve-order="true">
+		<classes>
+			<class name="com.kuaishoudan.financer.test.Test1" />
+
+		</classes>
+	</test>
+	<test name="不出合同测试流程" preserve-order="true">
+		<classes>
+
+			<class name="com.kuaishoudan.financer.test.Test2" />
+		</classes>
+	</test>
+	 
+	<test name="再次进件申请合同测试流程" preserve-order="true">
+		<classes>
+			<class name="com.kuaishoudan.financer.test.Test3" />
+
+		</classes>
+	</test>
+
+	<test name="再次进件不出合同测试流程" preserve-order="true">
+		<classes>
+			<class name="com.kuaishoudan.financer.test.Test4" />
+
+		</classes>
+	</test>
+
+	
+	
+</suite>

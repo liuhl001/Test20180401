@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="再次进件申请合同测试流程"
+           tests="14"
+           failures="2"
+           errors="0"
+           skipped="0"
+           time="649.706">
+  <properties />
+            <testcase name="test9" time="21.000" classname="com.kuaishoudan.financer.test.Test3">
+                <failure type="java.lang.AssertionError"
+                  message="Maps do not match for key:insurance actual:693493.44 expected:693493.46 expected [693493.46] but found [693493.44]"
+              >
+<![CDATA[java.lang.AssertionError: Maps do not match for key:insurance actual:693493.44 expected:693493.46 expected [693493.46] but found [693493.44]
+  org.testng.Assert.fail(Assert.java:94)
+  org.testng.Assert.failNotEquals(Assert.java:494)
+  org.testng.Assert.assertEquals(Assert.java:123)
+  org.testng.Assert.assertEquals(Assert.java:835)
+  com.kuaishoudan.financer.test.Test3.test9(Test3.java:180)
+  sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+  sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+  sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+  java.lang.reflect.Method.invoke(Method.java:498)
+  org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:84)
+  org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+  org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+  org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+  org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+  org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+  org.testng.TestRunner.privateRun(TestRunner.java:767)
+  org.testng.TestRunner.run(TestRunner.java:617)
+  org.testng.SuiteRunner.runTest(SuiteRunner.java:335)
+  org.testng.SuiteRunner.access$000(SuiteRunner.java:37)
+  org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:369)
+  org.testng.internal.thread.ThreadUtil$2.call(ThreadUtil.java:64)
+  java.util.concurrent.FutureTask.run(FutureTask.java:266)
+  java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+  java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+  java.lang.Thread.run(Thread.java:745)
+]]>
+      </failure>
+
+          </testcase>
+            <testcase name="test2" time="184.136" classname="com.kuaishoudan.financer.test.Test3">
+                <failure type="java.lang.IndexOutOfBoundsException"
+                  message="Index: 0, Size: 0"
+              >
+<![CDATA[java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
+  java.util.ArrayList.rangeCheck(ArrayList.java:653)
+  java.util.ArrayList.get(ArrayList.java:429)
+  com.kuaishoudan.financer.selenium.ZcjjUtil.getActstatue(ZcjjUtil.java:588)
+  com.kuaishoudan.financer.test.Test3.test2(Test3.java:81)
+  sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+  sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+  sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+  java.lang.reflect.Method.invoke(Method.java:498)
+  org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:84)
+  org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+  org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+  org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+  org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+  org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+  org.testng.TestRunner.privateRun(TestRunner.java:767)
+  org.testng.TestRunner.run(TestRunner.java:617)
+  org.testng.SuiteRunner.runTest(SuiteRunner.java:335)
+  org.testng.SuiteRunner.access$000(SuiteRunner.java:37)
+  org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:369)
+  org.testng.internal.thread.ThreadUtil$2.call(ThreadUtil.java:64)
+  java.util.concurrent.FutureTask.run(FutureTask.java:266)
+  java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+  java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+  java.lang.Thread.run(Thread.java:745)
+]]>
+      </failure>
+
+          </testcase>
+  
+  
+            <testcase name="test3" time="16.707" classname="com.kuaishoudan.financer.test.Test3" />
+                <testcase name="test7" time="17.546" classname="com.kuaishoudan.financer.test.Test3" />
+                <testcase name="test12" time="26.074" classname="com.kuaishoudan.financer.test.Test3" />
+                <testcase name="test13" time="27.210" classname="com.kuaishoudan.financer.test.Test3" />
+                <testcase name="test6" time="46.312" classname="com.kuaishoudan.financer.test.Test3" />
+                <testcase name="test11" time="86.937" classname="com.kuaishoudan.financer.test.Test3" />
+                <testcase name="test5" time="6.394" classname="com.kuaishoudan.financer.test.Test3" />
+                <testcase name="test15" time="15.630" classname="com.kuaishoudan.financer.test.Test3" />
+                <testcase name="test4" time="8.236" classname="com.kuaishoudan.financer.test.Test3" />
+                <testcase name="test8" time="91.622" classname="com.kuaishoudan.financer.test.Test3" />
+                <testcase name="test10" time="14.648" classname="com.kuaishoudan.financer.test.Test3" />
+                <testcase name="test14" time="87.254" classname="com.kuaishoudan.financer.test.Test3" />
+      
+</testsuite>

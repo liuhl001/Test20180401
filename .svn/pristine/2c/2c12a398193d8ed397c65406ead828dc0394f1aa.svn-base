@@ -1,0 +1,126 @@
+package com.winsion.inception.test;
+
+import junit.framework.Assert;
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.android.AndroidElement;
+
+import org.openqa.selenium.By;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+import com.winsion.inception.bean.TrainCase;
+import com.winsion.inception.util.CaseUtil;
+import com.winsion.inception.util.Util1;
+import com.winsion.inception.util.Util2;
+
+public class Login {
+
+	public AppiumDriver<AndroidElement> driver;
+
+	@BeforeTest
+	public void setUp() throws Exception {
+
+		driver = Util2.getdriver();
+		Util1.toindex(driver);// 引导页
+		Thread.sleep(500);
+	}
+
+	@AfterTest
+	public void tearDown() throws Exception {
+
+		driver.quit();
+	}
+
+	// 手机号，密码错误
+	@Test
+	public void test1() throws InterruptedException {
+		TrainCase tc = CaseUtil.getCaseByid("TI-1-001");
+
+		Util2.login(driver, tc.getPhone(), tc.getPwd());
+		String result = Util2.getdenglu(driver);
+
+		Assert.assertEquals(result, "登录");
+
+	}
+
+	// 手机号为空，失败
+	@Test
+	public void test2() throws InterruptedException {
+		TrainCase tc = CaseUtil.getCaseByid("TI-1-002");
+
+		login(tc.getPhone(), tc.getPwd());
+		String result = Util2.getdenglu(driver);
+
+		Assert.assertEquals(result, "登录");
+	}
+
+	// 密码为空，失败
+	@Test
+	public void test3() throws InterruptedException {
+		TrainCase tc = CaseUtil.getCaseByid("TI-1-003");
+
+		login(tc.getPhone(), tc.getPwd());
+		String result = Util2.getdenglu(driver);
+
+		Assert.assertEquals(result, "登录");
+	}
+
+	// 手机号，密码登录为空.失败
+	@Test
+	public void test4() throws InterruptedException {
+
+		TrainCase tc = CaseUtil.getCaseByid("TI-1-004");
+
+		login(tc.getPhone(), tc.getPwd());
+		String result = Util2.getdenglu(driver);
+
+		Assert.assertEquals(result, "登录");
+	}
+
+	// 登录成功
+	@Test
+	public void test5() throws InterruptedException {
+		TrainCase tc = CaseUtil.getCaseByid("TI-1-005");
+		login(tc.getPhone(), tc.getPwd());
+
+		String result = Util2.getloginphone(driver);
+
+		Assert.assertEquals(result, tc.getPhone());
+	}
+
+	// 退出
+	@Test
+	public void test6() throws InterruptedException {
+		Thread.sleep(2000);
+		Util2.logout(driver);
+		String result = Util2.getloginphone(driver);
+		Assert.assertEquals(result, "未登录");
+	}
+
+	/**
+	 * denglu
+	 * 
+	 * @param driver
+	 * @throws InterruptedException
+	 */
+	public void login(String phone, String pwd) throws InterruptedException {
+
+		Thread.sleep(2000);
+
+		driver.findElement(
+				By.id("com.winsion.inception:id/et_user_center_phone")).clear();
+		driver.findElement(By.id("com.winsion.inception:id/et_user_center_pwd"))
+				.clear();
+		driver.findElement(
+				By.id("com.winsion.inception:id/et_user_center_phone"))
+				.sendKeys(phone);
+
+		driver.findElement(By.id("com.winsion.inception:id/et_user_center_pwd"))
+				.sendKeys(pwd);
+
+		driver.findElement(
+				By.id("com.winsion.inception:id/bt_user_center_login")).click();
+		Thread.sleep(2000);
+	}
+}

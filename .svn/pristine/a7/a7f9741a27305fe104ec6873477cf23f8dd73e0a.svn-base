@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<suite name="测试" parallel="tests" thread-count="1">
+	<listeners>
+		<listener class-name="org.uncommons.reportng.HTMLReporter" />
+		<listener class-name="org.uncommons.reportng.JUnitXMLReporter" />
+	</listeners>
+<!--
+	<test name="初始化车站测试数据" preserve-order="true">
+		<classes>
+			<class name="com.winsion.inception.test.web.TrainStation" />
+
+		</classes>
+	</test>
+  -->
+	<test name="日期 格式" preserve-order="true">
+		<classes>
+			<class name="com.winsion.inception.test.other.Date" />
+
+		</classes>
+	</test>
+	<test name="K184状态验证" preserve-order="true">
+		<classes>
+			<class name="com.winsion.inception.test.statue.TestK184" />
+
+		</classes>
+	</test>
+
+	<test name="G71状态验证" preserve-order="true">
+		<classes>
+			<class name="com.winsion.inception.test.statue.TestG71" />
+
+		</classes>
+	</test>
+
+	<test name="Z162状态验证" preserve-order="true">
+		<classes>
+			<class name="com.winsion.inception.test.statue.TestZ162" />
+
+		</classes>
+	</test>
+
+	<test name="注册" preserve-order="true">
+		<classes>
+			<class name="com.winsion.inception.test.login.Register" />
+
+		</classes>
+	</test>
+
+	<test name="登录" preserve-order="true">
+		<classes>
+			<class name="com.winsion.inception.test.login.Login" />
+
+		</classes>
+	</test>
+	<test name="旅程资讯" preserve-order="true">
+		<classes>
+			<class name="com.winsion.inception.test.lc.Lczx" />
+
+		</classes>
+	</test>
+
+	<test name="按车次添加" preserve-order="true">
+		<classes>
+			<class name="com.winsion.inception.test.statue.AddTrain" />
+
+		</classes>
+	</test>
+	<test name="按行程添加" preserve-order="true">
+		<classes>
+			<class name="com.winsion.inception.test.statue.AddTrain2" />
+
+		</classes>
+	</test>
+
+	<!-- -->
+
+	<test name="旅程文化" preserve-order="true">
+		<classes>
+			<class name="com.winsion.inception.test.lc.Lcwh" />
+
+		</classes>
+	</test>
+	<test name="旅程服务-天气服务" preserve-order="true">
+		<classes>
+			<class name="com.winsion.inception.test.lc.Tqfw" />
+
+		</classes>
+	</test>
+	<test name="旅程服务-遗失物品-我要报失" preserve-order="true">
+		<classes>
+			<class name="com.winsion.inception.test.lc.Yswp" />
+
+		</classes>
+	</test>
+</suite>

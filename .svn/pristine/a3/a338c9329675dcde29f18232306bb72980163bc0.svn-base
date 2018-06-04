@@ -1,0 +1,148 @@
+package com.winsion.inception.test;
+
+import io.appium.java_client.AppiumDriver; 
+import io.appium.java_client.android.AndroidElement;
+
+import java.text.ParseException;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+import com.winsion.inception.bean.TrainCase;
+import com.winsion.inception.util.Util2;
+
+public class Tqfw {
+
+	private AppiumDriver<AndroidElement> driver;
+	TrainCase c;
+
+	@BeforeTest
+	public void setUp() throws Exception {
+
+		driver = Util2.getdriver();
+		// Util1.toindex(driver);// 引导页
+		Thread.sleep(2000);
+
+		driver.findElement(By.id("android:id/button1")).click();
+
+		Thread.sleep(1000);
+		driver.findElement(
+				By.xpath("//android.view.View[contains(@index,1)]/android.widget.ImageView[2]"))
+				.click(); // 旅程服务
+
+		Thread.sleep(2000);
+		driver.findElements(By.id("com.winsion.inception:id/ll_service_item"))
+				.get(0).click();// 天气服务
+
+		Thread.sleep(1000);
+		driver.context("NATIVE_APP");// 原生
+
+	}
+
+	@AfterTest
+	public void tearDown() throws Exception {
+
+		driver.quit();
+	}
+
+	int n = 1, m = 1;
+
+	/**
+	 * 
+	 * 天气服务头部
+	 * 
+	 * @throws InterruptedException
+	 * @throws ParseException
+	 */
+	@Test(invocationCount = 1, threadPoolSize = 1)
+	public void test1() throws InterruptedException, ParseException {
+		List<AndroidElement> h1 = driver
+				.findElements(By
+						.xpath("//android.view.View/android.view.View/android.view.View"));
+
+		for (int i = 0; i < 4; i++) {
+			String result = h1.get(i).getAttribute("name");
+			System.out.println(result);// h1
+			Assert.assertNotNull(result, i + "");
+			Assert.assertNotEquals("", result, i + "");
+		}
+		AndroidElement h2 = driver
+				.findElement(By
+						.xpath("//android.view.View/android.view.View/android.widget.Image"));
+
+		int n = Integer.parseInt(h2.getAttribute("name"));
+		System.out.println(n);
+		Assert.assertTrue(n >= 0);
+
+	}
+
+	// 中间-曲线温度
+	@Test(invocationCount = 1, threadPoolSize = 1)
+	public void test2() throws InterruptedException, ParseException {
+		List<AndroidElement> h1 = driver
+				.findElements(By
+						.xpath("//android.view.View[contains(@index,1)]/android.view.View/android.view.View/android.view.View"));
+		for (int i = 0; i < 4; i++) {
+			String result = h1.get(i).getAttribute("name");
+			System.out.println(result);// h1
+			Assert.assertNotNull(result, i + "");
+			Assert.assertNotEquals("", result, i + "");
+		}
+
+	}
+
+	// 中间2--天气（汉字）
+	@Test(invocationCount = 1, threadPoolSize = 1)
+	public void test3() throws InterruptedException, ParseException {
+		List<AndroidElement> b1 = driver
+				.findElements(By
+						.xpath("//android.widget.ListView[contains(@index,3)]/android.view.View/android.widget.ListView/android.view.View"));
+		for (int i = 0; i < b1.size(); i++) {
+			System.out.println(b1.get(i).getAttribute("name"));// h1
+
+		}
+		List<AndroidElement> b2 = driver
+				.findElements(By
+						.xpath("//android.widget.ListView[contains(@index,4)]/android.view.View/android.widget.ListView/android.view.View"));
+		for (int i = 0; i < b2.size(); i++) {
+			System.out.println(b2.get(i).getAttribute("name"));// h1
+		}
+	}
+
+	// 中间3--天气（图片）
+	@Test(invocationCount = 1, threadPoolSize = 1)
+	public void test4() throws InterruptedException, ParseException {
+		List<AndroidElement> b1 = driver
+				.findElements(By
+						.xpath("//android.widget.ListView/android.view.View/android.widget.ListView/android.view.View/android.widget.Image"));
+		for (int i = 0; i < b1.size(); i++) {
+
+			int n = Integer.parseInt(b1.get(i).getAttribute("name"));
+			System.out.println(n);
+			Assert.assertTrue(n >= 0);
+		}
+
+	}
+
+	// 尾部
+	@Test
+	public void test5() throws InterruptedException, ParseException {
+
+		List<AndroidElement> t1 = driver
+				.findElements(By
+						.xpath("//android.view.View[contains(@index,2)]/android.view.View/android.view.View"));
+		for (int i = 0; i < t1.size(); i++) {
+			String result = t1.get(i).getAttribute("name");
+			// System.out.println(result);//h1
+
+			Assert.assertNotNull(result, i + "");
+			Assert.assertNotEquals("", result, i + "");
+		}
+
+	}
+
+}
