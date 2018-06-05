@@ -23,7 +23,7 @@ import com.kuaishoudan.financer.util.RandomValue;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidElement;
 
-public class ControlTest {
+public class TestSqht {
 
 	String devicename = "";
 	public WebDriver webdriver;
@@ -36,7 +36,7 @@ public class ControlTest {
 	 */
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
-		ControlTest ct = new ControlTest();
+		TestSqht ct = new TestSqht();
 
 		System.out.println("***@");
 

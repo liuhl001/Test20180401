@@ -16,7 +16,7 @@ import com.kuaishoudan.financer.selenium.AppShopUtil;
 import com.kuaishoudan.financer.selenium.AppUtil;
 import com.kuaishoudan.financer.util.RandomValue;
 
-public class ControlTestShop {
+public class TestShop {
 
 	/**
 	 * @param args
@@ -30,7 +30,7 @@ public class ControlTestShop {
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
        
-		ControlTestShop ct = new ControlTestShop();
+		TestShop ct = new TestShop();
 		ct.setUp();// app启动
 //		ct.setUp2();// web启动
 		

@@ -736,30 +736,31 @@ public class AppUtil {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		driver.findElements(By.id("com.kuaishoudan.financer:id/text_name"))
-				.get(0).click();// 首页列表
-		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+		driver.findElements(By.className("XCUIElementTypeCell"))
+		.get(0).click();// 首页列表
+
 		try {
-			Thread.sleep(3000);
+			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String titletext = driver
-				.findElement(By.id("com.kuaishoudan.financer:id/toolbar_title"))
-				.getText().trim();// 标题文本
+		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+		String titletext = driver.findElement(
+				By.xpath("//XCUIElementTypeNavigationBar/XCUIElementTypeStaticText")).getText();// 标题文本
 		System.out.println(titletext);
 		if ("贷款详情".equals(titletext)) {
+			driver.manage().timeouts().implicitlyWait(45, TimeUnit.SECONDS);
 			driver.findElement(
-					By.id("com.kuaishoudan.financer:id/toolbar_loan_status"))
-					.click();
-			driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+					By.id("icon businessMore"))
+					.click();// 状态审批流程
+			driver.manage().timeouts().implicitlyWait(45, TimeUnit.SECONDS);
 			driver.findElement(
-					By.id("com.kuaishoudan.financer:id/text_customer_algin_jinjian"))
-					.click(); // 大于1次进件
+					By.id("再次进件"))
+					.click();// 查看进度
 		} else {
 			driver.findElement(
-					By.id("com.kuaishoudan.financer:id/btn_add_loan")).click();// 第3次进件3
+					By.id("进件")).click();// 第3次进件3
 		}
 	}
 

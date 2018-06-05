@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -11,22 +12,25 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 import com.kuaishoudan.financer.bean.KSDCase;
+import com.kuaishoudan.financer.dao.UserDaoImpl;
 import com.kuaishoudan.financer.selenium.AppSPUtil;
 import com.kuaishoudan.financer.selenium.AppUtil;
 import com.kuaishoudan.financer.selenium.WebSPUtil;
 import com.kuaishoudan.financer.selenium.WebUtil;
-import com.kuaishoudan.financer.selenium.ZcjjUtil;
+import com.kuaishoudan.financer.util.RandomValue;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidElement;
 
-public class ControlTestZCJJ {
+public class TestBcht {
 	public AppiumDriver<WebElement> driver;
 	String devicename = "";
 	public WebDriver webdriver;
-	KSDCase ksd = null;
+	static KSDCase ksd = null;
 
 	/**
 	 * @param args
@@ -34,64 +38,31 @@ public class ControlTestZCJJ {
 	 */
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
-		ControlTestZCJJ ct = new ControlTestZCJJ();
-		ct.BCHT();
-
-	}
-
-	public void SQHT() throws Exception {
-		ControlTestZCJJ ct = new ControlTestZCJJ();
+		TestBcht ct = new TestBcht();
 
 		System.out.println("***@");
 		ct.setUp2();// web启动
 		ct.setUp();// app启动
-	
-		ct.dfp();// 待分配app
 
-		ct.webDksp();// 已录入到申请合同
+		for (int i = 0; i < 1; i++) {
+			ct.dfp();// 待分配app
 
-		ct.appSqht();// App申请合同
+			ct.webDksp();// 已录
 
-		ct.webSpht();// web审核
+			ct.appBsqht();// App不申请合同-申请请款
 
-		ct.appSqqk();// app请款
+			ct.sp1();
+			ct.sp2();
+			ct.sp3();
+			ct.sp4();
+			ct.sp5();
+			ct.sp6();
+			ct.sp7();
+			// ct.back();
+		}
 
-		ct.sp1();
-		ct.sp2();
-		ct.sp3();
-		;
-		/*
-		 * ct.sp4(); ct.sp5(); ct.sp6();
-		 */
 		ct.tearDown();
 		// ct.back()
-	}
-
-	public void BCHT() throws Exception {
-		ControlTestZCJJ ct = new ControlTestZCJJ();
-
-		System.out.println("***@");
-		ct.setUp();// app启动
-		ct.setUp2();// web启动
-		// System.out.println(
-		// "@@@@"+driver.findElement(By.id("com.kuaishoudan.financer:id/dialog_custom_message")).getText());
-
-		ct.dfp();// 待分配app
-
-		ct.webDksp();// 已录入
-
-		ct.appBsqht();// App不申请合同-申请请款
-
-		ct.sp1();
-		ct.sp2();
-		ct.sp3();
-		;
-		/*
-		 * ct.sp4(); ct.sp5(); ct.sp6();
-		 */
-		ct.tearDown();
-		// ct.back()
-
 	}
 
 	public void back() {
@@ -101,17 +72,6 @@ public class ControlTestZCJJ {
 	public void setUp() throws IOException, InterruptedException {
 		driver = AppUtil.getdriver();
 
-		Process process = Runtime.getRuntime().exec("adb devices");
-		process.waitFor();
-		InputStreamReader isr = new InputStreamReader(process.getInputStream());
-		BufferedReader br = new BufferedReader(isr);
-		br.readLine();
-		devicename = br.readLine().replaceAll("device", "").trim();
-		System.out.println(devicename);
-		Thread.sleep(3000);
-		// AppUtil.login(driver,devicename, "liuhl@jizhicar.com");//登录
-		// AppSPUtil.loginBD(driver, "konglx@jizhicar.com");
-		// AppUtil.logout(driver);
 	}
 
 	// web
@@ -127,24 +87,16 @@ public class ControlTestZCJJ {
 	}
 
 	public void logoutWeb() {
-		// String username="liuhl@jizhicar.com";
-
+	 
 		WebUtil.logout(webdriver);// 登出
-	}
-
-	// App不申请合同
-	public void appBsqht() {
-
-		ZcjjUtil.testBCSQQK(driver,webdriver, ksd,devicename);
-
 	}
 
 	/**
 	 * 创建用户，进件，待审批
 	 */
 	public void dfp() {
-		// AppUtil.addTest(driver, devicename,1);
-		ksd = AppUtil.addZjjtest(driver, devicename, 1);
+		ksd = AppUtil.addTest(driver, webdriver, devicename, 1);
+
 	}
 
 	/**
@@ -152,31 +104,25 @@ public class ControlTestZCJJ {
 	 */
 	public void webDksp() {
 		WebUtil.login(webdriver, ksd);// 登录
-		WebUtil.testDFP(webdriver,ksd);// 待分配
-		WebUtil.testYFP(webdriver,ksd);// 已分配
+		WebUtil.testDFP(webdriver, ksd);// 待分配
+		WebUtil.testYFP(webdriver, ksd);// 已分配
 		WebUtil.testYLR(webdriver, ksd);// 已录入
 		WebUtil.logout(webdriver);// 登出
 
 	}
 
-	// App申请合同
-	public void appSqht() {
+	// App不申请合同
+	public void appBsqht() {
 
-		ksd = ZcjjUtil.sqhtZCJJ(driver, ksd);
-
-	}
-
-	// web审批合同
-	public void webSpht() {
-		WebUtil.login(webdriver,ksd);// 登录
-		WebUtil.testYSQHT(webdriver, ksd);// 申请合同审批
-		WebUtil.logout(webdriver);// 登出
+		ksd = AppSPUtil.testBCSQQK(driver, webdriver, ksd, devicename);
 
 	}
 
 	// 申请请款
 	public void appSqqk() {
-		ZcjjUtil.zcjjHTSQQK(driver,webdriver,ksd,devicename);
+		AppSPUtil.testHTSQQK(driver, webdriver, ksd, devicename);// 请款
+		// System.out.println(AppUtil.getStatue(driver));
+		// AppUtil.look_status(driver);//查看进度
 
 	}
 
@@ -184,10 +130,10 @@ public class ControlTestZCJJ {
 	public void sp1() {
 		try {
 
-			Map<String, String> map = ZcjjUtil.getSPname(driver,ksd);// 从app获取审批人名字
+			Map<String, String> map = AppSPUtil.getSPname(driver, ksd);// 从app获取审批人名字
 			String itename = map.get("prename");
 			String email = WebSPUtil.nameToemail(map.get("name"));
-			WebSPUtil.testSP1(webdriver, email, itename,ksd); // 请款审批同意专员
+			WebSPUtil.testSP1(webdriver, email, itename, ksd); // 请款审批同意专员
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -201,8 +147,7 @@ public class ControlTestZCJJ {
 	//
 	public void sp2() {
 		try {
-
-			Map<String, String> map = ZcjjUtil.getSPname(driver,ksd);// 从app获取审批人名字
+			Map<String, String> map = AppSPUtil.getSPname(driver, ksd);// 从app获取审批人名字
 			String itename = map.get("prename");
 			String email = WebSPUtil.nameToemail(map.get("name"));
 			WebSPUtil.testSP2(webdriver, email, itename); // 请款审批同意专员
@@ -220,19 +165,21 @@ public class ControlTestZCJJ {
 	public void sp3() {
 		try {
 
-			Map<String, String> map = ZcjjUtil.getSPname(driver,ksd);// 从app获取审批人名字
+			Map<String, String> map = AppSPUtil.getSPname(driver, ksd);// 从app获取审批人名字
+
 			if (map.size() == 1) {
 				// bd操作
+
 				String email = WebSPUtil.nameToemail(map.get("name"));
-				ZcjjUtil.loginBD(driver, email);
-				AppUtil.login(driver, devicename, ksd );// 登录
+				AppSPUtil.loginBD(driver, email);
+				AppUtil.login(driver, devicename, ksd);// 登录
+
 				Thread.sleep(1000);
-				Map<String, String> map2 = ZcjjUtil.getSPname(driver,ksd);// 从app获取审批人名字
+				Map<String, String> map2 = AppSPUtil.getSPname(driver, ksd);// 从app获取审批人名字
 				String itename2 = map2.get("prename");
 				String email2 = WebSPUtil.nameToemail(map2.get("name"));
 				WebSPUtil.testSP3(webdriver, email2, itename2); // 请款审批同意专员
 			} else {
-
 				String itename = map.get("prename");
 				String email = WebSPUtil.nameToemail(map.get("name"));
 				WebSPUtil.testSP3(webdriver, email, itename); // 请款审批同意专员
@@ -249,10 +196,10 @@ public class ControlTestZCJJ {
 	public void sp4() {
 		try {
 
-			Map<String, String> map = ZcjjUtil.getSPname(driver,ksd);// 从app获取审批人名字
+			Map<String, String> map = AppSPUtil.getSPname(driver, ksd);// 从app获取审批人名字
 			String itename = map.get("prename");
 			String email = WebSPUtil.nameToemail(map.get("name"));
-			WebSPUtil.testSP4(webdriver, email, itename,ksd); // 请款审批同意专员
+			WebSPUtil.testSP4(webdriver, email, itename, ksd); // 请款审批同意专员
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -266,10 +213,10 @@ public class ControlTestZCJJ {
 	public void sp5() {
 		try {
 
-			Map<String, String> map = ZcjjUtil.getSPname(driver,ksd);// 从app获取审批人名字
+			Map<String, String> map = AppSPUtil.getSPname(driver, ksd);// 从app获取审批人名字
 			String itename = map.get("prename");
 			String email = WebSPUtil.nameToemail(map.get("name"));
-			WebSPUtil.testSP5(webdriver, email, itename,ksd); // 请款审批同意专员
+			WebSPUtil.testSP5(webdriver, email, itename, ksd); // 请款审批同意专员
 			AppUtil.goBack1(driver);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -296,10 +243,10 @@ public class ControlTestZCJJ {
 		ksd = WebSPUtil.testSP7(webdriver, ksd); // 请款审批同意专员
 
 	}
+
 	public void tearDown() throws Exception {
 
 		driver.quit();
 		webdriver.quit();
 	}
-
 }
