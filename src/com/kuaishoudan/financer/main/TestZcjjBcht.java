@@ -42,18 +42,17 @@ public class TestZcjjBcht {
 
 	
 		ct.dfp();// 待分配app
+//
+//		ct.webDksp();// 已录入
 
-		ct.webDksp();// 已录入
+//		ct.appBsqht();// App不申请合同-申请请款
 
-		ct.appBsqht();// App不申请合同-申请请款
-
-		ct.sp1();
-		ct.sp2();
-		ct.sp3();
-		;
-		/*
-		 * ct.sp4(); ct.sp5(); ct.sp6();
-		 */
+//		ct.sp1();
+//		ct.sp2();
+//		ct.sp3();
+//		;
+	 ct.sp4(); ct.sp5(); ct.sp6();
+		 
 		ct.tearDown();
 		// ct.back()
 
@@ -74,7 +73,7 @@ public class TestZcjjBcht {
 
 	// web
 	public void setUp2() throws IOException, InterruptedException {
-		webdriver = WebUtil.getdriver();
+			webdriver = WebUtil.getdriver();
 
 	}
 
@@ -99,8 +98,8 @@ public class TestZcjjBcht {
 	 * 创建用户，进件，待审批
 	 */
 	public void dfp() {
-		// AppUtil.addTest(driver, devicename,1);
-		ksd = AppUtil.addZjjtest(driver, devicename, 1);
+	 
+		ksd = AppUtil.addZjjtest(driver,webdriver, devicename, 1);
 	}
 
 	/**
@@ -139,7 +138,7 @@ public class TestZcjjBcht {
 	// 请款审批同意专员
 	public void sp1() {
 		try {
-
+	
 			Map<String, String> map = ZcjjUtil.getSPname(driver,ksd);// 从app获取审批人名字
 			String itename = map.get("prename");
 			String email = WebSPUtil.nameToemail(map.get("name"));
@@ -204,7 +203,7 @@ public class TestZcjjBcht {
 
 	public void sp4() {
 		try {
-
+			ksd.setSssh("");
 			Map<String, String> map = ZcjjUtil.getSPname(driver,ksd);// 从app获取审批人名字
 			String itename = map.get("prename");
 			String email = WebSPUtil.nameToemail(map.get("name"));

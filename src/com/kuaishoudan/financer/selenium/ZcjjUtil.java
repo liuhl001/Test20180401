@@ -94,9 +94,8 @@ public class ZcjjUtil {
 		
 		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 
-		String titletext = driver
-				.findElement(By.id("com.kuaishoudan.financer:id/toolbar_title"))
-				.getText().trim();// 标题文本
+		 String titletext=driver.findElements(By.className("XCUIElementTypeStaticText")).get(1).getText();
+
 		System.out.println(titletext);
 		if ("客户".equals(titletext)) {
 			driver.findElements(By.id("com.kuaishoudan.financer:id/text_name"))
@@ -106,74 +105,96 @@ public class ZcjjUtil {
 		driver.findElements(By.id("com.kuaishoudan.financer:id/text_product"))
 				.get(0).click();// 常规产品列表
 
-		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 		driver.findElement(
-				By.id("com.kuaishoudan.financer:id/btn_apply_request")).click();// 申请请款
-		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-		driver.findElement(
-				By.id("com.kuaishoudan.financer:id/text_request_pay_name"))
-				.click();
-		driver.findElement(By.id("com.kuaishoudan.financer:id/iv_is_show"))
-				.click();// xia
-		driver.findElement(
-				By.id("com.kuaishoudan.financer:id/ll_chekuan_shangpaidiya"))
-				.click();// 上牌抵押地
-		driver.findElement(By.id("com.kuaishoudan.financer:id/options3"))
-				.click();// 城市
-		int width = driver.manage().window().getSize().width;
-		int height = driver.manage().window().getSize().height;
-		driver.swipe(width * 2 / 3, height - 80, width * 2 / 3, height - 280,
-				800);
-		driver.findElement(By.id("com.kuaishoudan.financer:id/btnSubmit"))
-				.click();// 城市确定
-		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-		driver.findElement(
-				By.id("com.kuaishoudan.financer:id/tv_chekuan_shangpaifang"))
-				.click();// 上牌方
-		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-		driver.findElements(By.id("com.kuaishoudan.financer:id/text_select"))
-				.get(0).click();
-		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-		driver.findElement(
-				By.id("com.kuaishoudan.financer:id/tv_chekuan_diyafang"))
-				.click();// 抵押方
-		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-		driver.findElements(By.id("com.kuaishoudan.financer:id/text_select"))
-				.get(0).click();
-		driver.manage().timeouts().implicitlyWait(25, TimeUnit.SECONDS);
+				By.id("申请请款")).click();// 申请请款
+		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+		driver.findElement(By.xpath("//XCUIElementTypeApplication/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell/XCUIElementTypeStaticText[5]")).click();
+		 // zhanghu列表
+		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+		driver.findElement(By.xpath("//XCUIElementTypeButton[@name='wd phyout more'][1]"))
+		.click();// xia
+		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+		driver.findElements(
+				By.className("XCUIElementTypeCell")).get(4).click();// 上牌抵押地
+driver.manage().timeouts().implicitlyWait(55, TimeUnit.SECONDS);
+		
+
+		driver.manage().timeouts().implicitlyWait(55, TimeUnit.SECONDS);
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		HashMap tapObject = new HashMap();
+		tapObject.put("x", 380);
+		tapObject.put("y", 520);
+		tapObject.put("duration", 1000);
+		js.executeScript("mobile: tap", tapObject);
+ //
+
+ 
+		driver.manage().timeouts().implicitlyWait(45, TimeUnit.SECONDS);
+		driver.findElements(
+				By.className("XCUIElementTypeCell")).get(5).click();// 上牌方
+		driver.manage().timeouts().implicitlyWait(45, TimeUnit.SECONDS);
+		driver.findElement(By.id("经销商"))
+				 .click();
+		driver.manage().timeouts().implicitlyWait(45, TimeUnit.SECONDS);
+		driver.findElements(
+				By.className("XCUIElementTypeCell")).get(6).click();// 抵押方
+		driver.manage().timeouts().implicitlyWait(55, TimeUnit.SECONDS);
+		driver.findElement(By.id("我司"))
+				 .click();
+		driver.manage().timeouts().implicitlyWait(45, TimeUnit.SECONDS);
+		
 		try {
-			Runtime.getRuntime().exec(
-					"adb -s " + devicename + " shell input text "
-							+ ksd.getDeduction());
+ 
 			Thread.sleep(500);
-		} catch (IOException | InterruptedException e2) {
+//			driver.findElement(By.xpath("//XCUIElementTypeApplication[@name='快收单']/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell[9]/XCUIElementTypeTextField/XCUIElementTypeTextField")
+//					).sendKeys(""+ksd.getDeduction());;//扣除款项
+//
+//			Thread.sleep(500);
+			AppUtil.swipeToUp(driver, 1000);// 向上滑动
+			Thread.sleep(1000);
+		} catch ( InterruptedException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
-		driver.findElement(By.id("com.kuaishoudan.financer:id/tv_chekuan_kouchuxiang")).click();//扣除款项
 
-		AppUtil.swipeToUp(driver, 1000);// 向上滑动		
-		AppUtil.uploadQk(driver,ksd.getImgcount());
-		RequestPayout requestPyout = ksd.getRequestpayout();
-		try {
-			AppUtil.testFd(driver, devicename,requestPyout);
-		//	AppUtil.testDy(driver,devicename, requestPyout);
-		//	AppUtil.testZx(driver,devicename, requestPyout);
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-		//	e1.printStackTrace();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-		//	e1.printStackTrace();
-		}
+		driver.manage().timeouts().implicitlyWait(58, TimeUnit.SECONDS);
+		 
+ 
+		WebElement  upload=driver.findElement(By.xpath("//XCUIElementTypeApplication[@name='快收单']/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell[12]"));
+		int y=upload.getLocation().getY()-75;
+		System.out.println(upload.getLocation().getY()+","+y);
+
+ 
+		HashMap tapObject2 = new HashMap();
+		tapObject2.put("x", 100);
+	 
+		tapObject2.put("y",y);  
+		tapObject2.put("duration", 1000);
+		js.executeScript("mobile: tap", tapObject2);
+		//上传照片
+
 		
-		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		AppUtil.uploadQk(driver,ksd.getImgcount());
+		
+		RequestPayout requestPyout = ksd.getRequestpayout();
+		
+	
+		//	AppUtil.testFd(driver, devicename,requestPyout);
+	
+		//	AppUtil.testDy(driver,devicename, requestPyout);
+
+	//		AppUtil.testZx(driver,devicename, requestPyout);
+		
+		
+		driver.manage().timeouts().implicitlyWait(58, TimeUnit.SECONDS);
+		
 		driver.findElement(
-				By.id("com.kuaishoudan.financer:id/tv_toolbar_confirm"))
+				By.id("确认"))
 				.click();// 确定
-		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(65, TimeUnit.SECONDS);
 		//
-		driver.findElement(By.id("com.kuaishoudan.financer:id/tv_confirm"))
+		driver.findElement(By.id("确认"))
 				.click();// 申请请款确定
 
 		try {
@@ -182,27 +203,16 @@ public class ZcjjUtil {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		driver.findElement(By.id("com.kuaishoudan.financer:id/tv_countdown"))
+		driver.manage().timeouts().implicitlyWait(35, TimeUnit.SECONDS);
+		driver.findElement(By.xpath("//XCUIElementTypeButton[@name='确认']"))
 				.click();// 信息确认按钮
 		try {
-			Thread.sleep(3000);
+			Thread.sleep(500);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// actualstatue= AppUtil.getStatue(driver);
-		driver.findElement(By.id("com.kuaishoudan.financer:id/toolbar_back"))
-				.click();// 返回
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		driver.manage().timeouts().implicitlyWait(8, TimeUnit.SECONDS);
-		driver.findElement(By.id("com.kuaishoudan.financer:id/toolbar_back"))
-				.click();// 返回
-		actualstatue = ZcjjUtil.getActstatue(driver);//查值
+		actualstatue = AppUtil.getStatue(driver);
 		ksd.setStatue(actualstatue);
 		return ksd;
 	}
@@ -221,14 +231,12 @@ public class ZcjjUtil {
 			System.out.println("下-----------" + title);
 
 		} else {
-			String titletext = driver.findElement(
-					By.xpath("//XCUIElementTypeNavigationBar/XCUIElementTypeStaticText"))
-					.getText().trim();// 标题文本
+			 String titletext=driver.findElements(By.className("XCUIElementTypeStaticText")).get(1).getText();
+
 			System.out.println(titletext);
 			if ("客户".equals(titletext)) {
-				driver.findElements(
-						By.id("com.kuaishoudan.financer:id/text_name")).get(0)
-						.click();// 首页列表
+				driver.findElements(By.className("XCUIElementTypeCell"))
+				.get(0).click();//首页列表
 			}
 	
 			driver.findElements(By.className("XCUIElementTypeCell"))
@@ -236,15 +244,12 @@ public class ZcjjUtil {
 
 			driver.manage().timeouts().implicitlyWait(45, TimeUnit.SECONDS);
 			driver.findElement(
-					By.id("icon businessMore"))
+					By.id("icon operation his"))
 					.click();// 状态审批流程
-			driver.manage().timeouts().implicitlyWait(45, TimeUnit.SECONDS);
-			driver.findElement(
-					By.id("查看进度"))
-					.click();// 查看进度
+
 
 		}
-		Thread.sleep(2500);
+		Thread.sleep(2000);
 		List<WebElement> statueitems = driver.findElements(By
 				.className("XCUIElementTypeCell"));
 		for (int i = 0; i < statueitems.size(); i++) {
@@ -334,11 +339,16 @@ public class ZcjjUtil {
 		ksd.setImgtypes(list2);
 		System.out.println(list2.size()+"$$$"+countImg);
 		ksd.setImgcount(countImg);
-		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-		String titletext = driver.findElement(
-				By.xpath("//XCUIElementTypeNavigationBar/XCUIElementTypeStaticText")).getText();// 标题文本
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		driver.manage().timeouts().implicitlyWait(115, TimeUnit.SECONDS);
 
-		System.out.println(titletext);
+	 String titletext=driver.findElements(By.className("XCUIElementTypeStaticText")).get(1).getText();
+	//	System.out.println(titletext);
 		if ("客户".equals(titletext)) {
 			driver.findElements(By.className("XCUIElementTypeCell"))
 			.get(0).click();// 首页列表
@@ -497,24 +507,19 @@ public class ZcjjUtil {
 		}
 		driver.findElement(By.id("icon back"))
 				.click();// 返回
-		driver.manage().timeouts().implicitlyWait(8, TimeUnit.SECONDS);
+	
 		try {
 			Thread.sleep(500);
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		String titletext = driver.findElement(
-				By.xpath("//XCUIElementTypeNavigationBar/XCUIElementTypeStaticText")).getText();// 标题文本
+//		String titletext = driver.findElement(
+//				By.xpath("//XCUIElementTypeNavigationBar/XCUIElementTypeStaticText")).getText();// 标题文本
 
-		if ("贷款详情".equals(titletext)) {
-			driver.findElement(
-					By.id("icon back")).click();// 返回
-			driver.manage().timeouts().implicitlyWait(8, TimeUnit.SECONDS);
-			driver.findElement(
-					By.id("icon back")).click();// 返回
-		}
-	
+		
+		driver.findElement(By.id("icon back"))
+		.click();// 返回
 	
 		try {
 			Thread.sleep(500);

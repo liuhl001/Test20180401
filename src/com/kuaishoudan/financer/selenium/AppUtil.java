@@ -740,15 +740,20 @@ public class AppUtil {
 		.get(0).click();// 首页列表
 
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(500);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-		String titletext = driver.findElement(
-				By.xpath("//XCUIElementTypeNavigationBar/XCUIElementTypeStaticText")).getText();// 标题文本
-		System.out.println(titletext);
+//		String titletext = driver.findElement(
+//				By.xpath("//XCUIElementTypeNavigationBar/XCUIElementTypeStaticText[2]")).getText();// 标题文本
+//		List<WebElement> ffs=driver.findElements(By.className("XCUIElementTypeStaticText"));
+//		for(int i=0;i<ffs.size();i++){
+//			System.out.println(ffs.get(i).getText());
+//		}
+		String titletext =driver.findElements(By.className("XCUIElementTypeStaticText")).get(1).getText();
+//		System.out.println(titletext);
 		if ("贷款详情".equals(titletext)) {
 			driver.manage().timeouts().implicitlyWait(45, TimeUnit.SECONDS);
 			driver.findElement(
@@ -773,7 +778,7 @@ public class AppUtil {
 	public static String upload(AppiumDriver<WebElement> driver,
 			int imgcount) {
 		String acstatue = "";
-//imgcount=15;
+//imgcount=27;
 		int count1 = imgcount / 9;
 		int count2 = imgcount % 9;
 		try {
@@ -794,9 +799,15 @@ public class AppUtil {
 				for (int i = 4; i < 13; i++) {
 					if (i == 4&&j>0) {
 						
-						for (int k = 0; k < (count1 * 10); k++)
+						if(j==1){
+						for (int k = 0; k < (j * 10); k++)
 
 							cs.get(i).click();
+						}else{
+							for (int k = 0; k < (j * 9); k++)
+
+								cs.get(i).click();
+						}
 					
 					}else if(i==5){
 						
@@ -875,7 +886,7 @@ public class AppUtil {
 				driver.findElement(By.xpath("//XCUIElementTypeApplication[@name='快收单']/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeToolbar/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeButton"))
 						.click();// 两种证上传——确定按钮
 
-				Thread.sleep(5000 + count2 * 2000);
+				Thread.sleep(7000 + count2 * 2000);
 			}
 			driver.manage().timeouts().implicitlyWait(58, TimeUnit.SECONDS);
 			driver.findElement(
@@ -913,16 +924,10 @@ public class AppUtil {
 		return acstatue;
 	}
 
-	public static KSDCase addZjjtest(AppiumDriver<WebElement> driver,
+	public static KSDCase addZjjtest(AppiumDriver<WebElement> driver,WebDriver webdriver,
 			String devicename, int i) {
-		WebDriver webdriver = null;
-		try {
-			webdriver = WebUtil.getdriver();
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		KSDCase ksd = RandomValue.getRandom();
+
+		KSDCase ksd = RandomValue.getRandom(driver);
 		System.out.println("名称" + ksd.getUsername() + "手机" + ksd.getPhone()
 				+ "身份证号" + ksd.getIdentitynum() + "身份类型"
 				+ ksd.getIdentitytype() + "军官" + ksd.getJgid() + "企业个人"
@@ -931,12 +936,12 @@ public class AppUtil {
 				+ ksd.getCarprice() + "贷款价格" + ksd.getSqdk() + "融资期限"
 				+ ksd.getHkqs());
 		int gq = ksd.getQygr();
-		AppUtil.zcjj(driver);
-		if (gq == 0) {// 企业贷款
-			ksd = addQy(driver, webdriver, devicename, i, ksd);
-		} else {// 个人贷款
-			ksd = addGr(driver, webdriver, devicename, i, ksd);
-		}
+//		AppUtil.zcjj(driver);
+//		if (gq == 2) {// 企业贷款
+//			ksd = addQy(driver, webdriver, devicename, i, ksd);
+//		} else {// 个人贷款
+//			ksd = addGr(driver, webdriver, devicename, i, ksd);
+//		}
 		return ksd;
 	}
 
@@ -976,7 +981,7 @@ public class AppUtil {
 		driver.manage().timeouts().implicitlyWait(58, TimeUnit.SECONDS);
 		driver.findElement(By.id("icon baidian"))
 				.click();// 菜单
-		driver.manage().timeouts().implicitlyWait(58, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(158, TimeUnit.SECONDS);
 		driver.findElement(By.id("defaultIcon"))
 				.click();// 头像
 		driver.manage().timeouts().implicitlyWait(58, TimeUnit.SECONDS);
@@ -1097,17 +1102,18 @@ public class AppUtil {
 
 	}
 
-	public static String getIndexname(AppiumDriver<AndroidElement> driver) {
+	public static String getIndexname(AppiumDriver<WebElement> driver) {
 		try {
-			Thread.sleep(2000);
+			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String name = driver
-				.findElements(By.id("com.kuaishoudan.financer:id/text_name"))
-				.get(0).getText().trim();
-		return name;
+
+
+		String name2 =driver.findElement(By.xpath("//XCUIElementTypeCell[1]/XCUIElementTypeStaticText[2]")).getText();
+
+		return name2;
 	}
 
 	/**
@@ -1140,9 +1146,15 @@ public class AppUtil {
 				for (int i = 4; i < 13; i++) {
 					if (i == 4&&j>0) {
 						
-						for (int k = 0; k < (count1 * 10); k++)
+							if(j==1){
+							for (int k = 0; k < (j * 10); k++)
 
-							cs.get(i).click();
+								cs.get(i).click();
+							}else{
+								for (int k = 0; k < (j * 9); k++)
+
+									cs.get(i).click();
+							}
 					
 					}else if(i==5){
 						

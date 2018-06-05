@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.openqa.selenium.WebElement;
+
 import com.kuaishoudan.financer.bean.KSDCase;
 import com.kuaishoudan.financer.bean.RequestPayout;
 import com.kuaishoudan.financer.bean.ShopBeanCase;
@@ -497,7 +499,7 @@ public class RandomValue {
 		ksd.setZjtr((int) (Math.random() * 4));
 		return ksd;
 	}
-	public static KSDCase getRandom(AppiumDriver<AndroidElement> driver) {
+	public static KSDCase getRandom(AppiumDriver<WebElement> driver) {
 		System.out.println("@");
 
 		IdCardGenerator g = new IdCardGenerator();

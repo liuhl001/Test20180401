@@ -130,7 +130,7 @@ public class TestZcjjSqht {
 	 */
 	public void dfp() {
 		// AppUtil.addTest(driver, devicename,1);
-		ksd = AppUtil.addZjjtest(driver, devicename, 1);
+		ksd = AppUtil.addZjjtest(driver,webdriver, devicename, 1);
 	}
 
 	/**

@@ -116,10 +116,10 @@ System.out.println(aa);*/
 				 * ksd.setInsurance(rs.getString("insurance"));
 				 * ksd.setService_charge(rs.getString("service_charge"));
 				 */
-
+		 
 			}
 		} catch (SQLException e) {
-			System.out.println(e);
+		
 			e.printStackTrace();
 		} finally {
 			util.closeConn(conn);
