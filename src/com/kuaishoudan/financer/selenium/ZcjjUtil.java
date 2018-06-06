@@ -249,8 +249,12 @@ public class ZcjjUtil {
 			System.out.println("@@" + statueitems.size());
 			if ("正在处理".equals(statue)) {
 				String name = statueitems.get(i).findElement(By.xpath("XCUIElementTypeStaticText[3]")).getText();
-				// System.out.println(i+"!!!!"+name);
-
+				int size2=statueitems.get(i).findElements(By.className("XCUIElementTypeStaticText")).size();
+				if(size2==2){
+					map.put("name", ksd.getLoginemail());
+					map.put("prename", ksd.getLoginname());
+					break;
+				}
 				String[] strs = name.split("-");
 				if (strs[0].contains("BD")) {
 					// ///////////////////////////////

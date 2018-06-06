@@ -810,9 +810,10 @@ public class AppUtil {
 						.xpath("//XCUIElementTypeApplication/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeToolbar/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeButton"))
 						.click();// 两种证上传——确定按钮
 
-				Thread.sleep(10000 + count2 * 2000);
+				Thread.sleep(7000 + count2 * 2000);
 			}
-
+			AppUtil.swipeToUp2(driver, 1000);// 向上滑动
+			Thread.sleep(1000);
 			driver.manage().timeouts().implicitlyWait(58, TimeUnit.SECONDS);
 			driver.findElement(By.xpath("//XCUIElementTypeButton[@name='提交']")).click();// 上传完照片-确认按钮
 			driver.manage().timeouts().implicitlyWait(158, TimeUnit.SECONDS);
