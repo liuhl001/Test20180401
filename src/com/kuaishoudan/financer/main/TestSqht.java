@@ -43,7 +43,7 @@ public class TestSqht {
 		ct.setUp2();// web启动
 		ct.setUp();// app启动
 
-		// for (int i = 0; i < 2; i++) {
+		// for (int i = 0; i < 1; i++) {
 		// System.out.println(i);
 		ct.dfp();// 待分配app
 		ct.webDksp();// 已录入到申请合同
@@ -111,7 +111,6 @@ public class TestSqht {
 	public void dfp() {
 		ksd = AppUtil.addTest(driver, webdriver, devicename, 1);
 
-		// System.out.println("##==dfp" + ksd.getStatue());
 	}
 
 	/**
@@ -147,9 +146,7 @@ public class TestSqht {
 	// 申请请款
 	public void appSqqk() {
 		ksd = AppSPUtil.testHTSQQK(driver, webdriver, ksd, devicename);// 请款
-		// System.out.println(AppUtil.getStatue(driver));
-		// AppUtil.look_status(driver);//查看进度
-		// System.out.println("##===sqqk" + AppSPUtil.getActstatue(driver));
+
 	}
 
 	// 请款审批同意专员

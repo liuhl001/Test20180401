@@ -41,18 +41,18 @@ public class TestZcjjBcht {
 		ct.setUp();// app启动
 
 	
-		ct.dfp();// 待分配app
-//
-//		ct.webDksp();// 已录入
+	ct.dfp();// 待分配app
+////
+		ct.webDksp();// 已录入
+		
+		ct.appBsqht();// App不申请合同-申请请款
 
-//		ct.appBsqht();// App不申请合同-申请请款
-
-//		ct.sp1();
-//		ct.sp2();
-//		ct.sp3();
+		ct.sp1();
+		ct.sp2();
+		ct.sp3();
 //		;
 	 ct.sp4(); ct.sp5(); ct.sp6();
-		 
+	 ct.sp7();
 		ct.tearDown();
 		// ct.back()
 
@@ -203,7 +203,7 @@ public class TestZcjjBcht {
 
 	public void sp4() {
 		try {
-			ksd.setSssh("");
+	
 			Map<String, String> map = ZcjjUtil.getSPname(driver,ksd);// 从app获取审批人名字
 			String itename = map.get("prename");
 			String email = WebSPUtil.nameToemail(map.get("name"));
@@ -253,8 +253,9 @@ public class TestZcjjBcht {
 	}
 	public void tearDown() throws Exception {
 
-		driver.quit();
+		System.out.println("finish");
 		webdriver.quit();
+		driver.quit();
 	}
 
 }

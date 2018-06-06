@@ -87,7 +87,7 @@ public class TestBcht {
 	}
 
 	public void logoutWeb() {
-	 
+
 		WebUtil.logout(webdriver);// 登出
 	}
 
@@ -121,8 +121,6 @@ public class TestBcht {
 	// 申请请款
 	public void appSqqk() {
 		AppSPUtil.testHTSQQK(driver, webdriver, ksd, devicename);// 请款
-		// System.out.println(AppUtil.getStatue(driver));
-		// AppUtil.look_status(driver);//查看进度
 
 	}
 
