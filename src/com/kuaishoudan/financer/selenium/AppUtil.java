@@ -239,7 +239,8 @@ public class AppUtil {
 						.click();// 品牌车系
 				driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 				try {
-
+					Thread.sleep(500);
+				 
 					// driver.findElement(By.name(ksd.getCarbrand())).click();
 					driver.findElements(By.className("XCUIElementTypeCell")).get(0).click();
 					cx = true;
@@ -483,7 +484,8 @@ public class AppUtil {
 				}
 				try {
 					if (cx) {
-						Thread.sleep(200);
+						Thread.sleep(500);
+
 						// driver.findElement(By.id(ksd.getCarseries())).click();
 						driver.findElements(By.className("XCUIElementTypeCell")).get(0).click();
 
@@ -642,7 +644,7 @@ public class AppUtil {
 		int gq = ksd.getQygr();
 		boolean flag = createUser(driver, devicename, i, ksd);
 		// boolean flag=true;
-		gq = 2;
+
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
@@ -808,11 +810,11 @@ public class AppUtil {
 						.xpath("//XCUIElementTypeApplication/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeToolbar/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeButton"))
 						.click();// 两种证上传——确定按钮
 
-				Thread.sleep(7000 + count2 * 2000);
+				Thread.sleep(10000 + count2 * 2000);
 			}
 
-			driver.manage().timeouts().implicitlyWait(258, TimeUnit.SECONDS);
-			driver.findElement(By.id("提交")).click();// 上传完照片-确认按钮
+			driver.manage().timeouts().implicitlyWait(58, TimeUnit.SECONDS);
+			driver.findElement(By.xpath("//XCUIElementTypeButton[@name='提交']")).click();// 上传完照片-确认按钮
 			driver.manage().timeouts().implicitlyWait(158, TimeUnit.SECONDS);
 			driver.findElement(By.id("确定")).click();// 提醒确定是
 
@@ -897,8 +899,10 @@ public class AppUtil {
 		// System.out.println("logout");
 		driver.manage().timeouts().implicitlyWait(58, TimeUnit.SECONDS);
 		driver.findElement(By.id("icon baidian")).click();// 菜单
-		driver.manage().timeouts().implicitlyWait(158, TimeUnit.SECONDS);
-		driver.findElement(By.id("defaultIcon")).click();// 头像
+		
+		driver.manage().timeouts().implicitlyWait(58, TimeUnit.SECONDS);
+		driver.findElement(By.xpath("//XCUIElementTypeApplication/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeTable/XCUIElementTypeCell[1]/XCUIElementTypeImage")).click();// 头像
+		//driver.findElement(By.id("defaultIcon")).click();// 头像
 		driver.manage().timeouts().implicitlyWait(58, TimeUnit.SECONDS);
 		driver.findElement(By.xpath("//XCUIElementTypeButton[@name='退出登录']")).click();// 退出登录
 		driver.manage().timeouts().implicitlyWait(48, TimeUnit.SECONDS);
@@ -1046,15 +1050,15 @@ public class AppUtil {
 				for (int i = 4; i < 13; i++) {
 					if (i == 4 && j > 0) {
 
-						if (j == 1) {
+					//	if (j == 1) {
 							for (int k = 0; k < (j * 10); k++)
 
 								cs.get(i).click();
-						} else {
-							for (int k = 0; k < (j * 9); k++)
-
-								cs.get(i).click();
-						}
+//						} else {
+//							for (int k = 0; k < (j * 9); k++)
+//
+//								cs.get(i).click();
+//						}
 
 					} else if (i == 5) {
 

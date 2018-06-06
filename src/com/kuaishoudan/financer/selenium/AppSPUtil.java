@@ -114,7 +114,7 @@ public class AppSPUtil {
 				.click();
 		// zhanghu列表
 		try {
-			Thread.sleep(300);
+			Thread.sleep(1000);
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -193,7 +193,12 @@ public class AppSPUtil {
 
 		driver.findElement(By.id("确认")).click();// 确定
 		driver.manage().timeouts().implicitlyWait(65, TimeUnit.SECONDS);
-		//
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		driver.findElement(By.id("确认")).click();// 申请请款确定
 
 		try {
@@ -267,7 +272,7 @@ public class AppSPUtil {
 				.click();
 		// zhanghu列表
 		try {
-			Thread.sleep(300);
+			Thread.sleep(1000);
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -352,7 +357,12 @@ public class AppSPUtil {
 
 		driver.findElement(By.id("确认")).click();// 确定
 		driver.manage().timeouts().implicitlyWait(65, TimeUnit.SECONDS);
-		//
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		driver.findElement(By.id("确认")).click();// 申请请款确定
 
 		try {
@@ -530,12 +540,17 @@ public class AppSPUtil {
 		}
 		Thread.sleep(2500);
 		List<WebElement> statueitems = driver.findElements(By.className("XCUIElementTypeCell"));
-		System.out.println("@@" + statueitems.get(0).findElement(By.xpath("XCUIElementTypeStaticText[1]")).getText()
-				+ statueitems.get(0).findElement(By.xpath("XCUIElementTypeStaticText[2]")).getText()
-				+ statueitems.get(0).findElement(By.xpath("XCUIElementTypeStaticText[3]")).getText());
+//		System.out.println("@@" + statueitems.get(0).findElement(By.xpath("XCUIElementTypeStaticText[1]")).getText()
+//				+ statueitems.get(0).findElement(By.xpath("XCUIElementTypeStaticText[2]")).getText()
+//				+ statueitems.get(0).findElement(By.xpath("XCUIElementTypeStaticText[3]")).getText());
 		for (int i = 0; i < statueitems.size(); i++) {
 			String statue = statueitems.get(i).findElement(By.xpath("XCUIElementTypeStaticText[2]")).getText();
-
+			int size2=statueitems.get(i).findElements(By.className("XCUIElementTypeStaticText")).size();
+			if(size2==2){
+				map.put("name", ksd.getLoginemail());
+				map.put("prename", ksd.getLoginname());
+				break;
+			}
 			if ("正在处理".equals(statue)) {
 				String name = statueitems.get(i).findElement(By.xpath("XCUIElementTypeStaticText[3]")).getText();
 				// System.out.println("!!!!"+name);
@@ -587,11 +602,12 @@ public class AppSPUtil {
 		// }
 		// AppUtil.swipeToDown(driver, 1000);
 		try {
-			Thread.sleep(500);
+			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		driver.manage().timeouts().implicitlyWait(45, TimeUnit.SECONDS);
 		String actu = driver.findElement(By.xpath("//XCUIElementTypeCell/XCUIElementTypeStaticText")).getText().trim();
 		return actu;
 

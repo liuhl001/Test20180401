@@ -475,7 +475,7 @@ public class RandomValue {
 		ksd.setQygr(loantype);// 2企业1个人
 		ksd.setBusinessname("qiyemc");// 企业名称
 		ksd.setBusinessid("yingyezzh");// 企业执照
-		ksd.setCartype(cartype);// 0新车  1 二手车
+		ksd.setCartype(1);// 0新车  1 二手车cartype
 		ksd.setCarbrand("宝骏");
 		ksd.setCarseries("宝骏630");
 		ksd.setCarprice(cljg);// 车辆价格

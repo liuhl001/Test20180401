@@ -75,7 +75,7 @@ public class WebSPUtil {
 		boolean flag = false;
 
 		if (email.equals(ksd.getLoginemail()) || email.equals("")) {
-			login2(driver, ksd.getLoginemail(), "@123456");
+			login2(driver, ksd.getLoginemail(), ksd.getPwd());
 			driver.findElement(By.linkText("客户")).click();
 			driver.findElement(By.linkText("请款管理")).click();
 			clickItemorder(driver, itename);

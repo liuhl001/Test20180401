@@ -130,7 +130,7 @@ public class TestSqht {
 
 		ksd = AppSPUtil.testSQHT(driver, ksd);
 
-		System.out.println("##===" + ksd.getStatue());
+		//System.out.println("##===" + ksd.getStatue());
 
 	}
 
@@ -139,7 +139,7 @@ public class TestSqht {
 		WebUtil.login(webdriver, ksd);// 登录
 		WebUtil.testYSQHT(webdriver, ksd);// 申请合同审批
 		WebUtil.logout(webdriver);// 登出
-		System.out.println("##===" + AppSPUtil.getActstatue(driver));
+	//	System.out.println("##===" + AppSPUtil.getActstatue(driver));
 
 	}
 

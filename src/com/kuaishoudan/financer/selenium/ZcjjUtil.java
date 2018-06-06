@@ -109,7 +109,7 @@ public class ZcjjUtil {
 				.click();
 		// zhanghu列表
 		try {
-			Thread.sleep(300);
+			Thread.sleep(1000);
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -186,6 +186,12 @@ public class ZcjjUtil {
 		driver.manage().timeouts().implicitlyWait(58, TimeUnit.SECONDS);
 
 		driver.findElement(By.id("确认")).click();// 确定
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		driver.manage().timeouts().implicitlyWait(65, TimeUnit.SECONDS);
 		//
 		driver.findElement(By.id("确认")).click();// 申请请款确定
@@ -342,7 +348,7 @@ public class ZcjjUtil {
 				.click();
 		// zhanghu列表
 		try {
-			Thread.sleep(300);
+			Thread.sleep(1000);
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -426,7 +432,12 @@ public class ZcjjUtil {
 		driver.manage().timeouts().implicitlyWait(58, TimeUnit.SECONDS);
 
 		driver.findElement(By.id("确认")).click();// 确定
-
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		driver.manage().timeouts().implicitlyWait(565, TimeUnit.SECONDS);
 		//
 		driver.findElement(By.id("确认")).click();// 申请请款确定
