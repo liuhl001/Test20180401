@@ -211,7 +211,7 @@ public class WebSPUtil {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		driver.manage().timeouts().implicitlyWait(33, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(53, TimeUnit.SECONDS);
 		Select userSelect = new Select(driver.findElement(By.id("orderby_type")));
 		userSelect.selectByVisibleText("按贷款时间倒序排列");
 		driver.manage().timeouts().implicitlyWait(13, TimeUnit.SECONDS);

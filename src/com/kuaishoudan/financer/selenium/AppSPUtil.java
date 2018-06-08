@@ -532,9 +532,9 @@ public class AppSPUtil {
 
 			driver.findElements(By.className("XCUIElementTypeCell")).get(0).click();// 首页列表
 
-			driver.manage().timeouts().implicitlyWait(45, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(155, TimeUnit.SECONDS);
 			driver.findElement(By.id("icon businessMore")).click();// 状态审批流程
-			driver.manage().timeouts().implicitlyWait(45, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(105, TimeUnit.SECONDS);
 			driver.findElement(By.id("查看进度")).click();// 查看进度
 			// AppUtil.swipeToDown(driver, 1000);// 向下滑动
 		}

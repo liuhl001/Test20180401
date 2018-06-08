@@ -51,7 +51,7 @@ public class Test100 {
 
 		// for (int i = 0; i < 1; i++) {
 		// System.out.println(i);
-//		ct.dfp();// 待分配app
+		ct.dfp();// 待分配app
 //		ct.webDksp();// 已录入到申请合同
 //		//
 //		ct.appSqht();// App申请合同

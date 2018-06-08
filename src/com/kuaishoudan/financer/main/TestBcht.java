@@ -244,7 +244,8 @@ public class TestBcht {
 
 	public void tearDown() throws Exception {
 
-		driver.quit();
+	
 		webdriver.quit();
+		driver.quit();
 	}
 }

@@ -653,22 +653,10 @@ public class AppUtil {
 		}
 		if (flag) {
 			if (gq == 2) {// 企业贷款
-				// driver.findElements(By.className("XCUIElementTypeCell"))
-				// .get(0).click();// 首页列表
-				// driver.manage().timeouts().implicitlyWait(5,
-				// TimeUnit.SECONDS);
-				// driver.findElement(By.id("进件")).click();
-				// driver.manage().timeouts().implicitlyWait(5,
-				// TimeUnit.SECONDS);
+	 
 				ksd = addQy(driver, webdriver, devicename, i, ksd);
 			} else {// 个人贷款
-				// driver.findElements(By.className("XCUIElementTypeCell"))
-				// .get(0).click();// 首页列表
-				// driver.manage().timeouts().implicitlyWait(5,
-				// TimeUnit.SECONDS);
-				// driver.findElement(By.id("进件")).click();
-				// driver.manage().timeouts().implicitlyWait(5,
-				// TimeUnit.SECONDS);
+				 
 				ksd = addGr(driver, webdriver, devicename, i, ksd);
 				//
 			}
@@ -715,7 +703,7 @@ public class AppUtil {
 	 */
 	public static String upload(AppiumDriver<WebElement> driver, int imgcount) {
 		String acstatue = "";
-		// imgcount=27;
+
 		int count1 = imgcount / 9;
 		int count2 = imgcount % 9;
 		try {
@@ -731,15 +719,11 @@ public class AppUtil {
 				for (int i = 4; i < 13; i++) {
 					if (i == 4 && j > 0) {
 
-						//if (j == 1) {
-							for (int k = 0; k < (j * 10); k++)
+					 
+							for (int k = 0; k < (j * 9+1); k++)
 
 								cs.get(i).click();
-//						} else {
-//							for (int k = 0; k < (j * 9); k++)
-//
-//								cs.get(i).click();
-//						}
+					 
 
 					} else if (i == 5) {
 
@@ -784,16 +768,16 @@ public class AppUtil {
 					for (int i = 4; i < (count2 + 4); i++) {
 						if (i == 4) {
 
-							for (int k = 0; k < (count1 * 10); k++) {
+							for (int k = 0; k < (count1 * 9+1); k++) {
 
 								cs.get(i).click();
 
 							}
 
 						} else if (i == 5 && count1 == 0) {
-							for (int k = 0; k < 2; k++) {
+							//for (int k = 0; k < 2; k++) {
 								cs.get(i).click();// Thread.sleep(1000);
-							}
+							//}
 						} else {
 
 							cs.get(i).click();
@@ -812,7 +796,7 @@ public class AppUtil {
 
 				Thread.sleep(7000 + count2 * 2000);
 			}
-			AppUtil.swipeToUp2(driver, 1000);// 向上滑动
+		AppUtil.swipeToUp2(driver, 1000);// 向上滑动
 			Thread.sleep(1000);
 			driver.manage().timeouts().implicitlyWait(58, TimeUnit.SECONDS);
 			driver.findElement(By.xpath("//XCUIElementTypeButton[@name='提交']")).click();// 上传完照片-确认按钮
@@ -1051,15 +1035,11 @@ public class AppUtil {
 				for (int i = 4; i < 13; i++) {
 					if (i == 4 && j > 0) {
 
-					//	if (j == 1) {
-							for (int k = 0; k < (j * 10); k++)
+					 
+						for (int k = 0; k < (j * 9+1); k++)
 
 								cs.get(i).click();
-//						} else {
-//							for (int k = 0; k < (j * 9); k++)
-//
-//								cs.get(i).click();
-//						}
+ 
 
 					} else if (i == 5) {
 
@@ -1104,16 +1084,16 @@ public class AppUtil {
 					for (int i = 4; i < (count2 + 4); i++) {
 						if (i == 4) {
 
-							for (int k = 0; k < (count1 * 10); k++) {
+							for (int k = 0; k < (count1 *9+1); k++) {
 
 								cs.get(i).click();
 
 							}
 
 						} else if (i == 5 && count1 == 0) {
-							for (int k = 0; k < 2; k++) {
+							//for (int k = 0; k < 2; k++) {
 								cs.get(i).click();// Thread.sleep(1000);
-							}
+							//}
 						} else {
 
 							cs.get(i).click();
