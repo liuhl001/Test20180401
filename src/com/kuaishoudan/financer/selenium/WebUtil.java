@@ -272,13 +272,19 @@ public class WebUtil {
 
 		driver.findElement(By.linkText("确认")).click();// 确认按钮
 		try {
-			Thread.sleep(2000);
+
+			Thread.sleep(55000);;
+			driver.manage().timeouts().implicitlyWait(158, TimeUnit.SECONDS);
+			driver.findElement(By.linkText("确定")).click();// 确定按钮
+			Thread.sleep(85000);;
+			driver.navigate().refresh();
+		} catch (org.openqa.selenium.NoSuchElementException ex) {
+			// ex.printStackTrace();
+			driver.navigate().refresh();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		driver.manage().timeouts().implicitlyWait(308, TimeUnit.SECONDS);
-		driver.findElement(By.linkText("确定")).click();// 确定按钮
 
 	}
 

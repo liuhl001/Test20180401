@@ -51,15 +51,15 @@ public class TestSqht {
 		ct.appSqht();// App申请合同
 		ct.webSpht();// web审核
 
-		ct.appSqqk();// app请款
-
-		ct.sp1();
-		ct.sp2();
-		ct.sp3();
-		ct.sp4();
-		ct.sp5();
-		ct.sp6();
-		ct.sp7();
+//		ct.appSqqk();// app请款
+//
+//		ct.sp1();
+//		ct.sp2();
+//		ct.sp3();
+//		ct.sp4();
+//		ct.sp5();
+//		ct.sp6();
+	//	ct.sp7();
 
 		// }
 
